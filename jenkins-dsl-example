@@ -1,0 +1,150 @@
+def products = ["AmoebaDB", "CryptoDB"]
+def hostnames =  ["q1", "q2"]
+/**
+webappForProduct = [
+  AmoebaDB:"amoeba", 
+  CryptoDB:"cryptodb",
+  EuPathDB:"eupathdb",
+  GiardiaDB:"giardiadb",
+  HostDB:"hostdb",
+  MicrosporidiaDB:"micro",
+  PiroplasmaDB:"piro",
+  PlasmoDB:"plasmo",
+  ToxoDB:"toxo",
+  TrichDB:"trichdb",
+  TriTrypDB:"tritrypdb",
+  FungiDB:"fungidb"
+]
+**/
+
+webappForProduct = [
+  CryptoDB:"cryptodb",
+]
+
+stageSpecificConfig = [
+  integrate : [
+    scmSchedule : '*/5 * * * *'
+  ],
+  a1 : [
+    scmSchedule : '0 3 * * *'
+  ],
+  a2 : [
+    scmSchedule : '0 3 * * *'
+  ],
+  q1 : [
+    scmSchedule : '0 3 * * *'
+  ],
+  q2 : [
+    scmSchedule : '0 3 * * *'
+  ],
+]
+
+def integrationRebuilderStep(String host, String product) {
+  return """
+date > .hudsonTimestamp
+env
+sudo instance_manager stop ${product} force
+sleep 5
+sudo instance_manager start  ${product}
+sleep 15
+\$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webappForProduct[product]}.integrate
+  """
+}
+
+def disableQABuilds(product) {
+  {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
+      'configs'  { 
+        'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
+          'configs' {
+            'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {
+              properties "JENKINS_JOBS=q1.${product.toLowerCase()}.org q2.${product.toLowerCase()}.org"
+            }
+          }
+          projects '~disablejobs'
+          condition 'FAILED'
+        }
+      }
+    }
+  }
+}
+
+def jenkins = hudson.model.Hudson.instance
+
+
+webappForProduct.each {
+  def product = it.key
+  ['integrate'].each {
+    def host = it
+    def existingJob = jenkins.getJob("${host}.${product.toLowerCase()}.org")
+    job {
+      name "${host}.${product.toLowerCase()}.org"
+      using "TMPL-eupathdb-website"
+
+      triggers {
+          scm(stageSpecificConfig['integrate']['scmSchedule'])
+      }
+      
+      if (existingJob != null) {
+        description "existing project<br>" + existingJob.description
+        existingJob.scm.locations.each{ println "FOOOO " + it.remote + "    " + it.local } //print current location 
+
+      } else {
+        description "new project"
+      }
+      
+
+      scm {
+          svn('https://www.cbil.upenn.edu/svn/gus/CBIL/trunk', 'CBIL') {
+              it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
+                remote 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk'
+                local 'WDK'
+              }
+              it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
+                remote 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk'
+                local 'WSF'
+              }
+          }
+      }
+    
+      steps {
+        shell(
+          integrationRebuilderStep(host, product)
+        )
+        ant() {
+          targets(['cleantestresults', 'cleaninstall', 'testbynames'])
+          props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'$WORKSPACE/test_home', 'projectsDir':'$WORKSPACE', 'baseurl':"http:/${host}.${product.toLowerCase()}.org", 'webappname':"${webappForProduct[product]}.integrate", 'testnames':'"Integration"')
+          buildFile 'EuPathSiteCommon/Watar/build.xml'
+        }
+      }
+  
+      if (host == 'integrate')
+        configure disableQABuilds(product)
+
+    }
+  }
+}
+
+
+/**
+
+  configure {
+    project -> project/clean('boo')    
+    
+  }
+
+The word 'project' can be anything; it represents the root of the Node.
+
+
+  configure {
+    project -> project/clean {
+      publishers 'too'
+    }
+  }
+
+generates
+    <clean>
+        <publishers>too</publishers>
+    </clean>
+
+
+**/
