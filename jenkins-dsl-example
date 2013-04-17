@@ -73,23 +73,23 @@ webappForProduct.each {
   def product = it.key
   ['integrate'].each {
     def host = it
-    def existingJob = jenkins.getJob("${host}.${product.toLowerCase()}.org")
+    def jobName = "${host}.${product.toLowerCase()}.org"
+    def existingJob = jenkins.getJob(jobName)
     job {
-      name "${host}.${product.toLowerCase()}.org"
+      name jobName
       using "TMPL-eupathdb-website"
 
+      label 'master'
+      
       triggers {
           scm(stageSpecificConfig['integrate']['scmSchedule'])
       }
       
-      if (existingJob != null) {
-        description "existing project<br>" + existingJob.description
-        existingJob.scm.locations.each{ println "FOOOO " + it.remote + "    " + it.local + " " + it.class.name } //print current location 
-
-      } else {
-        description "new project"
-      }
-      
+      description """
+<a href='http://${jobName}'>http://${jobName}</a>
+<p>
+See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
+"""      
 
       scm getSvnLocations(moduleLocations(existingJob))
     
@@ -104,14 +104,35 @@ webappForProduct.each {
         }
       }
   
-      if (host == 'integrate')
+      if (host == 'integrate') {
         configure disableQABuilds(product)
+      }
+
+      
+      configure { root ->
+        root / publishers / 'hudson.plugins.jabber.im.transport.JabberPublisher' {
+          targets {
+            'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@gmail.com' }
+            'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@apidb.org' }
+          }
+          strategy 'FAILURE_AND_FIXED'
+          notifyOnBuildStart false
+          notifySuspects false
+          notifyCulprits false
+          notifyFixers false
+          notifyUpstreamCommitters false
+        }
+      }
+
 
     }
   }
 }
 
 
+def testStep() {
+  return 'exit 0'
+}
 
 def integrationRebuilderStep(String host, String product) {
   return """
