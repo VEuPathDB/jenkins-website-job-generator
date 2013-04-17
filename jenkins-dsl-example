@@ -1,3 +1,4 @@
+def jenkins = hudson.model.Hudson.instance
 def products = ["AmoebaDB", "CryptoDB"]
 def hostnames =  ["q1", "q2"]
 /**
@@ -39,6 +40,67 @@ stageSpecificConfig = [
   ],
 ]
 
+svnDefaultLocations = [
+  'ApiCommonData'           : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonData/trunk',
+  'ApiCommonShared'         : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/trunk',
+  'ApiCommonWebService'     : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
+  'ApiCommonWebsite'        : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk',
+  'CBIL'                    : 'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk',
+  'EuPathSiteCommon'        : 'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/trunk',
+  'EuPathWebSvcCommon'      : 'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/trunk',
+  'FgpUtil'                 : 'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk',
+  'GBrowse'                 : 'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk',
+  'WDK'                     : 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
+  'WSF'                     : 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
+  'install'                 : 'https://www.cbil.upenn.edu/svn/gus/install/trunk'
+
+]
+
+
+webappForProduct.each {
+  def product = it.key
+  ['integrate'].each {
+    def host = it
+    def existingJob = jenkins.getJob("${host}.${product.toLowerCase()}.org")
+    job {
+      name "${host}.${product.toLowerCase()}.org"
+      using "TMPL-eupathdb-website"
+
+      triggers {
+          scm(stageSpecificConfig['integrate']['scmSchedule'])
+      }
+      
+      if (existingJob != null) {
+        description "existing project<br>" + existingJob.description
+        existingJob.scm.locations.each{ println "FOOOO " + it.remote + "    " + it.local } //print current location 
+
+      } else {
+        description "new project"
+      }
+      
+
+      scm defaultSvn()
+    
+      steps {
+        shell(
+          integrationRebuilderStep(host, product)
+        )
+        ant() {
+          targets(['cleantestresults', 'cleaninstall', 'testbynames'])
+          props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'$WORKSPACE/test_home', 'projectsDir':'$WORKSPACE', 'baseurl':"http:/${host}.${product.toLowerCase()}.org", 'webappname':"${webappForProduct[product]}.integrate", 'testnames':'"Integration"')
+          buildFile 'EuPathSiteCommon/Watar/build.xml'
+        }
+      }
+  
+      if (host == 'integrate')
+        configure disableQABuilds(product)
+
+    }
+  }
+}
+
+
+
 def integrationRebuilderStep(String host, String product) {
   return """
 date > .hudsonTimestamp
@@ -68,58 +130,19 @@ def disableQABuilds(product) {
   }
 }
 
-def jenkins = hudson.model.Hudson.instance
-
-
-webappForProduct.each {
-  def product = it.key
-  ['integrate'].each {
-    def host = it
-    def existingJob = jenkins.getJob("${host}.${product.toLowerCase()}.org")
-    job {
-      name "${host}.${product.toLowerCase()}.org"
-      using "TMPL-eupathdb-website"
-
-      triggers {
-          scm(stageSpecificConfig['integrate']['scmSchedule'])
-      }
-      
-      if (existingJob != null) {
-        description "existing project<br>" + existingJob.description
-        existingJob.scm.locations.each{ println "FOOOO " + it.remote + "    " + it.local } //print current location 
-
-      } else {
-        description "new project"
-      }
-      
-
-      scm {
-          svn('https://www.cbil.upenn.edu/svn/gus/CBIL/trunk', 'CBIL') {
+def defaultSvn() {
+  {it ->  
+      def installUrl = svnDefaultLocations['install']
+      if (installUrl == null) throw new java.lang.NullPointerException("SCM location for 'install' is not defined'")
+      svn(installUrl, 'install') {
+      svnDefaultLocations.remove('install')
+      svnDefaultLocations.each {
+        localValue, remoteValue -> 
               it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
-                remote 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk'
-                local 'WDK'
+                remote remoteValue
+                local localValue
               }
-              it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
-                remote 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk'
-                local 'WSF'
-              }
-          }
       }
-    
-      steps {
-        shell(
-          integrationRebuilderStep(host, product)
-        )
-        ant() {
-          targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-          props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'$WORKSPACE/test_home', 'projectsDir':'$WORKSPACE', 'baseurl':"http:/${host}.${product.toLowerCase()}.org", 'webappname':"${webappForProduct[product]}.integrate", 'testnames':'"Integration"')
-          buildFile 'EuPathSiteCommon/Watar/build.xml'
-        }
-      }
-  
-      if (host == 'integrate')
-        configure disableQABuilds(product)
-
     }
   }
 }
