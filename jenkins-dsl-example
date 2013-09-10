@@ -1,6 +1,28 @@
+/**
+
+"triggers{scm()}" appends, does not replace so the template should not have a "Poll SCM" Build Trigger
+
+**/
+
+/**
+
+TODO: Generate job configuration map by iterating over hosts and products, then use the map
+to create jobs. This allows a single job to be manually defined.
+[
+    'integrate.toxodb.org' : [
+        webapp:'toxo',
+        scmSchedule:'*/5 * * * *',
+    ]
+]
+**/
+
+
 def jenkins = hudson.model.Hudson.instance
+
 def products = ["AmoebaDB", "CryptoDB"]
-def hostnames =  ["q1", "q2"]
+
+def hostnames =  ["q1", "q2", "integrate"]
+
 /**
 webappForProduct = [
   AmoebaDB:"amoeba", 
@@ -22,7 +44,7 @@ webappForProduct = [
   CryptoDB:"cryptodb",
 ]
 
-stageSpecificConfig = [
+hostSpecificConfig = [
   integrate : [
     scmSchedule : '*/5 * * * *'
   ],
@@ -40,7 +62,10 @@ stageSpecificConfig = [
   ],
 ]
 
-svnDefaultLocations = [
+/**
+  Default svn urls for jobs that do not have an existing SCM configuration.
+**/
+def svnDefaultLocations = ([
   'ApiCommonData'        :  'https://www.cbil.upenn.edu/svn/apidb/ApiCommonData/trunk',
   'ApiCommonShared'      :  'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/trunk',
   'ApiCommonWebService'  :  'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
@@ -53,10 +78,10 @@ svnDefaultLocations = [
   'WDK'                  :  'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
   'WSF'                  :  'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
   'install'              :  'https://www.cbil.upenn.edu/svn/gus/install/trunk'
-]
+]).asImmutable()
 
 // convert SubversionSCM.ModuleLocation fields to a map
-def moduleLocations(job) {
+def moduleLocations(job, svnDefaultLocations) {
   if (job == null) {
     println "New job, using default svn locations"
     return svnDefaultLocations
@@ -71,9 +96,11 @@ def moduleLocations(job) {
 
 webappForProduct.each {
   def product = it.key
-  ['integrate'].each {
+//  ['integrate'].each {
+  hostnames.each {
     def host = it
     def jobName = "${host}.${product.toLowerCase()}.org"
+    println "Creating job for " + jobName
     def existingJob = jenkins.getJob(jobName)
     job {
       name jobName
@@ -82,7 +109,7 @@ webappForProduct.each {
       label 'master'
       
       triggers {
-          scm(stageSpecificConfig['integrate']['scmSchedule'])
+          scm(hostSpecificConfig[host]['scmSchedule'])
       }
       
       description """
@@ -90,8 +117,11 @@ webappForProduct.each {
 <p>
 See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
 """      
+      // copy the map to prevent modifications of original
+      def defaultSvn = [:]
+      defaultSvn << svnDefaultLocations
 
-      scm getSvnLocations(moduleLocations(existingJob))
+      scm getSvnLocations(moduleLocations(existingJob, defaultSvn))
     
       steps {
         shell(
@@ -112,8 +142,8 @@ See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds"
       configure { root ->
         root / publishers / 'hudson.plugins.jabber.im.transport.JabberPublisher' {
           targets {
-            'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@gmail.com' }
-            'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@apidb.org' }
+          //  'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@gmail.com' }
+          //  'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@apidb.org' }
           }
           strategy 'FAILURE_AND_FIXED'
           notifyOnBuildStart false
