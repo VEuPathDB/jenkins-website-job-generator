@@ -11,7 +11,7 @@ to create jobs. This allows a single job to be manually defined.
 [
     'integrate.toxodb.org' : [
         webapp:'toxo',
-        scmSchedule:'*/5 * * * *',
+        scmSchedule:'1/5 ',
     ]
 ]
 **/
@@ -199,13 +199,12 @@ def getSvnLocations(svnLocations) {
       if (installUrl == null) 
         throw new java.lang.NullPointerException("SCM location for 'install' is not defined'")
       svn(installUrl, 'install') {
-      svnLocations.remove('install')
-      svnLocations.each {
-        localValue, remoteValue -> 
-              it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
-                remote remoteValue
-                local localValue
-              }
+        svnLocations.each { localValue, remoteValue -> 
+          if (localValue == 'install') { return }
+          it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
+            remote remoteValue
+            local localValue
+          }
       }
     }
   }
