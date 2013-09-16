@@ -1,7 +1,8 @@
 /**
 
-"triggers{scm()}" appends, does not replace so the template should not have a "Poll SCM" Build Trigger
+template should not have a "Poll SCM" Build Trigger, "triggers{scm()}" appends, does not replace 
 
+do not set timeout in template, timeout() does not override
 **/
 
 /**
@@ -17,7 +18,19 @@ to create jobs. This allows a single job to be manually defined.
 **/
 
 
+
 def jenkins = hudson.model.Hudson.instance
+
+/**
+  Jenkins' Groovy plugin requirement: Get handle on out so we can pass to classes
+  so println in Classes will send output to the script console,
+  http://stackoverflow.com/questions/7742472/groovy-script-in-jenkins-println-output-disappears-when-called-inside-class-envi
+  http://mriet.wordpress.com/2011/06/23/groovy-jenkins-system-script/
+**/
+def config = new HashMap()
+config.putAll(getBinding().getVariables())
+def console = config['out']
+
 
 def products = ["AmoebaDB", "CryptoDB"]
 
@@ -44,21 +57,74 @@ webappForProduct = [
   CryptoDB:"cryptodb",
 ]
 
+productSpecificConfig = [
+  AmoebaDB : [
+    webapp : "amoeba", 
+  ],
+  CryptoDB : [
+    webapp : "cryptodb",
+  ],
+  EuPathDB : [
+    webapp : "eupathdb",
+  ],
+  GiardiaDB : [
+    webapp : "giardiadb",
+  ],
+  HostDB : [
+    webapp : "hostdb",
+  ],
+  MicrosporidiaDB : [
+    webapp : "micro",
+  ],
+  PiroplasmaDB : [
+    webapp : "piro",
+  ],
+  PlasmoDB : [
+    webapp : "plasmo",
+  ],
+  ToxoDB : [
+    webapp : "toxo",
+  ],
+  TrichDB : [
+    webapp : "trichdb",
+  ],
+  TriTrypDB : [
+    webapp : "tritrypdb",
+  ],
+  FungiDB : [
+    webapp : "fungidb"
+  ],
+]
+
 hostSpecificConfig = [
   integrate : [
-    scmSchedule : '*/5 * * * *'
+    scmSchedule : '*/5 * * * *',
+    rebuilderStep: Values.rebuilderStepForIntegration,
+    testngStep: Values.testngStepForIntegration,
+    jabberContacts: ['a@b.com', 'c@d.com']
   ],
   a1 : [
-    scmSchedule : '0 3 * * *'
+    scmSchedule : '0 3 * * *',
+    rebuilderStep: Values.rebuilderStepForWww,
+    testngStep: Values.testngStepForIntegration,
+    jabberContacts: ['a@b.com', 'c@d.com']
   ],
   a2 : [
-    scmSchedule : '0 3 * * *'
+    scmSchedule : '0 3 * * *',
+    rebuilderStep: Values.rebuilderStepForWww,
+    testngStep: Values.testngStepForIntegration,
+    jabberContacts: ['a@b.com', 'c@d.com']
   ],
   q1 : [
-    scmSchedule : '0 3 * * *'
+    scmSchedule : '0 3 * * *',
+    rebuilderStep: Values.rebuilderStepForQa,
+    testngStep: Values.testngStepForIntegration,
   ],
   q2 : [
-    scmSchedule : '0 3 * * *'
+    scmSchedule : '0 3 * * *',
+    rebuilderStep: Values.rebuilderStepForQa,
+    testngStep: Values.testngStepForIntegration,
+    jabberContacts: ['a@b.com', 'c@d.com']
   ],
 ]
 
@@ -94,87 +160,122 @@ def moduleLocations(job, svnDefaultLocations) {
   return locations
 }
 
-webappForProduct.each {
+
+//println JobConfigurator(console).donedo("something")
+
+productSpecificConfig.each {
   def product = it.key
 //  ['integrate'].each {
   hostnames.each {
     def host = it
     def jobName = "${host}.${product.toLowerCase()}.org"
+    def webapp = productSpecificConfig[product]['webapp']
     println "Creating job for " + jobName
     def existingJob = jenkins.getJob(jobName)
+
     job {
       name jobName
-      using "TMPL-eupathdb-website"
+      //using "TMPL-eupathdb-website"
 
+      // Restrict where project can be run
       label 'master'
-      
-      triggers {
-          scm(hostSpecificConfig[host]['scmSchedule'])
-      }
       
       description """
 <a href='http://${jobName}'>http://${jobName}</a>
 <p>
 See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
 """      
-      // copy the map to prevent modifications of original
-      def defaultSvn = [:]
-      defaultSvn << svnDefaultLocations
+      // Discard old builds
+      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+      logRotator(7, -1, -1, -1)
 
-      scm getSvnLocations(moduleLocations(existingJob, defaultSvn))
-    
-      steps {
-        shell(
-          integrationRebuilderStep(host, product)
-        )
-        ant() {
-          targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-          props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'$WORKSPACE/test_home', 'projectsDir':'$WORKSPACE', 'baseurl':"http:/${host}.${product.toLowerCase()}.org", 'webappname':"${webappForProduct[product]}.integrate", 'testnames':'"Integration"')
-          buildFile 'EuPathSiteCommon/Watar/build.xml'
+      quietPeriod(180)
+
+      customWorkspace('/var/www/' + jobName + '/project_home')
+      
+      scm getSvnLocations(moduleLocations(existingJob, svnDefaultLocations))
+
+      triggers {
+          // Poll SCM schedule
+          scm(hostSpecificConfig[host]['scmSchedule'])
+      }
+      
+      timeout('absolute') { limit 20 }
+      
+      steps() {
+        if ( hostSpecificConfig[host].containsKey('rebuilderStep') ) {
+          shell( hostSpecificConfig[host]['rebuilderStep'](host, product, webapp) )
+        }
+
+        if ( hostSpecificConfig[host].containsKey('testngStep') ) {
+          def clos = hostSpecificConfig[host]['testngStep'](host, product, webapp)
+          ant(clos) 
         }
       }
   
       if (host == 'integrate') {
-        configure disableQABuilds(product)
+       // configure disableQABuilds(product)
+      }
+
+
+      configure jabberNotification(host)
+      configure testngPubliser()
+
+
+      publishers {
+        extendedEmail('me@halfempty.org', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
+            trigger(
+              triggerName: 'Unstable',
+              subject: '$PROJECT_DEFAULT_SUBJECT',
+              body: '$PROJECT_DEFAULT_CONTENT',
+              sendToDevelopers: false, 
+              sendToRequester: false, 
+              includeCulprits: false, 
+              sendToRecipientList: true,
+            )
+            trigger(
+              triggerName: 'Failure', 
+              subject: '$PROJECT_DEFAULT_SUBJECT',
+              body: '$PROJECT_DEFAULT_CONTENT',
+              sendToDevelopers: true, 
+              sendToRequester: true, 
+              includeCulprits: true, 
+              sendToRecipientList: true,
+            )
+            configure { node ->
+                node / contentType << 'html'
+            }
+        }
+
       }
 
       
-      configure { root ->
-        root / publishers / 'hudson.plugins.jabber.im.transport.JabberPublisher' {
-          targets {
-          //  'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@gmail.com' }
-          //  'hudson.plugins.im.DefaultIMMessageTarget' { value 'mheiges@apidb.org' }
-          }
-          strategy 'FAILURE_AND_FIXED'
-          notifyOnBuildStart false
-          notifySuspects false
-          notifyCulprits false
-          notifyFixers false
-          notifyUpstreamCommitters false
+    } // job
+  } // hostname.each
+} // productSpecificConfig.each
+
+
+def jabberNotification(host) {
+  if ( ! hostSpecificConfig[host].containsKey('jabberContacts') ) return {}
+  
+  {
+    project -> project/publishers/'hudson.plugins.jabber.im.transport.JabberPublisher' {
+      targets {
+        hostSpecificConfig[host]['jabberContacts'].each { contact ->
+         'hudson.plugins.im.DefaultIMMessageTarget' { value contact }
         }
       }
-
-
+      strategy 'FAILURE_AND_FIXED'
+      notifyOnBuildStart false
+      notifySuspects false
+      notifyCulprits false
+      notifyFixers false
+      notifyUpstreamCommitters false
     }
   }
+
 }
 
-
-def testStep() {
-  return 'exit 0'
-}
-
-def integrationRebuilderStep(String host, String product) {
-  return """
-date > .hudsonTimestamp
-env
-sudo instance_manager stop ${product} force
-sleep 5
-sudo instance_manager start  ${product}
-sleep 15
-\$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webappForProduct[product]}.integrate
-  """
-}
 
 def disableQABuilds(product) {
   {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
@@ -190,6 +291,23 @@ def disableQABuilds(product) {
         }
       }
     }
+  }
+}
+
+
+/**
+    <hudson.plugins.testng.Publisher plugin="testng-plugin@1.5">
+      <reportFilenamePattern>test_home/results/**</reportFilenamePattern>
+      <escapeTestDescp>true</escapeTestDescp>
+      <escapeExceptionMsg>true</escapeExceptionMsg>
+    </hudson.plugins.testng.Publisher>
+**/
+def testngPubliser() {
+  {project -> project/publishers/'hudson.plugins.testng.Publisher' {
+    reportFilenamePattern 'test_home/results/*'
+    escapeTestDescp 'true'
+    escapeExceptionMsg 'true'
+  }
   }
 }
 
