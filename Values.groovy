@@ -1,5 +1,47 @@
 public class Values {
 
+
+  static public def productSpecificConfig = [
+    AmoebaDB : [
+      webapp : "amoeba", 
+    ],
+    CryptoDB : [
+      webapp : "cryptodb",
+    ],
+    EuPathDB : [
+      webapp : "eupathdb",
+    ],
+    GiardiaDB : [
+      webapp : "giardiadb",
+    ],
+    HostDB : [
+      webapp : "hostdb",
+    ],
+    MicrosporidiaDB : [
+      webapp : "micro",
+    ],
+    PiroplasmaDB : [
+      webapp : "piro",
+    ],
+    PlasmoDB : [
+      webapp : "plasmo",
+    ],
+    ToxoDB : [
+      webapp : "toxo",
+    ],
+    TrichDB : [
+      webapp : "trichdb",
+    ],
+    TriTrypDB : [
+      webapp : "tritrypdb",
+    ],
+    FungiDB : [
+      webapp : "fungidb"
+    ],
+  ]
+  
+
+
 /** ******************************************************************************** 
 REBUILDER
 ******************************************************************************** **/
@@ -29,13 +71,21 @@ REBUILDER
   static public def rebuilderStepForWww = { host, product, webapp ->
     return """
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${product}
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}
+    """
+    .stripIndent()
+  }
+
+  static public def rebuilderStepForFoo = { host, product, webapp ->
+    return """
+      env
+      \$HOME/bin/rebuilder-foo ${host}.${product.toLowerCase()}.org --webapp ${product}:${product}
     """
     .stripIndent()
   }
 
 /** ******************************************************************************** 
-ANT
+TEST NG
 ******************************************************************************** **/
 
   static public def testngStepForIntegration = { host, product, webapp ->
@@ -47,4 +97,288 @@ ANT
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
-}
+
+  static public def testngStepForQa = { host, product, webapp ->
+    return {
+      targets(['cleantestresults', 'cleaninstall', 'testbynames'])
+      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
+        'webappname':"${webapp}.integrate", 'testnames':'"QA"')
+      buildFile 'EuPathSiteCommon/Watar/build.xml'
+    }
+  }
+
+/** ******************************************************************************** 
+Extended Email
+******************************************************************************** **/
+  static public def integrateExtendedEmail = { delegate ->
+    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
+        trigger(
+          triggerName: 'Unstable',
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        trigger(
+          triggerName: 'Failure', 
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: true, 
+          sendToRequester: true, 
+          includeCulprits: true, 
+          sendToRecipientList: true,
+        )
+        configure { node ->
+            node / contentType << 'html'
+        }
+    }
+  } // integrateExtendedEmail closure
+
+  static public def qaExtendedEmail = { delegate ->
+    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
+        trigger(
+          triggerName: 'Unstable',
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        trigger(
+          triggerName: 'Failure', 
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        configure { node ->
+            node / contentType << 'html'
+        }
+    }
+  } // qaExtendedEmail
+
+  static public def wwwExtendedEmail = { delegate ->
+    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
+        trigger(
+          triggerName: 'Unstable',
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        trigger(
+          triggerName: 'Failure', 
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        configure { node ->
+            node / contentType << 'html'
+        }
+    }
+  } // wwwExtendedEmail
+
+
+/** ******************************************************************************** 
+JABBER
+******************************************************************************** **/
+  static public def jabberNotificationIntegrate = { contacts ->    
+    if ( contacts == null ) return {}
+    {
+      project -> project/publishers/'hudson.plugins.jabber.im.transport.JabberPublisher' {
+        targets {
+          contacts.each { contact ->
+           'hudson.plugins.im.DefaultIMMessageTarget' { value contact }
+          }
+        }
+        strategy 'FAILURE_AND_FIXED'
+        notifyOnBuildStart false
+        notifySuspects false
+        notifyCulprits false
+        notifyFixers false
+        notifyUpstreamCommitters false
+      }
+    }  
+  }
+
+  static public def jabberNotificationWww = { contacts ->    
+    if ( contacts == null ) return {}
+    {
+      project -> project/publishers/'hudson.plugins.jabber.im.transport.JabberPublisher' {
+        targets {
+          contacts.each { contact ->
+           'hudson.plugins.im.DefaultIMMessageTarget' { value contact }
+          }
+        }
+        strategy 'ALL'
+        notifyOnBuildStart false
+        notifySuspects false
+        notifyCulprits false
+        notifyFixers false
+        notifyUpstreamCommitters false
+      }
+    }  
+  }
+
+/** ******************************************************************************** 
+SCM POLL SCHEDULE
+******************************************************************************** **/
+  static public def scmScheduleAsap = '*/5 * * * *'
+  static public def scmScheduleNightly = '0 3 * * *'
+
+/** ******************************************************************************** 
+JABBER CONTACTS
+******************************************************************************** **/
+  static public def jabberContactsStd = ['a@b.com', 'c@d.com']
+
+  
+/** ******************************************************************************** 
+CONFIGURATIONS PER HOST
+
+      label : 'aprium', // REQUIRED
+      rebuilderStep : rebuilderStepForIntegration, // REQUIRED
+      timeout : 20,  // OPTIONAL
+      scmSchedule : scmScheduleAsap, // OPTIONAL
+      quietPeriod : 180, // OPTIONAL
+      testngStep : testngStepForIntegration, // OPTIONAL
+      jabberContacts : jabberContactsStd, // OPTIONAL
+      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+      logRotator : [7, -1, -1, -1], // OPTIONAL
+      extendedEmail : integrateExtendedEmail, // OPTIONAL
+      jabberNotification: jabberNotificationIntegrate, // OPTIONAL
+
+******************************************************************************** **/
+
+  static public def hostSpecificConfig = [
+    integrate : [
+      label : 'aprium',
+      timeout : 20,
+      scmSchedule : scmScheduleAsap,
+      quietPeriod : 180,
+      rebuilderStep : rebuilderStepForIntegration,
+      testngStep : testngStepForIntegration,
+      jabberContacts : jabberContactsStd,
+      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+      logRotator : [7, -1, -1, -1],
+      extendedEmail : integrateExtendedEmail,
+      jabberNotification: jabberNotificationIntegrate,
+    ],
+    q1 : [
+      label : 'olive',
+      timeout : 20,
+      scmSchedule : scmScheduleNightly,
+      rebuilderStep: rebuilderStepForQa,
+      testngStep: testngStepForQa,
+      extendedEmail : qaExtendedEmail,
+      jabberContacts: jabberContactsStd,
+      jabberNotification: jabberNotificationWww,
+    ],
+    q2 : [
+      label : 'oak',
+      timeout : 20,
+      scmSchedule : scmScheduleNightly,
+      rebuilderStep: rebuilderStepForQa,
+      testngStep: testngStepForQa,
+      extendedEmail : qaExtendedEmail,
+      jabberContacts: jabberContactsStd,
+      jabberNotification: jabberNotificationWww,
+    ],
+    w1 : [
+      label : 'olive',
+      rebuilderStep: rebuilderStepForWww,
+      logRotator : [-1, 10, -1, -1],
+      extendedEmail : wwwExtendedEmail,
+      jabberContacts : jabberContactsStd,
+      jabberNotification: jabberNotificationWww,
+    ],
+    w2 : [
+      label : 'oak',
+      rebuilderStep: rebuilderStepForWww,
+      extendedEmail : wwwExtendedEmail,
+      jabberContacts : jabberContactsStd,
+      jabberNotification: jabberNotificationWww,
+    ],
+  ]
+
+
+
+
+  /** ******************************************************************************** 
+    Default svn urls for jobs that do not have an existing SCM configuration.
+  ******************************************************************************** **/
+  static public def svnDefaultLocations = ([
+    'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/branches/api-build-19',
+    'CBIL'                :   'https://www.cbil.upenn.edu/svn/gus/CBIL/branches/api-build-19',
+    'install'             :   'https://www.cbil.upenn.edu/svn/gus/install/branches/api-build-19',
+    'ReFlow'              :   'https://www.cbil.upenn.edu/svn/gus/ReFlow/branches/api-build-19',
+    'FgpUtil'             :   'https://www.cbil.upenn.edu/svn/gus/FgpUtil/branches/api-build-19',
+    'ApiCommonWebService' :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/branches/api-build-19',
+    'ApiCommonShared'     :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/branches/api-build-19',
+    'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/branches/api-build-19',
+    'EuPathPresenters'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathPresenters/branches/api-build-19',
+    'GBrowse'             :   'https://www.cbil.upenn.edu/svn/apidb/GBrowse/branches/api-build-19',
+    'ApiCommonWebsite'    :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/branches/api-build-19',
+    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/branches/api-build-19',
+    'EuPathDatasets'      :   'https://www.cbil.upenn.edu/svn/apidb/EuPathDatasets/branches/api-build-19',
+    'EuPathWebSvcCommon'  :   'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/branches/api-build-19',
+  ]).asImmutable()
+
+
+
+  /** ******************************************************************************** 
+    Job Description
+  ******************************************************************************** **/
+  static public def stdDescription(jobName, dslJob) {
+
+    def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
+    def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
+
+    return """
+Website build for <a href='http://${jobName}'>http://${jobName}</a>
+<p>
+See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
+<p>
+<font color='red'>This is project configuration is auto-generated by 
+<a href="/${thisProject.url}">${thisProject.displayName}</a>. <br>
+Manual configurations, other than SCM locations, may be lost.</font> <br>
+(Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
+"""
+  }
+
+
+
+  /** ******************************************************************************** 
+    Disable QA Jobs
+  ******************************************************************************** **/
+  def disableQABuilds(product) {
+    {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
+        'configs'  { 
+          'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
+            'configs' {
+              'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {
+                properties "JENKINS_JOBS=q1.${product.toLowerCase()}.org q2.${product.toLowerCase()}.org"
+              }
+            }
+            projects '~disablejobs'
+            condition 'FAILED'
+          }
+        }
+      }
+    }
+  }
+
+
+
+} // Values class
+
