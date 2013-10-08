@@ -30,10 +30,8 @@ public class JobConfigurator {
   public Map makeMasterMap() {
     console.println()
     def map = [:]
-    Sites.inclusiveHosts.each {
-      def host = it
-        Sites.inclusiveProducts.each {
-          def product = it
+    Sites.inclusiveHosts.each { host ->
+        Sites.inclusiveProducts.each { product ->
           def jobName = "${host}.${product.toLowerCase()}.org"
           def webapp = Values.productSpecificConfig[product]['webapp']
           def existingJob = jenkins.getJob(jobName)
