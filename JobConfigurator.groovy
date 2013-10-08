@@ -96,8 +96,42 @@ public class JobConfigurator {
     console.println "Creating " + jobName
     jobFactory.job {
       name jobName
-      label 'foo'
+      label masterMap[jobName]['label']
       description  masterMap[jobName]['description']
+
+      if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
+
+      if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
+      customWorkspace(masterMap[jobName]['customWorkspace'])
+      scm masterMap[jobName]['scm']
+      
+      if (masterMap[jobName]['scmSchedule'] != null) {
+        triggers {
+          scm(masterMap[jobName]['scmSchedule'])
+        }
+      }
+      
+      configure { project ->
+         project / scm / excludedRegions << 
+          "/ApiCommonData/.*/Load/.*"  
+      }
+      
+      if (masterMap[jobName]['timeout'])
+        timeout('absolute') { limit masterMap[jobName]['timeout'] }
+      
+      jdk('(Default)')
+      steps { 
+        shell(masterMap[jobName]['rebuilderStep'])
+        masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
+      }
+      if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
+      publishers {
+        //Values.stdExtendedEmail(delegate)
+           masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
+      } // publishers
+      if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
+      
+      
 
     } // job
   } //createJob
@@ -163,7 +197,7 @@ public class JobConfigurator {
             it / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
               url "http://websvn.apidb.org/revision.php?repname=TBD"
               baseUrl "http://websvn.apidb.org"
-              repname "repname=TBD&amp;"
+              repname "repname=TBD&"
             }
             
         }
