@@ -1,7 +1,7 @@
 jenkins-website-job-generator
 =============================
 
-Generate Jenkins job configurations for EuPathDB core sites using the job-dsl plugin
+Generate Jenkins job configurations for EuPathDB core sites using the job-dsl plugin.
 
 
 Sites.groovy has two lists: inclusiveHosts for the hostnames you want to build (integrate, w1, q2, etc) and inclusiveProducts for the products (CryptoDB, AmoebaDB, etc). Jobs will be created for all combinations of Sites.inclusiveHosts and Sites.inclusiveProducts. That is,
@@ -13,6 +13,8 @@ Sites.groovy has two lists: inclusiveHosts for the hostnames you want to build (
     }
 
 Define host-specific and product-specific values in Values.groovy .
+
+Subversion locations are important exception to using data from Values.groovy. If a job already exists and has svn locations defined, then that existing svn configuration is retained. If no existing locations are available then default ones are used. This allows the locations to be updated quickly through the Jenkins API without having to regenerate all configurations and it simplifies maintenance of Values.groovy.
 
 Additional sites can be added in Sites.customJobs() and set to null (to remove them from the host/product combo) or set to a Map of values. In this case, we have to specify all the configuration values in Sites.groovy rather than rely on the host-specific and product-specific settings in Values.groovy.
 
