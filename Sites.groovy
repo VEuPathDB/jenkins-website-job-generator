@@ -47,6 +47,7 @@ public class Sites {
 **/
     
   // hosts that should be configured for all inclusiveProducts
+  // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [ 
     'integrate',
     'q1',
@@ -55,6 +56,7 @@ public class Sites {
     'w2',
   ]
   
+  // There must be configurations for each in Values.productSpecificConfig
   static public def inclusiveProducts = [
     'AmoebaDB',
     'CryptoDB',

@@ -1,5 +1,0 @@
-
-def jobConfigurator = new JobConfigurator(this)
-
-jobConfigurator.createJobs()
-
