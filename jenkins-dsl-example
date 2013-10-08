@@ -1,10 +1,5 @@
 
 def jobConfigurator = new JobConfigurator(this)
-masterMap = jobConfigurator.getMasterMap(Sites.inclusiveHosts, Sites.inclusiveProducts)
 
+jobConfigurator.createJobs()
 
-masterMap.each {
-  def jobName = it.key
-  println "generating " + jobName
-  jobConfigurator.createJob(jobName, masterMap)
-}
