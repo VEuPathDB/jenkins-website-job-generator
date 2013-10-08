@@ -76,13 +76,6 @@ REBUILDER
     .stripIndent()
   }
 
-  static public def rebuilderStepForFoo = { host, product, webapp ->
-    return """
-      env
-      \$HOME/bin/rebuilder-foo ${host}.${product.toLowerCase()}.org --webapp ${product}:${product}
-    """
-    .stripIndent()
-  }
 
 /** ******************************************************************************** 
 TEST NG
@@ -240,7 +233,7 @@ SCM POLL SCHEDULE
 /** ******************************************************************************** 
 JABBER CONTACTS
 ******************************************************************************** **/
-  static public def jabberContactsStd = ['a@b.com', 'c@d.com']
+  static public def jabberContactsStd = ['mheiges@apidb.org', 'caurreco@gmail.com']
 
   
 /** ******************************************************************************** 
@@ -318,20 +311,20 @@ CONFIGURATIONS PER HOST
     Default svn urls for jobs that do not have an existing SCM configuration.
   ******************************************************************************** **/
   static public def svnDefaultLocations = ([
-    'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/branches/api-build-19',
-    'CBIL'                :   'https://www.cbil.upenn.edu/svn/gus/CBIL/branches/api-build-19',
-    'install'             :   'https://www.cbil.upenn.edu/svn/gus/install/branches/api-build-19',
-    'ReFlow'              :   'https://www.cbil.upenn.edu/svn/gus/ReFlow/branches/api-build-19',
-    'FgpUtil'             :   'https://www.cbil.upenn.edu/svn/gus/FgpUtil/branches/api-build-19',
-    'ApiCommonWebService' :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/branches/api-build-19',
-    'ApiCommonShared'     :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/branches/api-build-19',
-    'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/branches/api-build-19',
-    'EuPathPresenters'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathPresenters/branches/api-build-19',
-    'GBrowse'             :   'https://www.cbil.upenn.edu/svn/apidb/GBrowse/branches/api-build-19',
-    'ApiCommonWebsite'    :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/branches/api-build-19',
-    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/branches/api-build-19',
-    'EuPathDatasets'      :   'https://www.cbil.upenn.edu/svn/apidb/EuPathDatasets/branches/api-build-19',
-    'EuPathWebSvcCommon'  :   'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/branches/api-build-19',
+    'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
+    'CBIL'                :   'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk',
+    'install'             :   'https://www.cbil.upenn.edu/svn/gus/install/trunk',
+    'ReFlow'              :   'https://www.cbil.upenn.edu/svn/gus/ReFlow/trunk',
+    'FgpUtil'             :   'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk',
+    'ApiCommonWebService' :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
+    'ApiCommonShared'     :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/trunk',
+    'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
+    'EuPathPresenters'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathPresenters/trunk',
+    'GBrowse'             :   'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk',
+    'ApiCommonWebsite'    :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk',
+    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/trunk',
+    'EuPathDatasets'      :   'https://www.cbil.upenn.edu/svn/apidb/EuPathDatasets/trunk',
+    'EuPathWebSvcCommon'  :   'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/trunk',
   ]).asImmutable()
 
 
