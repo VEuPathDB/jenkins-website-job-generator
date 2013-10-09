@@ -298,6 +298,7 @@ CONFIGURATIONS PER HOST
     w2 : [
       label : 'oak',
       rebuilderStep: rebuilderStepForWww,
+      logRotator : [-1, 10, -1, -1],
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
