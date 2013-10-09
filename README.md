@@ -16,6 +16,8 @@ Define host-specific and product-specific values in Values.groovy .
 
 Subversion locations are important exception to using data from Values.groovy. If a job already exists and has svn locations defined, then that existing svn configuration is retained. If no existing locations are available then default ones are used. This allows the locations to be updated quickly through the Jenkins API without having to regenerate all configurations and it simplifies maintenance of Values.groovy.
 
+Job disabled state is also retained. If an existing job was disabled when regenerating the configuration files, the new configuration will also be disabled.
+
 Additional sites can be added in Sites.customJobs() and set to null (to remove them from the host/product combo) or set to a Map of values. In this case, we have to specify all the configuration values in Sites.groovy rather than rely on the host-specific and product-specific settings in Values.groovy.
 
       Sites.customJobs = [
@@ -30,6 +32,7 @@ Additional sites can be added in Sites.customJobs() and set to null (to remove t
          webapp : "plasmo", // REQUIRED
          host : "a1", // REQUIRED
          label : 'oak', // REQUIRED
+         disabled: false // OPTIONAL, job should be disabled, default false
          scmSchedule : Values.scmScheduleNightly, // OPTIONAL
          rebuilderStep: Values.rebuilderStepForQa // REQUIRED,
          testngStep: Values.testngStepForIntegration, // OPTIONAL

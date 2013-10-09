@@ -40,6 +40,7 @@ public class JobConfigurator {
             label : hostconf['label'],
             description : Values.stdDescription(jobName, "boo"),
             logRotator : hostconf['logRotator'] ?: [7, -1, -1, -1],
+            disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : hostconf['quietPeriod'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, Values.svnDefaultLocations)),
@@ -76,6 +77,7 @@ public class JobConfigurator {
             label : conf['label'],
             description : Values.stdDescription(jobName, "boo"),
             logRotator : conf['logRotator'] ?: null,
+            disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : conf['quietPeriod'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, Values.svnDefaultLocations)),
@@ -97,6 +99,9 @@ public class JobConfigurator {
     jobFactory.job {
       name jobName
       label masterMap[jobName]['label']
+
+      disabled masterMap[jobName]['disabled'] ?: false
+      
       description  masterMap[jobName]['description']
 
       if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
@@ -119,16 +124,20 @@ public class JobConfigurator {
       if (masterMap[jobName]['timeout'])
         timeout('absolute') { limit masterMap[jobName]['timeout'] }
       
+
       jdk('(Default)')
+
       steps { 
         shell(masterMap[jobName]['rebuilderStep'])
         masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
       }
+
       if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
+
       publishers {
-        //Values.stdExtendedEmail(delegate)
-           masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
+         masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
       } // publishers
+
       if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
       
       
