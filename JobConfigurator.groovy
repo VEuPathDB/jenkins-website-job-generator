@@ -114,13 +114,8 @@ public class JobConfigurator {
         triggers {
           scm(masterMap[jobName]['scmSchedule'])
         }
-      }
-      
-      configure { project ->
-         project / scm / excludedRegions << 
-          "/ApiCommonData/.*/Load/.*"  
-      }
-      
+      }            
+
       if (masterMap[jobName]['timeout'])
         timeout('absolute') { limit masterMap[jobName]['timeout'] }
       
@@ -195,24 +190,31 @@ public class JobConfigurator {
         if (installUrl == null) 
           throw new java.lang.NullPointerException("SCM location for 'install' is not defined'")
         def firstKey = svnLocations.find().key
-        svn(svnLocations[firstKey], firstKey) {
+        svn(svnLocations[firstKey], firstKey) { svnNode ->
           svnLocations.each { localValue, remoteValue -> 
             if (localValue == firstKey) { return }
-            it / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
+            svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
               remote remoteValue
               local localValue
             }
             
-            it / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
+            svnNode / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
               url "http://websvn.apidb.org/revision.php?repname=TBD"
               baseUrl "http://websvn.apidb.org"
               repname "repname=TBD&"
             }
             
-        }
-      }
-    }
-  }
+        } // svnLocations.each
+        
+        svnNode / excludedRegions('/ApiCommonData/.*/Load/.*')
+        
+        // https://issues.jenkins-ci.org/browse/JENKINS-17513
+        def updaterNode = svnNode / workspaceUpdater
+        updaterNode.attributes().put('class','hudson.scm.subversion.UpdateWithRevertUpdater')
+
+      } // svn()
+    } // closure
+  } // getSvnLocations()
 
 }
 
