@@ -96,7 +96,7 @@ TEST NG
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
         'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
-        'webappname':"${webapp}.integrate", 'testnames':'"QA"')
+        'webappname':"${webapp}", 'testnames':'"QA"')
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
