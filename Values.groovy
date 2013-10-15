@@ -125,7 +125,7 @@ Extended Email
           sendToRecipientList: true,
         )
         configure { node ->
-            node / contentType << 'html'
+            node / contentType << 'default'
         }
     }
   } // integrateExtendedEmail closure
@@ -151,7 +151,7 @@ Extended Email
           sendToRecipientList: true,
         )
         configure { node ->
-            node / contentType << 'html'
+            node / contentType << 'default'
         }
     }
   } // qaExtendedEmail
@@ -177,7 +177,7 @@ Extended Email
           sendToRecipientList: true,
         )
         configure { node ->
-            node / contentType << 'html'
+            node / contentType << 'default'
         }
     }
   } // wwwExtendedEmail
