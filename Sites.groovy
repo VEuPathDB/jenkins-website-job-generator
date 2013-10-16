@@ -76,19 +76,6 @@ public class Sites {
   static public def customJobs = [
     'w1.hostdb.org' : null,
     'w2.hostdb.org' : null,
-    'a1.plasmodb.org' : [
-       product : "PlasmoDB",
-       webapp : "plasmo",
-       host : "a1",
-       label : 'oak',
-       scmSchedule : Values.scmScheduleNightly,
-       rebuilderStep: Values.rebuilderStepForQa,
-       testngStep: Values.testngStepForIntegration,
-       extendedEmail : Values.qaExtendedEmail,
-       jabberContacts: Values.jabberContactsStd,
-       jabberNotification: Values.jabberNotificationIntegrate,
-   ],
-    'a2.plasmodb.org' : null,
   ]
   
   
