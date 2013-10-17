@@ -279,7 +279,7 @@ CONFIGURATIONS PER HOST
     ],
     q2 : [
       label : 'oak',
-      timeout : 20,
+      timeout : 30,
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
