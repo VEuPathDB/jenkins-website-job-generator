@@ -269,7 +269,7 @@ CONFIGURATIONS PER HOST
     ],
     q1 : [
       label : 'olive',
-      timeout : 20,
+      timeout : 30,
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
