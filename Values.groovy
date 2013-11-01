@@ -68,7 +68,7 @@ REBUILDER
       sleep 5
       sudo instance_manager start  ${product}
       sleep 15
-      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${product}:${webapp}.integrate --ignore-ip
+      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${product}:${webapp} --ignore-ip
       resetWdkPgTestDb
     """
     .stripIndent()
