@@ -36,6 +36,7 @@ public class JobConfigurator {
           def webapp = Values.productSpecificConfig[product]['webapp']
           def existingJob = jenkins.getJob(jobName)
           def hostconf = Values.hostSpecificConfig[host]
+          def svnDefaultLocations = Values.svnDefaultLocations
           map[jobName] = [
             label : hostconf['label'],
             description : Values.stdDescription(jobName, "boo"),
@@ -43,7 +44,7 @@ public class JobConfigurator {
             disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : hostconf['quietPeriod'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
-            scm : getSvnLocations(moduleLocations(jobName, existingJob, Values.svnDefaultLocations)),
+            scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : hostconf['scmSchedule'] ?: null,
             timeout : hostconf['timeout'] ?: null,
             rebuilderStep : hostconf['rebuilderStep'](host, product, webapp),
@@ -73,6 +74,7 @@ public class JobConfigurator {
           def webapp = conf['webapp']
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
+          def svnDefaultLocations = conf['svnDefaultLocations'] ?: Values.svnDefaultLocations
           map[jobName] = [
             label : conf['label'],
             description : Values.stdDescription(jobName, "boo"),
@@ -80,7 +82,7 @@ public class JobConfigurator {
             disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : conf['quietPeriod'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
-            scm : getSvnLocations(moduleLocations(jobName, existingJob, Values.svnDefaultLocations)),
+            scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : conf['scmSchedule'] ?: null,
             timeout : conf['timeout'] ?: null,
             rebuilderStep : conf['rebuilderStep'](host, product, webapp),

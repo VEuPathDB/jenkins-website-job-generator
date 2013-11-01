@@ -76,18 +76,35 @@ public class Sites {
   static public def customJobs = [
     'w1.hostdb.org' : null,
     'w2.hostdb.org' : null,
+
     'integrate.wdk.apidb.org' : [
        product : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
-       host : "integrate.wdk", // REQUIRED
+       host : "wdk.integrate", // REQUIRED
        label : 'aprium', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
+       svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-    ]
+    ],
+
+    'qa.wdk.apidb.org' : [
+       product : "TemplateDB", // REQUIRED
+       webapp : "templatesite.b20", // REQUIRED
+       host : "qa.wdk", // REQUIRED
+       label : 'oak', // REQUIRED
+       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       svnDefaultLocations : Values.svnWdkTemplateLocations,
+       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
+       // testngStep: Values.testngStepForIntegration, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+    ],
+
   ]
   
   

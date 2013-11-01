@@ -343,6 +343,15 @@ CONFIGURATIONS PER HOST
     'EuPathWebSvcCommon'  :   'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/trunk',
   ]).asImmutable()
 
+  static public def svnWdkTemplateLocations = ([
+    'CBIL'                :   'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk',
+    'FgpUtil'             :   'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk',
+    'install'             :   'https://www.cbil.upenn.edu/svn/gus/install/trunk',
+    'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
+    'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
+    'WDKTemplateSite'     :   'https://www.cbil.upenn.edu/svn/gus/WDKTemplateSite/trunk',
+    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/trunk',
+  ]).asImmutable()
 
 
   /** ******************************************************************************** 
