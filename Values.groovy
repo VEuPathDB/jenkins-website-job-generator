@@ -60,6 +60,21 @@ REBUILDER
   }
 
 
+  static public def rebuilderStepForWdkTemplate = { host, product, webapp ->
+    return """
+      date > .hudsonTimestamp
+      env
+      sudo instance_manager stop ${product} force
+      sleep 5
+      sudo instance_manager start  ${product}
+      sleep 15
+      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${product}:${webapp}.integrate
+      resetWdkPgTestDb
+    """
+    .stripIndent()
+  }
+
+
   static public def rebuilderStepForQa = { host, product, webapp ->
     return """
       env
