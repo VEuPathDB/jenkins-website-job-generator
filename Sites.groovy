@@ -83,7 +83,7 @@ public class Sites {
        label : 'aprium', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
-       #testngStep: Values.testngStepForIntegration, // OPTIONAL
+       // testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
