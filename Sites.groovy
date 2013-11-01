@@ -37,7 +37,7 @@ public class Sites {
        host : "a1", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa // REQUIRED,
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -82,7 +82,7 @@ public class Sites {
        host : "integrate.wdk", // REQUIRED
        label : 'aprium', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForWdkTemplate // REQUIRED,
+       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        #testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
