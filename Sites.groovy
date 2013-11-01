@@ -80,7 +80,7 @@ public class Sites {
     'integrate.wdk.apidb.org' : [
        product : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
-       host : "wdk.integrate", // REQUIRED
+       host : "integrate.wdk", // REQUIRED
        label : 'aprium', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
        svnDefaultLocations : Values.svnWdkTemplateLocations,
