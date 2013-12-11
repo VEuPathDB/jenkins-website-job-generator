@@ -49,6 +49,8 @@ REBUILDER
   static public def rebuilderStepForIntegration = { host, product, webapp ->
     return """
       date > .hudsonTimestamp
+      ulimit -u 4096
+      ulimit -n 4096
       env
       sudo instance_manager stop ${product} force
       sleep 5
