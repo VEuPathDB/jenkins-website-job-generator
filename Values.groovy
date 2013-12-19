@@ -51,6 +51,7 @@ REBUILDER
       date > .hudsonTimestamp
       ulimit -u 4096
       ulimit -n 4096
+      export _JAVA_OPTIONS=-Xmx512m
       env
       sudo instance_manager stop ${product} force
       sleep 5
