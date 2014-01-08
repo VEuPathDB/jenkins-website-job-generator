@@ -51,7 +51,6 @@ REBUILDER
       date > .hudsonTimestamp
       ulimit -u 4096
       ulimit -n 4096
-      export _JAVA_OPTIONS=-Xmx512m
       env
       sudo instance_manager stop ${product} force
       sleep 5
@@ -274,7 +273,7 @@ CONFIGURATIONS PER HOST
   static public def hostSpecificConfig = [
     integrate : [
       label : 'aprium',
-      timeout : 20,
+      timeout : 30,
       scmSchedule : scmScheduleAsap,
       quietPeriod : 180,
       rebuilderStep : rebuilderStepForIntegration,
