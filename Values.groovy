@@ -57,6 +57,8 @@ REBUILDER
       sudo instance_manager start  ${product} verbose
       sleep 15
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
+      # give webapp time to reload before running tests
+      sleep 15
     """
     .stripIndent()
   }
@@ -81,6 +83,8 @@ REBUILDER
     return """
       env
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org
+      # give webapp time to reload before running tests
+      sleep 15
     """
     .stripIndent()
   }
