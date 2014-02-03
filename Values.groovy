@@ -107,7 +107,7 @@ TEST NG
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
         'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
-        'webappname':"${webapp}.integrate", 'testnames':'"Integration"')
+        'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
@@ -117,7 +117,7 @@ TEST NG
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
         'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
-        'webappname':"${webapp}", 'testnames':'"QA"')
+        'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
