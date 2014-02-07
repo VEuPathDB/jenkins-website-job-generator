@@ -277,7 +277,7 @@ CONFIGURATIONS PER HOST
   static public def hostSpecificConfig = [
     integrate : [
       label : 'aprium',
-      timeout : 20,
+      timeout : 30,
       scmSchedule : scmScheduleAsap,
       quietPeriod : 180,
       rebuilderStep : rebuilderStepForIntegration,
