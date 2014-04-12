@@ -99,46 +99,46 @@ public class JobConfigurator {
       throw new java.lang.RuntimeException(jobName + " looks like an OrthoMCL site. It requires additional configurations not supported here. Remove it.")
     console.println "Creating " + jobName
     jobFactory.job {
-      name jobName
-      label masterMap[jobName]['label']
-
-      disabled masterMap[jobName]['disabled'] ?: false
-      
-      description  masterMap[jobName]['description']
-
-      if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
-
-      if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
-      customWorkspace(masterMap[jobName]['customWorkspace'])
-      scm masterMap[jobName]['scm']
-      
-      if (masterMap[jobName]['scmSchedule'] != null) {
-        triggers {
-          scm(masterMap[jobName]['scmSchedule'])
+      wrappers {
+        name jobName
+        label masterMap[jobName]['label']
+  
+        disabled masterMap[jobName]['disabled'] ?: false
+        
+        description  masterMap[jobName]['description']
+  
+        if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
+  
+        if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
+        customWorkspace(masterMap[jobName]['customWorkspace'])
+        scm masterMap[jobName]['scm']
+        
+        if (masterMap[jobName]['scmSchedule'] != null) {
+          triggers {
+            scm(masterMap[jobName]['scmSchedule'])
+          }
+        }            
+  
+        if (masterMap[jobName]['timeout'])
+          timeout('absolute') { limit masterMap[jobName]['timeout'] }
+        
+  
+        jdk('(Default)')
+  
+        steps { 
+          shell(masterMap[jobName]['rebuilderStep'])
+          masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
         }
-      }            
+  
+        if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
+  
+        publishers {
+           masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
+        } // publishers
+  
+        if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
 
-      if (masterMap[jobName]['timeout'])
-        timeout('absolute') { limit masterMap[jobName]['timeout'] }
-      
-
-      jdk('(Default)')
-
-      steps { 
-        shell(masterMap[jobName]['rebuilderStep'])
-        masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
-      }
-
-      if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
-
-      publishers {
-         masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
-      } // publishers
-
-      if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
-      
-      
-
+      } // wrappers
     } // job
   } //createJob
 
