@@ -115,9 +115,7 @@ public class JobConfigurator {
         
         if (masterMap[jobName]['scmSchedule'] != null) {
           triggers {
-            scm(masterMap[jobName]['scmSchedule']) {
-              ignoreNotifyCommit 'true'
-            }
+            scm(masterMap[jobName]['scmSchedule'])
           }
         }            
   
