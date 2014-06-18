@@ -264,6 +264,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep : rebuilderStepForIntegration, // REQUIRED
       timeout : 20,  // OPTIONAL
       scmSchedule : scmScheduleAsap, // OPTIONAL
+      ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
       quietPeriod : 180, // OPTIONAL
       testngStep : testngStepForIntegration, // OPTIONAL
       jabberContacts : jabberContactsStd, // OPTIONAL
@@ -278,7 +279,8 @@ CONFIGURATIONS PER HOST
     integrate : [
       label : 'aprium',
       timeout : 30,
-      scmSchedule : scmScheduleAsap,
+      scmSchedule : '',
+      ignorePostCommitHooks : 'false',
       quietPeriod : 180,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,

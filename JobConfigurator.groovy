@@ -46,6 +46,7 @@ public class JobConfigurator {
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : hostconf['scmSchedule'] ?: null,
+            ignorePostCommitHooks : hostconf['ignorePostCommitHooks'] ?: null,
             timeout : hostconf['timeout'] ?: null,
             rebuilderStep : hostconf['rebuilderStep'](host, product, webapp),
             testngStep : hostconf['testngStep'] ?
@@ -84,6 +85,7 @@ public class JobConfigurator {
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : conf['scmSchedule'] ?: null,
+            ignorePostCommitHooks : conf['ignorePostCommitHooks'] ?: null,
             timeout : conf['timeout'] ?: null,
             rebuilderStep : conf['rebuilderStep'](host, product, webapp),
             testngStep : conf['testngStep'] ? conf['testngStep'](host, product, webapp) : null,
@@ -113,9 +115,17 @@ public class JobConfigurator {
         customWorkspace(masterMap[jobName]['customWorkspace'])
         scm masterMap[jobName]['scm']
         
-        if (masterMap[jobName]['scmSchedule'] != null) {
+        if (
+          masterMap[jobName]['scmSchedule'] != null ||
+          masterMap[jobName]['ignorePostCommitHooks'] != null
+          ) {
           triggers {
-            scm(masterMap[jobName]['scmSchedule'])
+            //scm(masterMap[jobName]['scmSchedule'])
+            configure scmTrigger(
+              masterMap[jobName]['scmSchedule'], 
+              masterMap[jobName]['ignorePostCommitHooks']
+            )
+  
           }
         }            
   
@@ -155,6 +165,16 @@ public class JobConfigurator {
       reportFilenamePattern 'test_home/results/**'
       escapeTestDescp 'true'
       escapeExceptionMsg 'true'
+    }
+    }
+  }
+
+  def scmTrigger(crontab, bool) {
+    {project -> project/triggers/'hudson.triggers.SCMTrigger' {
+      crontab = crontab ?: '' 
+      bool = bool ?: 'true' 
+      spec crontab
+      ignorePostCommitHooks bool
     }
     }
   }
