@@ -282,7 +282,7 @@ CONFIGURATIONS PER HOST
       timeout : 30,
       scmSchedule : scmScheduleYearly,
       ignorePostCommitHooks : 'false',
-      quietPeriod : 60,
+      quietPeriod : 120,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,
       jabberContacts : jabberContactsStd,
