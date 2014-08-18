@@ -250,6 +250,7 @@ SCM POLL SCHEDULE
 ******************************************************************************** **/
   static public def scmScheduleAsap = '*/5 * * * *'
   static public def scmScheduleNightly = '0 3 * * *'
+  static public def scmScheduleYearly = '@yearly'
 
 /** ******************************************************************************** 
 JABBER CONTACTS
@@ -279,7 +280,7 @@ CONFIGURATIONS PER HOST
     integrate : [
       label : 'aprium',
       timeout : 30,
-      scmSchedule : '',
+      scmSchedule : scmScheduleYearly,
       ignorePostCommitHooks : 'false',
       quietPeriod : 60,
       rebuilderStep : rebuilderStepForIntegration,
