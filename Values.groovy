@@ -314,7 +314,7 @@ CONFIGURATIONS PER HOST
     w1 : [
       label : 'olive',
       rebuilderStep: rebuilderStepForWww,
-      logRotator : [-1, 10, -1, -1],
+      logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
@@ -322,7 +322,7 @@ CONFIGURATIONS PER HOST
     w2 : [
       label : 'oak',
       rebuilderStep: rebuilderStepForWww,
-      logRotator : [-1, 10, -1, -1],
+      logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
