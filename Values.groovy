@@ -64,6 +64,29 @@ REBUILDER
   }
 
 
+  static public def rebuilderStepForMaint = { host, product, webapp ->
+    return """
+      date > .hudsonTimestamp
+      ulimit -u 4096
+      ulimit -n 4096
+      env
+      sudo instance_manager stop ${product} force
+      sleep 5
+      sudo instance_manager start  ${product} verbose
+      sleep 15
+      rebuilder ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
+      
+      cp \$PROJECT_HOME/EuPathSiteCommon/Model/lib/yaml/metaConfig.yaml.sample \$PROJECT_HOME/../etc/metaConfig.yaml
+      eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig.yaml \
+        "monitorBlockedThreads: false appDb.instance: plas022s appDb.login: aurreco2 appDb.password: auTmp29 userDb.instance: apicomms userDb.login: uga_fed userDb.password: vcltum33r commentDb.instance: apicomms appDb.userDbLink: prods.login_comment  commentDb.userLoginDbLink: prods.login_comment commentDbLink: prods.login_comment";
+
+      # give webapp time to reload before running tests
+      sleep 15
+    """
+    .stripIndent()
+  }
+
+
   static public def rebuilderStepForWdkTemplate = { host, product, webapp ->
     return """
       date > .hudsonTimestamp
@@ -290,6 +313,16 @@ CONFIGURATIONS PER HOST
       logRotator : [7, -1, -1, -1],
       extendedEmail : integrateExtendedEmail,
       jabberNotification: jabberNotificationIntegrate,
+    ],
+    maint : [
+      label : 'aprium',
+      timeout : 30,
+      rebuilderStep : rebuilderStepForMaint,
+      ignorePostCommitHooks : 'true',
+      extendedEmail : wwwExtendedEmail,
+      jabberContacts : jabberContactsStd,
+      jabberNotification: jabberNotificationWww,
+      logRotator : [7, -1, -1, -1],
     ],
     q1 : [
       label : 'olive',
