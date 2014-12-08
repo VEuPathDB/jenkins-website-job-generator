@@ -130,7 +130,7 @@ public class JobConfigurator {
         }            
   
         if (masterMap[jobName]['timeout'])
-          timeout('absolute') { limit masterMap[jobName]['timeout'] }
+          timeout { absolute(masterMap[jobName]['timeout']) }
         
   
         jdk('(Default)')
