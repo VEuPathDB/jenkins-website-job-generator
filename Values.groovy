@@ -77,9 +77,6 @@ REBUILDER
       # but now want make adjustments that configula is not equipped to handle.
       source /var/www/${host}.${product.toLowerCase()}.org/etc/setenv
       \$GUS_HOME/bin/eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
-
-      # give webapp time to reload before running tests
-      sleep 15
     """
     .stripIndent()
   }
