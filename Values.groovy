@@ -71,7 +71,7 @@ REBUILDER
       ulimit -u 4096
       ulimit -n 4096
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.maint
 
       # configula is run as part of rebuilder-jenkins to do initial configuration,
       # but now want make adjustments that configula is not equipped to handle.
