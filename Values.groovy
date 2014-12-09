@@ -321,6 +321,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
+      description : 'Websites to support Cristina's site/database maintenance procedures',
     ],
     q1 : [
       label : 'olive',
