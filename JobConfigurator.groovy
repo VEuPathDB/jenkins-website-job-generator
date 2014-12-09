@@ -108,8 +108,6 @@ public class JobConfigurator {
         disabled masterMap[jobName]['disabled'] ?: false
         
         description  masterMap[jobName]['description']
-  
-        if (masterMap[jobName]['description'] != null) logRotator(masterMap[jobName]['description'])
 
         if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
   
