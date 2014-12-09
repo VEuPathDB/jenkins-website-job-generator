@@ -78,7 +78,7 @@ public class JobConfigurator {
           def svnDefaultLocations = conf['svnDefaultLocations'] ?: Values.svnDefaultLocations
           map[jobName] = [
             label : conf['label'],
-            description : hostconf['description'] ?: Values.stdDescription(jobName, "boo"),
+            description : conf['description'] ?: Values.stdDescription(jobName, "boo"),
             logRotator : conf['logRotator'] ?: null,
             disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : conf['quietPeriod'] ?: null,
