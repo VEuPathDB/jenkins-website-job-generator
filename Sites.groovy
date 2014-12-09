@@ -50,7 +50,7 @@ public class Sites {
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [ 
     'integrate',
-    'maint',
+//    'maint',
     'q1',
     'q2',
     'w1',
