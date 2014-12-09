@@ -221,6 +221,31 @@ Extended Email
     }
   } // wwwExtendedEmail
 
+  static public def maintExtendedEmail = { delegate ->
+    delegate.extendedEmail('aurreco@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
+        trigger(
+          triggerName: 'Unstable',
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        trigger(
+          triggerName: 'Failure', 
+          subject: '$PROJECT_DEFAULT_SUBJECT',
+          body: '$PROJECT_DEFAULT_CONTENT',
+          sendToDevelopers: false, 
+          sendToRequester: false, 
+          includeCulprits: false, 
+          sendToRecipientList: true,
+        )
+        configure { node ->
+            node / contentType << 'default'
+        }
+    }
+  } // qaExtendedEmail
 
 /** ******************************************************************************** 
 JABBER
@@ -314,7 +339,7 @@ CONFIGURATIONS PER HOST
       timeout : 30,
       rebuilderStep : rebuilderStepForMaint,
       ignorePostCommitHooks : 'true',
-      extendedEmail : wwwExtendedEmail,
+      extendedEmail : maintExtendedEmail,
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
