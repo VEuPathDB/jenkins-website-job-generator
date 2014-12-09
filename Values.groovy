@@ -335,6 +335,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationIntegrate,
     ],
     maint : [
+      /** redmine #18103 **/
       label : 'aprium',
       timeout : 30,
       rebuilderStep : rebuilderStepForMaint,
