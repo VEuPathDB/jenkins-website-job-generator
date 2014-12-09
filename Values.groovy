@@ -64,21 +64,19 @@ REBUILDER
   }
 
 
+  /** Cristina maint.*.org websites for testing apicomm maintenance scripts, etc. **/
   static public def rebuilderStepForMaint = { host, product, webapp ->
     return """
       date > .hudsonTimestamp
       ulimit -u 4096
       ulimit -n 4096
       env
-      sudo instance_manager stop ${product} force
-      sleep 5
-      sudo instance_manager start  ${product} verbose
-      sleep 15
-      rebuilder ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
-      
-      cp \$PROJECT_HOME/EuPathSiteCommon/Model/lib/yaml/metaConfig.yaml.sample \$PROJECT_HOME/../etc/metaConfig.yaml
-      eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig.yaml \
-        "monitorBlockedThreads: false appDb.instance: plas022s appDb.login: aurreco2 appDb.password: auTmp29 userDb.instance: apicomms userDb.login: uga_fed userDb.password: vcltum33r commentDb.instance: apicomms appDb.userDbLink: prods.login_comment  commentDb.userLoginDbLink: prods.login_comment commentDbLink: prods.login_comment";
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
+
+      // configula is run as part of rebuilder-jenkins to do initial configuration,
+      // but now want make adjustments that configula is not equipped to handle.
+      eupathSiteConfigure -filename \$PROJECT_HOME/../etc/metaConfig_configula \
+        "monitorBlockedThreads: false";
 
       # give webapp time to reload before running tests
       sleep 15
