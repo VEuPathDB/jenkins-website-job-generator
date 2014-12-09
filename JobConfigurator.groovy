@@ -109,6 +109,8 @@ public class JobConfigurator {
         
         description  masterMap[jobName]['description']
   
+        if (masterMap[jobName]['description'] != null) logRotator(masterMap[jobName]['description'])
+
         if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
   
         if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
