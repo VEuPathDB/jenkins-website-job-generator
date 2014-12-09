@@ -75,7 +75,7 @@ REBUILDER
 
       # configula is run as part of rebuilder-jenkins to do initial configuration,
       # but now want make adjustments that configula is not equipped to handle.
-      eupathSiteConfigure -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
+      \$GUS_HOME/bin/eupathSiteConfigure -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
 
       # give webapp time to reload before running tests
       sleep 15
