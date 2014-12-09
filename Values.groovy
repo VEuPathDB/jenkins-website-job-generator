@@ -75,7 +75,7 @@ REBUILDER
 
       # configula is run as part of rebuilder-jenkins to do initial configuration,
       # but now want make adjustments that configula is not equipped to handle.
-      export GUS_HOME=/var/www/${host}.${product.toLowerCase()}.org/gus_home
+      source /var/www/${host}.${product.toLowerCase()}.org/etc/setenv
       \$GUS_HOME/bin/eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
 
       # give webapp time to reload before running tests
