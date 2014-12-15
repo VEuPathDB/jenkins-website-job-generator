@@ -52,10 +52,11 @@ REBUILDER
       ulimit -u 4096
       ulimit -n 4096
       env
-      sudo instance_manager stop ${product} force
-      sleep 5
-      sudo instance_manager start  ${product} verbose
-      sleep 15
+      # Restarting tomcat interferes with maint websites, so stop this.
+      #sudo instance_manager stop ${product} force
+      #sleep 5
+      #sudo instance_manager start  ${product} verbose
+      #sleep 15
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 15
