@@ -149,7 +149,7 @@ public class Sites {
        product : "ToxoDB", // REQUIRED
        webapp : "toxo.wombat", // REQUIRED
        host : "wombat", // REQUIRED
-       label : 'aprium', // REQUIRED
+       label : 'olive', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -161,7 +161,7 @@ public class Sites {
        product : "ToxoDB", // REQUIRED
        webapp : "toxo.panda", // REQUIRED
        host : "panda", // REQUIRED
-       label : 'aprium', // REQUIRED
+       label : 'olive', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
