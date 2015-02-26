@@ -15,7 +15,7 @@ public class Values {
       tld : "org",
     ],
     FungiDB : [
-      webapp : "fungidb"
+      webapp : "fungidb",
       tld : "org",
     ],
     GiardiaDB : [
