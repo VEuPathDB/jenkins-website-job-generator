@@ -3,40 +3,56 @@ public class Values {
 
   static public def productSpecificConfig = [
     AmoebaDB : [
-      webapp : "amoeba", 
+      webapp : "amoeba",
+      tld : "org",
     ],
     CryptoDB : [
       webapp : "cryptodb",
+      tld : "org",
     ],
     EuPathDB : [
       webapp : "eupathdb",
-    ],
-    GiardiaDB : [
-      webapp : "giardiadb",
-    ],
-    HostDB : [
-      webapp : "hostdb",
-    ],
-    MicrosporidiaDB : [
-      webapp : "micro",
-    ],
-    PiroplasmaDB : [
-      webapp : "piro",
-    ],
-    PlasmoDB : [
-      webapp : "plasmo",
-    ],
-    ToxoDB : [
-      webapp : "toxo",
-    ],
-    TrichDB : [
-      webapp : "trichdb",
-    ],
-    TriTrypDB : [
-      webapp : "tritrypdb",
+      tld : "org",
     ],
     FungiDB : [
       webapp : "fungidb"
+      tld : "org",
+    ],
+    GiardiaDB : [
+      webapp : "giardiadb",
+      tld : "org",
+    ],
+    HostDB : [
+      webapp : "hostdb",
+      tld : "org",
+    ],
+    MicrosporidiaDB : [
+      webapp : "micro",
+      tld : "org",
+    ],
+    PiroplasmaDB : [
+      webapp : "piro",
+      tld : "org",
+    ],
+    PlasmoDB : [
+      webapp : "plasmo",
+      tld : "org",
+    ],
+    SchistoDB : [
+      webapp : "schisto"
+      tld : "net",
+    ],
+    ToxoDB : [
+      webapp : "toxo",
+      tld : "org",
+    ],
+    TrichDB : [
+      webapp : "trichdb",
+      tld : "org",
+    ],
+    TriTrypDB : [
+      webapp : "tritrypdb",
+      tld : "org",
     ],
   ]
   
@@ -46,7 +62,7 @@ public class Values {
 REBUILDER
 ******************************************************************************** **/
 
-  static public def rebuilderStepForIntegration = { host, product, webapp ->
+  static public def rebuilderStepForIntegration = { host, product, webapp, tld ->
     return """
       date > .hudsonTimestamp
       ulimit -u 4096
@@ -66,7 +82,7 @@ REBUILDER
 
 
   /** Cristina maint.*.org websites for testing apicomm maintenance scripts, etc. **/
-  static public def rebuilderStepForMaint = { host, product, webapp ->
+  static public def rebuilderStepForMaint = { host, product, webapp, tld ->
     return """
       date > .hudsonTimestamp
       ulimit -u 4096
@@ -83,7 +99,7 @@ REBUILDER
   }
 
 
-  static public def rebuilderStepForWdkTemplate = { host, product, webapp ->
+  static public def rebuilderStepForWdkTemplate = { host, product, webapp, tld ->
     return """
       date > .hudsonTimestamp
       env
@@ -98,7 +114,7 @@ REBUILDER
   }
 
 
-  static public def rebuilderStepForQa = { host, product, webapp ->
+  static public def rebuilderStepForQa = { host, product, webapp, tld ->
     return """
       env
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org
@@ -108,7 +124,7 @@ REBUILDER
     .stripIndent()
   }
 
-  static public def rebuilderStepForWww = { host, product, webapp ->
+  static public def rebuilderStepForWww = { host, product, webapp, tld ->
     return """
       env
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}

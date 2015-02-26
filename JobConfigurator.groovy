@@ -32,8 +32,9 @@ public class JobConfigurator {
     def map = [:]
     Sites.inclusiveHosts.each { host ->
         Sites.inclusiveProducts.each { product ->
-          def jobName = "${host}.${product.toLowerCase()}.org"
           def webapp = Values.productSpecificConfig[product]['webapp']
+          def tld = Values.productSpecificConfig[product]['tld']
+          def jobName = "${host}.${product.toLowerCase()}.${tld}"
           def existingJob = jenkins.getJob(jobName)
           def hostconf = Values.hostSpecificConfig[host]
           def svnDefaultLocations = Values.svnDefaultLocations
@@ -48,7 +49,7 @@ public class JobConfigurator {
             scmSchedule : hostconf['scmSchedule'] ?: null,
             ignorePostCommitHooks : hostconf['ignorePostCommitHooks'] ?: null,
             timeout : hostconf['timeout'] ?: null,
-            rebuilderStep : hostconf['rebuilderStep'](host, product, webapp),
+            rebuilderStep : hostconf['rebuilderStep'](host, product, webapp, tld),
             testngStep : hostconf['testngStep'] ?
                               hostconf['testngStep'](host, product, webapp) : 
                               null,
@@ -73,6 +74,7 @@ public class JobConfigurator {
           }
           def product = conf['product']
           def webapp = conf['webapp']
+          def tld = conf['tld']
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
           def svnDefaultLocations = conf['svnDefaultLocations'] ?: Values.svnDefaultLocations
@@ -87,7 +89,7 @@ public class JobConfigurator {
             scmSchedule : conf['scmSchedule'] ?: null,
             ignorePostCommitHooks : conf['ignorePostCommitHooks'] ?: null,
             timeout : conf['timeout'] ?: null,
-            rebuilderStep : conf['rebuilderStep'](host, product, webapp),
+            rebuilderStep : conf['rebuilderStep'](host, product, webapp, tld),
             testngStep : conf['testngStep'] ? conf['testngStep'](host, product, webapp) : null,
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
