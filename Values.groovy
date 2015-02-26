@@ -73,7 +73,7 @@ REBUILDER
       #sleep 5
       #sudo instance_manager start  ${product} verbose
       #sleep 15
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.integrate
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 15
     """
@@ -88,11 +88,11 @@ REBUILDER
       ulimit -u 4096
       ulimit -n 4096
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}.maint
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.maint
 
       # configula is run as part of rebuilder-jenkins to do initial configuration,
       # but now want make adjustments that configula is not equipped to handle.
-      source /var/www/${host}.${product.toLowerCase()}.org/etc/setenv
+      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
       \$GUS_HOME/bin/eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
     """
     .stripIndent()
@@ -117,7 +117,7 @@ REBUILDER
   static public def rebuilderStepForQa = { host, product, webapp, tld ->
     return """
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}
       # give webapp time to reload before running tests
       sleep 15
     """
@@ -127,7 +127,7 @@ REBUILDER
   static public def rebuilderStepForWww = { host, product, webapp, tld ->
     return """
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.org --webapp ${product}:${webapp}
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}
     """
     .stripIndent()
   }
@@ -137,21 +137,21 @@ REBUILDER
 TEST NG
 ******************************************************************************** **/
 
-  static public def testngStepForIntegration = { host, product, webapp ->
+  static public def testngStepForIntegration = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}", 
         'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
 
-  static public def testngStepForQa = { host, product, webapp ->
+  static public def testngStepForQa = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.org", 
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}", 
         'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
@@ -461,13 +461,13 @@ the web UI will be lost.</font> <br>
   /** ******************************************************************************** 
     Disable QA Jobs
   ******************************************************************************** **/
-  def disableQABuilds(product) {
+  def disableQABuilds(product, tld) {
     {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
         'configs'  { 
           'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
             'configs' {
               'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {
-                properties "JENKINS_JOBS=q1.${product.toLowerCase()}.org q2.${product.toLowerCase()}.org"
+                properties "JENKINS_JOBS=q1.${product.toLowerCase()}.${tld} q2.${product.toLowerCase()}.${tld}"
               }
             }
             projects '~disablejobs'

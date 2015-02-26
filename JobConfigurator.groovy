@@ -51,7 +51,7 @@ public class JobConfigurator {
             timeout : hostconf['timeout'] ?: null,
             rebuilderStep : hostconf['rebuilderStep'](host, product, webapp, tld),
             testngStep : hostconf['testngStep'] ?
-                              hostconf['testngStep'](host, product, webapp) : 
+                              hostconf['testngStep'](host, product, webapp, tld) : 
                               null,
             jabberNotification : hostconf['jabberNotification'] ? 
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
@@ -90,7 +90,7 @@ public class JobConfigurator {
             ignorePostCommitHooks : conf['ignorePostCommitHooks'] ?: null,
             timeout : conf['timeout'] ?: null,
             rebuilderStep : conf['rebuilderStep'](host, product, webapp, tld),
-            testngStep : conf['testngStep'] ? conf['testngStep'](host, product, webapp) : null,
+            testngStep : conf['testngStep'] ? conf['testngStep'](host, product, webapp, tld) : null,
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
          ]
