@@ -39,7 +39,7 @@ public class Values {
       tld : "org",
     ],
     SchistoDB : [
-      webapp : "schisto"
+      webapp : "schisto",
       tld : "net",
     ],
     ToxoDB : [
