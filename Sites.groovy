@@ -35,7 +35,7 @@ public class Sites {
 *       product : "PlasmoDB", // REQUIRED
 *       webapp : "plasmo", // REQUIRED
 *       host : "a1", // REQUIRED
-*       tld : org, // REQUIRED
+*       tld : "org", // REQUIRED
 *       label : 'oak', // REQUIRED
 *       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
 *       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -84,7 +84,7 @@ public class Sites {
        product : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
        host : "integrate.wdk", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'aprium', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
        svnDefaultLocations : Values.svnWdkTemplateLocations,
@@ -99,7 +99,7 @@ public class Sites {
        product : "TemplateDB", // REQUIRED
        webapp : "templatesite.b20", // REQUIRED
        host : "qa.wdk", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        svnDefaultLocations : Values.svnWdkTemplateLocations,
@@ -114,7 +114,7 @@ public class Sites {
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.icemr", // REQUIRED
        host : "icemr", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -128,7 +128,7 @@ public class Sites {
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
        host : "prism", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -142,7 +142,7 @@ public class Sites {
        product : "CryptoDB", // REQUIRED
        webapp : "cryptodb.galaxy", // REQUIRED
        host : "galaxy", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'loquat', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -156,7 +156,7 @@ public class Sites {
        product : "ToxoDB", // REQUIRED
        webapp : "toxo.wombat", // REQUIRED
        host : "wombat", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'olive', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -169,7 +169,7 @@ public class Sites {
        product : "ToxoDB", // REQUIRED
        webapp : "toxo.panda", // REQUIRED
        host : "panda", // REQUIRED
-       tld : org, // REQUIRED
+       tld : "org", // REQUIRED
        label : 'olive', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
