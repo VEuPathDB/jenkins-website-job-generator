@@ -75,7 +75,10 @@ REBUILDER
       #sleep 15
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
-      sleep 15
+      sleep 30
+
+      # cache public strategy results (redmine #18944)
+      wdkRunPublicStrats -model ${product}
     """
     .stripIndent()
   }
