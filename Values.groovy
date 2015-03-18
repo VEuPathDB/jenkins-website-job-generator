@@ -76,10 +76,6 @@ REBUILDER
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 30
-
-      # cache public strategy results (redmine #18944)
-      #source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
-      #wdkRunPublicStrats -model ${product}
     """
     .stripIndent()
   }
@@ -122,8 +118,14 @@ REBUILDER
     return """
       env
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}
+
       # give webapp time to reload before running tests
       sleep 15
+
+      # cache public strategy results (redmine #18944) with non-debug logging
+      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
+      export GUSJVMOPTS='-Dlog4j.configuration=file:$PROJECT_HOME/ApiCommonWebsite/Model/config/log4j.info.properties'
+      wdkRunPublicStrats -model ${product}
     """
     .stripIndent()
   }
