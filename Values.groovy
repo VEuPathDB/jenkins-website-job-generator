@@ -124,7 +124,7 @@ REBUILDER
 
       # cache public strategy results (redmine #18944) with non-debug logging
       source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
-      export GUSJVMOPTS='-Dlog4j.configuration=file:$PROJECT_HOME/ApiCommonWebsite/Model/config/log4j.info.properties'
+      export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/ApiCommonWebsite/Model/config/log4j.info.properties'
       wdkRunPublicStrats -model ${product}
     """
     .stripIndent()
