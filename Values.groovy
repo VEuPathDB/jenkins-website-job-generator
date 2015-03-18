@@ -78,8 +78,8 @@ REBUILDER
       sleep 30
 
       # cache public strategy results (redmine #18944)
-      #source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
-      #wdkRunPublicStrats -model ${product}
+      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
+      wdkRunPublicStrats -model ${product}
     """
     .stripIndent()
   }
