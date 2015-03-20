@@ -390,7 +390,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
-      description : "https://redmine.apidb.org/issues/18965",
+      description : featureDescription,
     ],
     q1 : [
       label : 'olive',
@@ -485,7 +485,7 @@ the web UI will be lost.</font> <br>
 """
   }
 
-  static public def featureDescription(jobName, dslJob) {
+  static public def featureDescription { jobName, dslJob ->
 
     def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
     def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
