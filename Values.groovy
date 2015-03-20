@@ -467,7 +467,7 @@ CONFIGURATIONS PER HOST
   /** ******************************************************************************** 
     Job Description
   ******************************************************************************** **/
-  static public def stdDescription(jobName, dslJob) {
+  static public def stdDescription = { jobName, dslJob ->
 
     def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
     def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
