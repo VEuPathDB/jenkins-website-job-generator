@@ -389,7 +389,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
-      description : featureDescription,
+      description : "https://redmine.apidb.org/issues/18965",
     ],
     q1 : [
       label : 'olive',
