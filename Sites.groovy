@@ -49,7 +49,8 @@ public class Sites {
     
   // hosts that should be configured for all inclusiveProducts
   // There must be configurations for each in Values.hostSpecificConfig
-  static public def inclusiveHosts = [ 
+  static public def inclusiveHosts = [
+    'feature',
     'integrate',
     'maint',
     'q1',
