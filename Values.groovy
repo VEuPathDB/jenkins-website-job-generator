@@ -377,7 +377,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
-      description : maintDescription,
+      description: maintDescription,
     ],
     feature : [
       /** redmine #18965 **/
@@ -390,7 +390,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsStd,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
-      description : featureDescription,
+      description: featureDescription,
     ],
     q1 : [
       label : 'olive',
