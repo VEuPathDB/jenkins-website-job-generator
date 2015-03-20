@@ -383,7 +383,8 @@ CONFIGURATIONS PER HOST
       /** redmine #18965 **/
       label : 'oak',
       timeout : 30,
-      rebuilderStep : rebuilderStepForQA,
+      scmSchedule : scmScheduleNightly,
+      rebuilderStep: rebuilderStepForQa,
       ignorePostCommitHooks : 'true',
       extendedEmail : maintExtendedEmail,
       jabberContacts : jabberContactsStd,
