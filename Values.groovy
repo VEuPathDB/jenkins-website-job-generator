@@ -485,13 +485,13 @@ the web UI will be lost.</font> <br>
 """
   }
 
-  static public def featureDescription {
+  static public def featureDescription = {
 
     def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
     def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
 
     return """
-Developer-managed website build for <a href='http://${jobName}'>http://${jobName}</a>
+Developer-managed website build for feature code review.
 <p>
 See <a href="https://wiki.apidb.org/index.php/FeatureWebsites">FeatureWebsites wiki</a> for overview.
 <p>
