@@ -485,7 +485,7 @@ the web UI will be lost.</font> <br>
 """
   }
 
-  static public def featureDescription = {
+  static public def featureDescription = { jobName, dslJob ->
 
     def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
     def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
