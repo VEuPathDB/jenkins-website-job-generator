@@ -166,33 +166,6 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-      'wombat.toxodb.org' : [
-       product : "ToxoDB", // REQUIRED
-       webapp : "toxo.wombat", // REQUIRED
-       host : "wombat", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'olive', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-      'panda.toxodb.org' : [
-       product : "ToxoDB", // REQUIRED
-       webapp : "toxo.panda", // REQUIRED
-       host : "panda", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'olive', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
   ]
 
 }
