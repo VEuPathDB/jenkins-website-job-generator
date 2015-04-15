@@ -131,7 +131,6 @@ public class Sites {
        host : "prism", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
