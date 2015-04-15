@@ -139,6 +139,20 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
+      'qa.prism.plasmodb.org' : [
+       product : "PlasmoDB", // REQUIRED
+       webapp : "plasmo.prismqa", // REQUIRED
+       host : "qa.prism", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'oak', // REQUIRED
+       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
       'galaxy.cryptodb.org' : [
        product : "CryptoDB", // REQUIRED
        webapp : "cryptodb.galaxy", // REQUIRED
