@@ -122,12 +122,15 @@ REBUILDER
       # give webapp time to reload before running tests
       sleep 15
 
-      # cache public strategy results (redmine #18944) with non-debug logging
-      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
-      if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
-        export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
-        wdkRunPublicStrats -model ${product}
-      fi
+      ## cache public strategy results (redmine #18944) with non-debug logging
+      ## Disabled: it seems of limited benefit for QA and it slows builds.
+      ## It could be useful as a pre-release check of strategies but
+      ## there's no useable reporting so failures will go unnoticed.
+      #source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
+      #if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
+      #  export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
+      #  wdkRunPublicStrats -model ${product}
+      #fi
     """
     .stripIndent()
   }
