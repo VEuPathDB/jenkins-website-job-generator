@@ -396,7 +396,7 @@ CONFIGURATIONS PER HOST
       description : "See <a href='https://wiki.apidb.org/index.php/FeatureWebsites'>FeatureWebsites wiki</a> for overview.",
     ],
     q1 : [
-      label : 'olive',
+      label : 'myrtle',
       timeout : 60,
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
@@ -416,7 +416,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     w1 : [
-      label : 'olive',
+      label : 'myrtle',
       rebuilderStep: rebuilderStepForWww,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
