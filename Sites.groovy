@@ -86,7 +86,7 @@ public class Sites {
        webapp : "ROOT", // REQUIRED
        host : "integrate.wdk", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'aprium', // REQUIRED
+       label : 'santol', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
        svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,

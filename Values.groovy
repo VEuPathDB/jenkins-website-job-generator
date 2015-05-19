@@ -340,7 +340,7 @@ JABBER CONTACTS
 /** ******************************************************************************** 
 CONFIGURATIONS PER HOST
 
-      label : 'aprium', // REQUIRED
+      label : 'santol', // REQUIRED
       rebuilderStep : rebuilderStepForIntegration, // REQUIRED
       timeout : 20,  // OPTIONAL
       scmSchedule : scmScheduleAsap, // OPTIONAL
@@ -357,7 +357,7 @@ CONFIGURATIONS PER HOST
 
   static public def hostSpecificConfig = [
     integrate : [
-      label : 'aprium',
+      label : 'santol',
       timeout : 30,
       scmSchedule : scmScheduleYearly,
       ignorePostCommitHooks : 'false',
@@ -372,7 +372,7 @@ CONFIGURATIONS PER HOST
     ],
     maint : [
       /** redmine #18103 **/
-      label : 'aprium',
+      label : 'santol',
       timeout : 30,
       rebuilderStep : rebuilderStepForMaint,
       ignorePostCommitHooks : 'true',
