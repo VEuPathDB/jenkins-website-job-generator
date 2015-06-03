@@ -177,10 +177,10 @@ public class Sites {
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
     ],
 
-    'b1.hostdb.org' : [
+    'b2.hostdb.org' : [
         product : "HostDB", // REQUIRED
         webapp : "hostdb", // REQUIRED
-        host : "b1", // REQUIRED
+        host : "b2", // REQUIRED
         tld : "org", // REQUIRED
         label : 'oak', // REQUIRED
         rebuilderStep: Values.rebuilderStepForWww, // REQUIRED,
