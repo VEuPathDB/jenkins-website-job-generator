@@ -171,7 +171,7 @@ public class Sites {
         host : "b1", // REQUIRED
         tld : "org", // REQUIRED
         label : 'myrtle', // REQUIRED
-        rebuilderStep: Values.rebuilderStepForWww, // REQUIRED,
+        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
         jabberContacts: Values.jabberContactsStd, // OPTIONAL
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
@@ -183,7 +183,7 @@ public class Sites {
         host : "b2", // REQUIRED
         tld : "org", // REQUIRED
         label : 'oak', // REQUIRED
-        rebuilderStep: Values.rebuilderStepForWww, // REQUIRED,
+        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
         jabberContacts: Values.jabberContactsStd, // OPTIONAL
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
