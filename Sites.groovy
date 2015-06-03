@@ -111,7 +111,7 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
-      'icemr.plasmodb.org' : [
+    'icemr.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.icemr", // REQUIRED
        host : "icemr", // REQUIRED
@@ -125,7 +125,7 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-      'prism.plasmodb.org' : [
+    'prism.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
        host : "prism", // REQUIRED
@@ -138,7 +138,7 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-      'qa.prism.plasmodb.org' : [
+    'qa.prism.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prismqa", // REQUIRED
        host : "qa.prism", // REQUIRED
@@ -151,12 +151,12 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-      'galaxy.cryptodb.org' : [
+    'galaxy.cryptodb.org' : [
        product : "CryptoDB", // REQUIRED
        webapp : "cryptodb.galaxy", // REQUIRED
        host : "galaxy", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'loquat', // REQUIRED
+       label : 'luffa', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -164,6 +164,31 @@ public class Sites {
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
+
+    'b1.hostdb.org' : [
+        product : "HostDB", // REQUIRED
+        webapp : "hostdb", // REQUIRED
+        host : "b1", // REQUIRED
+        tld : "org", // REQUIRED
+        label : 'myrtle', // REQUIRED
+        rebuilderStep: Values.rebuilderStepForWww, // REQUIRED,
+        extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
+        jabberContacts: Values.jabberContactsStd, // OPTIONAL
+        jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
+    ],
+
+    'b1.hostdb.org' : [
+        product : "HostDB", // REQUIRED
+        webapp : "hostdb", // REQUIRED
+        host : "b1", // REQUIRED
+        tld : "org", // REQUIRED
+        label : 'oak', // REQUIRED
+        rebuilderStep: Values.rebuilderStepForWww, // REQUIRED,
+        extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
+        jabberContacts: Values.jabberContactsStd, // OPTIONAL
+        jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
+    ],
+
 
   ]
 
