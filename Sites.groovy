@@ -138,6 +138,19 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
+    'amazonia.plasmodb.org' : [
+       product : "PlasmoDB", // REQUIRED
+       webapp : "plasmo.amazonia", // REQUIRED
+       host : "amazonia", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'oak', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
     'qa.prism.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prismqa", // REQUIRED
