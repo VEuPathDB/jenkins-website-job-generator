@@ -128,7 +128,7 @@ public class Sites {
     'pr1.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
-       host : "prism", // REQUIRED
+       host : "pr1", // REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -141,7 +141,7 @@ public class Sites {
     'pr2.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
-       host : "prism", // REQUIRED
+       host : "pr2", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
