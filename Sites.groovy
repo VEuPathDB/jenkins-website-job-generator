@@ -238,7 +238,7 @@ public class Sites {
     'q1.gus4.plasmodb.org' : [
        product : "PlasmoDB",
        webapp : "plasmo.gus4.q1",
-       host : "q2.gus4",
+       host : "q1.gus4",
        tld : "org",
        label : 'myrtle',
        timeout : 30,
