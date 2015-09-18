@@ -215,6 +215,25 @@ public class Sites {
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
     ],
 
+    /** https://redmine.apidb.org/issues/21007 */
+    'integrate.gus4.plasmodb.org' : [
+       product : "PlasmoDB",
+       webapp : "plasmo.gus4",
+       host : "integrate.gus4",
+       tld : "org",
+       label : 'santol',
+       timeout : 30,
+       scmSchedule : Values.scmScheduleYearly,
+       ignorePostCommitHooks : 'false',
+       quietPeriod : 180,
+       rebuilderStep: Values.rebuilderStepForIntegration, // REQUIRED,
+       testngStep : testngStepForIntegration,
+       jabberContacts : jabberContactsStd,
+       logRotator : [7, -1, -1, -1],
+       extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+    ],
+
 
   ]
 
