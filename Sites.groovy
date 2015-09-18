@@ -227,8 +227,8 @@ public class Sites {
        ignorePostCommitHooks : 'false',
        quietPeriod : 180,
        rebuilderStep: Values.rebuilderStepForIntegration, // REQUIRED,
-       testngStep : testngStepForIntegration,
-       jabberContacts : jabberContactsStd,
+       testngStep : Values.testngStepForIntegration,
+       jabberContacts : Values.jabberContactsStd,
        logRotator : [7, -1, -1, -1],
        extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
