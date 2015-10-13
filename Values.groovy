@@ -76,9 +76,15 @@ REBUILDER
 
       function npm {
         if [ "\$1" == "install" ]; then
-          echo "Jenkins job overrides npm command with shell function to force --cache"
+          echo "Jenkins job overrides npm command with shell function to force --cache option."
           echo /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"
-          /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"
+          if /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"; then
+            echo 'npm install done'
+          else
+            echo "npm install failed with exit code \$?"
+            echo "trying once more ..."
+            /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"
+          fi
         else
           echo /usr/bin/npm "\$@"
           /usr/bin/npm "\$@"
