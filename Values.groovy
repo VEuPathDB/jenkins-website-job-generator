@@ -74,25 +74,6 @@ REBUILDER
       #sudo instance_manager start  ${product} verbose
       #sleep 15
 
-      function npm {
-        if [ "\$1" == "install" ]; then
-          echo "Jenkins job overrides npm command with shell function to force --cache option."
-          echo /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"
-          if /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"; then
-            echo 'npm install done'
-          else
-            echo "npm install failed with exit code \$?"
-            echo "trying once more ..."
-            /usr/bin/npm "\$@" --cache="\${PROJECT_HOME}/.npm"
-          fi
-        else
-          echo /usr/bin/npm "\$@"
-          /usr/bin/npm "\$@"
-        fi
-        return \$?
-      }
-      export -f npm
-
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 30
