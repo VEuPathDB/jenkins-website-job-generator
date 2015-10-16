@@ -347,6 +347,7 @@ CONFIGURATIONS PER HOST
       scmSchedule : scmScheduleAsap, // OPTIONAL
       ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
       quietPeriod : 180, // OPTIONAL
+      checkoutRetryCount : 1, // OPTIONAL
       testngStep : testngStepForIntegration, // OPTIONAL
       jabberContacts : jabberContactsStd, // OPTIONAL
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
@@ -363,6 +364,7 @@ CONFIGURATIONS PER HOST
       scmSchedule : scmScheduleYearly,
       ignorePostCommitHooks : 'false',
       quietPeriod : 180,
+      checkoutRetryCount : 1,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,
       jabberContacts : jabberContactsStd,
@@ -375,6 +377,7 @@ CONFIGURATIONS PER HOST
       /** redmine #18103 **/
       label : 'santol',
       timeout : 30,
+      checkoutRetryCount : 1,
       rebuilderStep : rebuilderStepForMaint,
       ignorePostCommitHooks : 'true',
       extendedEmail : maintExtendedEmail,
@@ -387,6 +390,7 @@ CONFIGURATIONS PER HOST
       /** redmine #18965 **/
       label : 'oak',
       timeout : 30,
+      checkoutRetryCount : 1,
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
       ignorePostCommitHooks : 'true',
@@ -400,6 +404,7 @@ CONFIGURATIONS PER HOST
       label : 'myrtle',
       timeout : 60,
       scmSchedule : scmScheduleNightly,
+      checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
       extendedEmail : qaExtendedEmail,
@@ -410,6 +415,7 @@ CONFIGURATIONS PER HOST
       label : 'oak',
       timeout : 60,
       scmSchedule : scmScheduleNightly,
+      checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
       extendedEmail : qaExtendedEmail,
@@ -419,6 +425,7 @@ CONFIGURATIONS PER HOST
     w1 : [
       label : 'myrtle',
       rebuilderStep: rebuilderStepForWww,
+      checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsStd,
@@ -427,6 +434,7 @@ CONFIGURATIONS PER HOST
     w2 : [
       label : 'oak',
       rebuilderStep: rebuilderStepForWww,
+      checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsStd,

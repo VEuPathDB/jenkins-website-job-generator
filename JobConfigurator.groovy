@@ -44,6 +44,7 @@ public class JobConfigurator {
             logRotator : hostconf['logRotator'] ?: [7, -1, -1, -1],
             disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : hostconf['quietPeriod'] ?: null,
+            checkoutRetryCount : hostconf['checkoutRetryCount'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : hostconf['scmSchedule'] ?: null,
@@ -84,6 +85,7 @@ public class JobConfigurator {
             logRotator : conf['logRotator'] ?: null,
             disabled : existingJob ? existingJob.disabled : false,
             quietPeriod : conf['quietPeriod'] ?: null,
+            checkoutRetryCount : conf['checkoutRetryCount'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
             scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : conf['scmSchedule'] ?: null,
@@ -113,6 +115,9 @@ public class JobConfigurator {
         if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
   
         if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
+
+        if (masterMap[jobName]['checkoutRetryCount'] != null) checkoutRetryCount(masterMap[jobName]['checkoutRetryCount'])
+
         customWorkspace(masterMap[jobName]['customWorkspace'])
         scm masterMap[jobName]['scm']
         

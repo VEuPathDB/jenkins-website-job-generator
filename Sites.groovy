@@ -88,6 +88,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'santol', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
+       checkoutRetryCount : 1,
        svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
@@ -103,6 +104,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       checkoutRetryCount : 1,
        svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
@@ -118,6 +120,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
@@ -132,6 +135,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -145,6 +149,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -158,6 +163,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -171,6 +177,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -184,6 +191,7 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'luffa', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
@@ -197,6 +205,7 @@ public class Sites {
         host : "b1", // REQUIRED
         tld : "org", // REQUIRED
         label : 'myrtle', // REQUIRED
+        checkoutRetryCount : 1,
         rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
         jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -209,6 +218,7 @@ public class Sites {
         host : "b2", // REQUIRED
         tld : "org", // REQUIRED
         label : 'oak', // REQUIRED
+        checkoutRetryCount : 1,
         rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
         jabberContacts: Values.jabberContactsStd, // OPTIONAL
@@ -224,6 +234,7 @@ public class Sites {
        label : 'santol',
        timeout : 30,
        scmSchedule : Values.scmScheduleYearly,
+       checkoutRetryCount : 1,
        ignorePostCommitHooks : 'false',
        quietPeriod : 180,
        rebuilderStep: Values.rebuilderStepForIntegration, // REQUIRED,
@@ -243,6 +254,7 @@ public class Sites {
        label : 'myrtle',
        timeout : 30,
        scmSchedule : Values.scmScheduleNightly,
+       checkoutRetryCount : 1,
        quietPeriod : 180,
        testngStep: Values.testngStepForQa,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -258,6 +270,7 @@ public class Sites {
        label : 'oak',
        timeout : 30,
        scmSchedule : Values.scmScheduleNightly,
+       checkoutRetryCount : 1,
        quietPeriod : 180,
        testngStep: Values.testngStepForQa,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
