@@ -81,6 +81,35 @@ public class Sites {
     'w1.hostdb.org' : null,
     'w2.hostdb.org' : null,
 
+    'cdi.plasmodb.org' : [
+       product : "PlasmoDB", // REQUIRED
+       webapp : "plasmo.cdi", // REQUIRED
+       host : "cdi", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'oak', // REQUIRED
+       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       checkoutRetryCount : 1,
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+    'qa.cdi.plasmodb.org' : [
+       product : "PlasmoDB", // REQUIRED
+       webapp : "plasmo.cdiqa", // REQUIRED
+       host : "qa.cdi", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'oak', // REQUIRED
+       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+       checkoutRetryCount : 1,
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
     'integrate.wdk.apidb.org' : [
        product : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
