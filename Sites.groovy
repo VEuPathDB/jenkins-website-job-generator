@@ -200,7 +200,7 @@ public class Sites {
     'q1.prism.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prismqa", // REQUIRED
-       host : "q2.prism", // REQUIRED
+       host : "q1.prism", // REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
