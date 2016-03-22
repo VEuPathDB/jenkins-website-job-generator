@@ -87,7 +87,6 @@ public class Sites {
        host : "cdi", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -101,7 +100,6 @@ public class Sites {
        host : "qa.cdi", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
