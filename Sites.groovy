@@ -84,7 +84,7 @@ public class Sites {
     'a1.gus4.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.gus4.a1", // REQUIRED
-       host : "a1", // REQUIRED
+       host : "a1.gus4", // REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -97,7 +97,7 @@ public class Sites {
     'a2.gus4.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.gus4.a2", // REQUIRED
-       host : "a2", // REQUIRED
+       host : "a2.gus4", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
