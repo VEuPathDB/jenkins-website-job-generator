@@ -81,10 +81,10 @@ public class Sites {
     'w1.hostdb.org' : null,
     'w2.hostdb.org' : null,
 
-    'a1.gus4.plasmodb.org' : [
+    'a1.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.gus4.a1", // REQUIRED
-       host : "a1.gus4", // REQUIRED
+       webapp : "plasmo.a1", // REQUIRED
+       host : "a1", // REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -94,10 +94,10 @@ public class Sites {
        jabberContacts: Values.jabberContactsStd, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
-    'a2.gus4.plasmodb.org' : [
+    'a2.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.gus4.a2", // REQUIRED
-       host : "a2.gus4", // REQUIRED
+       webapp : "plasmo.a2", // REQUIRED
+       host : "a2", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
