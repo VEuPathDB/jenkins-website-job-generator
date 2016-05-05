@@ -83,7 +83,7 @@ public class Sites {
 
     'a1.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.a1", // REQUIRED
+       webapp : "plasmo.alpha", // REQUIRED
        host : "a1", // REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
@@ -96,7 +96,7 @@ public class Sites {
     ],
     'a2.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.a2", // REQUIRED
+       webapp : "plasmo.alpha", // REQUIRED
        host : "a2", // REQUIRED
        tld : "org", // REQUIRED
        label : 'oak', // REQUIRED
