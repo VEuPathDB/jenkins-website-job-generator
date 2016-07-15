@@ -26,6 +26,10 @@ public class Values {
       webapp : "hostdb",
       tld : "org",
     ],
+    MicrobiomeDB : [
+      webapp : "mbio",
+      tld : "org",
+    ],
     MicrosporidiaDB : [
       webapp : "micro",
       tld : "org",
