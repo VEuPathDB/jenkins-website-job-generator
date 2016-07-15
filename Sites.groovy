@@ -67,6 +67,7 @@ public class Sites {
     'FungiDB',
     'GiardiaDB',
     'HostDB',
+    'MicrobiomeDB',
     'MicrosporidiaDB',
     'PiroplasmaDB',
     'PlasmoDB',
