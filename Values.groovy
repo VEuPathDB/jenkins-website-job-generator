@@ -193,7 +193,7 @@ Extended Email
           sendToDevelopers: false, 
           sendToRequester: false, 
           includeCulprits: false, 
-          sendToRecipientList: true,
+          sendToRecipientList: false,
         )
         trigger(
           triggerName: 'Failure', 
@@ -202,7 +202,7 @@ Extended Email
           sendToDevelopers: true, 
           sendToRequester: true, 
           includeCulprits: true, 
-          sendToRecipientList: true,
+          sendToRecipientList: false,
         )
         configure { node ->
             node / contentType << 'default'
