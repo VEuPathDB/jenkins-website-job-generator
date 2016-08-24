@@ -339,7 +339,8 @@ SCM POLL SCHEDULE
 /** ******************************************************************************** 
 JABBER CONTACTS
 ******************************************************************************** **/
-  static public def jabberContactsStd = ['mheiges@apidb.org', 'caurreco@gmail.com']
+  static public def jabberContactsIntegrate = ['caurreco@gmail.com']
+  static public def jabberContactsProduction = ['mheiges@apidb.org', 'caurreco@gmail.com']
 
   
 /** ******************************************************************************** 
@@ -353,7 +354,7 @@ CONFIGURATIONS PER HOST
       quietPeriod : 180, // OPTIONAL
       checkoutRetryCount : 1, // OPTIONAL
       testngStep : testngStepForIntegration, // OPTIONAL
-      jabberContacts : jabberContactsStd, // OPTIONAL
+      jabberContacts : jabberContactsIntegrate, // OPTIONAL
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
       logRotator : [7, -1, -1, -1], // OPTIONAL
       extendedEmail : integrateExtendedEmail, // OPTIONAL
@@ -371,7 +372,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,
-      jabberContacts : jabberContactsStd,
+      jabberContacts : jabberContactsIntegrate,
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
       logRotator : [7, -1, -1, -1],
       extendedEmail : integrateExtendedEmail,
@@ -385,7 +386,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep : rebuilderStepForMaint,
       ignorePostCommitHooks : 'true',
       extendedEmail : maintExtendedEmail,
-      jabberContacts : jabberContactsStd,
+      jabberContacts : jabberContactsIntegrate,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
       description : "Websites to support Cristina's site/database maintenance procedures",
@@ -399,7 +400,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep: rebuilderStepForQa,
       ignorePostCommitHooks : 'true',
       extendedEmail : maintExtendedEmail,
-      jabberContacts : jabberContactsStd,
+      jabberContacts : jabberContactsIntegrate,
       jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
       description : "See <a href='https://wiki.apidb.org/index.php/FeatureWebsites'>FeatureWebsites wiki</a> for overview.",
@@ -412,7 +413,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
       extendedEmail : qaExtendedEmail,
-      jabberContacts: jabberContactsStd,
+      jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
     q2 : [
@@ -423,7 +424,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
       extendedEmail : qaExtendedEmail,
-      jabberContacts: jabberContactsStd,
+      jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
     w1 : [
@@ -432,7 +433,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
-      jabberContacts : jabberContactsStd,
+      jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
     w2 : [
@@ -441,7 +442,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
-      jabberContacts : jabberContactsStd,
+      jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
   ]

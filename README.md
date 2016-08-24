@@ -37,7 +37,7 @@ Additional sites can be added in Sites.customJobs() and set to null (to remove t
          rebuilderStep: Values.rebuilderStepForQa // REQUIRED,
          testngStep: Values.testngStepForIntegration, // OPTIONAL
          extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-         jabberContacts: Values.jabberContactsStd, // OPTIONAL
+         jabberContacts: Values.jabberContactsIntegrate, // OPTIONAL
          jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
        ],
     ]

@@ -41,7 +41,7 @@ public class Sites {
 *       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
 *       testngStep: Values.testngStepForIntegration, // OPTIONAL
 *       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-*       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+*       jabberContacts: Values.jabberContactsIntegrate, // OPTIONAL
 *       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
 *   ],
 *
@@ -92,7 +92,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
     'a2.plasmodb.org' : [
@@ -105,7 +105,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
@@ -119,7 +119,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
     'qa.cdi.plasmodb.org' : [
@@ -132,7 +132,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -148,7 +148,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsIntegrate, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
@@ -164,7 +164,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
@@ -179,7 +179,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -193,7 +193,7 @@ public class Sites {
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -207,7 +207,7 @@ public class Sites {
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -221,7 +221,7 @@ public class Sites {
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -235,7 +235,7 @@ public class Sites {
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -249,7 +249,7 @@ public class Sites {
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -264,7 +264,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsStd, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
@@ -277,7 +277,7 @@ public class Sites {
         checkoutRetryCount : 1,
         rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
-        jabberContacts: Values.jabberContactsStd, // OPTIONAL
+        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
     ],
 
@@ -290,7 +290,7 @@ public class Sites {
         checkoutRetryCount : 1,
         rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
         extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
-        jabberContacts: Values.jabberContactsStd, // OPTIONAL
+        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
         jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
     ],
 
