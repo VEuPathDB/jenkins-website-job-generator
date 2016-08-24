@@ -59,10 +59,10 @@ public class Values {
       tld : "org",
     ],
   ]
-  
 
 
-/** ******************************************************************************** 
+
+/** ********************************************************************************
 REBUILDER
 ******************************************************************************** **/
 
@@ -157,15 +157,15 @@ REBUILDER
   }
 
 
-/** ******************************************************************************** 
+/** ********************************************************************************
 TEST NG
 ******************************************************************************** **/
 
   static public def testngStepForIntegration = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}", 
+      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
         'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
@@ -174,14 +174,14 @@ TEST NG
   static public def testngStepForQa = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home', 
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}", 
+      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
         'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
       buildFile 'EuPathSiteCommon/Watar/build.xml'
     }
   }
 
-/** ******************************************************************************** 
+/** ********************************************************************************
 Extended Email
 ******************************************************************************** **/
   static public def integrateExtendedEmail = { delegate ->
@@ -190,18 +190,18 @@ Extended Email
           triggerName: 'Unstable',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: false,
         )
         trigger(
-          triggerName: 'Failure', 
+          triggerName: 'Failure',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: true, 
-          sendToRequester: true, 
-          includeCulprits: true, 
+          sendToDevelopers: true,
+          sendToRequester: true,
+          includeCulprits: true,
           sendToRecipientList: false,
         )
         configure { node ->
@@ -216,18 +216,18 @@ Extended Email
           triggerName: 'Unstable',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         trigger(
-          triggerName: 'Failure', 
+          triggerName: 'Failure',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         configure { node ->
@@ -242,18 +242,18 @@ Extended Email
           triggerName: 'Unstable',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         trigger(
-          triggerName: 'Failure', 
+          triggerName: 'Failure',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         configure { node ->
@@ -268,18 +268,18 @@ Extended Email
           triggerName: 'Unstable',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         trigger(
-          triggerName: 'Failure', 
+          triggerName: 'Failure',
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false, 
-          sendToRequester: false, 
-          includeCulprits: false, 
+          sendToDevelopers: false,
+          sendToRequester: false,
+          includeCulprits: false,
           sendToRecipientList: true,
         )
         configure { node ->
@@ -288,10 +288,10 @@ Extended Email
     }
   } // qaExtendedEmail
 
-/** ******************************************************************************** 
+/** ********************************************************************************
 JABBER
 ******************************************************************************** **/
-  static public def jabberNotificationIntegrate = { contacts ->    
+  static public def jabberNotificationIntegrate = { contacts ->
     if ( contacts == null ) return {}
     {
       project -> project/publishers/'hudson.plugins.jabber.im.transport.JabberPublisher' {
@@ -307,10 +307,10 @@ JABBER
         notifyFixers false
         notifyUpstreamCommitters false
       }
-    }  
+    }
   }
 
-  static public def jabberNotificationWww = { contacts ->    
+  static public def jabberNotificationWww = { contacts ->
     if ( contacts == null ) return {}
     {
       project -> project/publishers/'hudson.plugins.jabber.im.transport.JabberPublisher' {
@@ -326,24 +326,24 @@ JABBER
         notifyFixers false
         notifyUpstreamCommitters false
       }
-    }  
+    }
   }
 
-/** ******************************************************************************** 
+/** ********************************************************************************
 SCM POLL SCHEDULE
 ******************************************************************************** **/
   static public def scmScheduleAsap = '*/5 * * * *'
   static public def scmScheduleNightly = '0 3 * * *'
   static public def scmScheduleYearly = '@yearly'
 
-/** ******************************************************************************** 
+/** ********************************************************************************
 JABBER CONTACTS
 ******************************************************************************** **/
   static public def jabberContactsIntegrate = ['caurreco@gmail.com']
   static public def jabberContactsProduction = ['mheiges@apidb.org', 'caurreco@gmail.com']
 
-  
-/** ******************************************************************************** 
+
+/** ********************************************************************************
 CONFIGURATIONS PER HOST
 
       label : 'santol', // REQUIRED
@@ -450,7 +450,7 @@ CONFIGURATIONS PER HOST
 
 
 
-  /** ******************************************************************************** 
+  /** ********************************************************************************
     Default svn urls for jobs that do not have an existing SCM configuration.
   ******************************************************************************** **/
   static public def svnDefaultLocations = ([
@@ -481,7 +481,7 @@ CONFIGURATIONS PER HOST
   ]).asImmutable()
 
 
-  /** ******************************************************************************** 
+  /** ********************************************************************************
     Job Description
   ******************************************************************************** **/
   static public def stdDescription(jobName, dslJob) {
@@ -494,21 +494,21 @@ Website build for <a href='http://${jobName}'>http://${jobName}</a>
 <p>
 See <a href="https://mango.ctegd.uga.edu/apiwiki/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
 <p>
-<font color='red'>This project configuration is auto-generated by 
+<font color='red'>This project configuration is auto-generated by
 <a href="/${thisProject.url}">${thisProject.displayName}</a>. <br>
-Manual changes to SCM locations are persistent but other configuration changes made through 
+Manual changes to SCM locations are persistent but other configuration changes made through
 the web UI will be lost.</font> <br>
 (Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
 """
   }
 
 
-  /** ******************************************************************************** 
+  /** ********************************************************************************
     Disable QA Jobs
   ******************************************************************************** **/
   def disableQABuilds(product, tld) {
     {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
-        'configs'  { 
+        'configs'  {
           'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
             'configs' {
               'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {

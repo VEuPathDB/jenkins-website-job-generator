@@ -1,20 +1,20 @@
 public class Sites {
 
-/** 
+/**
 *  Jobs will be created for all combinations of inclusiveHosts and inclusiveProducts .
 *
 *  Additional sites can be added in customJobs() and set to null (to remove them from
 *  the host/product combo) or set to an Map of values.
-*  
+*
 *  You can decide which is less work: remove a few jobs from the combinatorially generated list
 *  or add jobs manually.
-*  
+*
 *  For example, consider
 *
-*      static public def inclusiveHosts = [ 
+*      static public def inclusiveHosts = [
 *        'integrate', 'w1'
 *      ]
-*      
+*
 *      static public def inclusiveProducts = [
 *        'HostDB',
 *      ]
@@ -22,15 +22,15 @@ public class Sites {
 *  This will generate jobs for integrate.hostdb.org and w1.hostdb.org. Let's say w1.hostdb.org has
 *  not been released yet so we should not have a Jenkins job for it. We can undefine w1.hostdb.org
 *  from the combinatorial generation by setting it to null in customJobs
-*  
+*
 *      static public def customJobs = [
 *        'w1.hostdb.org' : null,
 *      ]
-*      
+*
 *
 *  alpha sites tend to be for just one or two projects, so it may make sense to leave the a1 and
 *  a2 hosts off the inclusiveHosts list and configure custom jobs manually
-*  
+*
 *      'a1.plasmodb.org' : [
 *       product : "PlasmoDB", // REQUIRED
 *       webapp : "plasmo", // REQUIRED
@@ -46,7 +46,7 @@ public class Sites {
 *   ],
 *
 **/
-    
+
   // hosts that should be configured for all inclusiveProducts
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
@@ -58,7 +58,7 @@ public class Sites {
     'w1',
     'w2',
   ]
-  
+
   // There must be configurations for each in Values.productSpecificConfig
   static public def inclusiveProducts = [
     'AmoebaDB',
