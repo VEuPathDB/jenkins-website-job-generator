@@ -191,7 +191,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: false,
         )
@@ -217,7 +217,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
@@ -226,7 +226,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
@@ -243,7 +243,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
@@ -252,7 +252,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
@@ -269,7 +269,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
@@ -278,7 +278,7 @@ Extended Email
           subject: '$PROJECT_DEFAULT_SUBJECT',
           body: '$PROJECT_DEFAULT_CONTENT',
           sendToDevelopers: false,
-          sendToRequester: false,
+          sendToRequester: true,
           includeCulprits: false,
           sendToRecipientList: true,
         )
