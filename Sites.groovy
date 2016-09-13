@@ -53,6 +53,7 @@ public class Sites {
     'feature',
     'integrate',
     'maint',
+    'a2',
     'q1',
     'q2',
     'w1',
@@ -95,20 +96,21 @@ public class Sites {
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
-    'a2.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.alpha", // REQUIRED
-       host : "a2", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-    ],
-
+/** a2.plasmo, et al. now in inclusiveHosts for build-29 pre-release
+  * 'a2.plasmodb.org' : [
+  *    product : "PlasmoDB", // REQUIRED
+  *    webapp : "plasmo.alpha", // REQUIRED
+  *    host : "a2", // REQUIRED
+  *    tld : "org", // REQUIRED
+  *    label : 'oak', // REQUIRED
+  *    scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+  *    rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+  *    testngStep: Values.testngStepForQa, // OPTIONAL
+  *    extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+  *    jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+  *    jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+  * ],
+  **/
     'cdi.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.cdi", // REQUIRED
