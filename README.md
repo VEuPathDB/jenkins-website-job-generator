@@ -49,6 +49,6 @@ Create a Freestyle job and add the Git repository for this project.
 
 ![scm conf](https://raw.github.com/EuPathDB/jenkins-website-job-generator/master/images/jenkins-scm-conf.jpg)
 
-Add a Job DSL build step with `generate-website-jobs` as the DSL Script on the Filesystem. Leave `Ignore changes` unchecked - we want existing jobs to be overwritten. Ignore removed jobs.
+Add a Job DSL build step with `generate_website_jobs` as the DSL Script on the Filesystem. Leave `Ignore changes` unchecked - we want existing jobs to be overwritten. Ignore removed jobs.
 
 ![build step](https://raw.github.com/EuPathDB/jenkins-website-job-generator/master/images/jenkins-build-conf.jpg)
