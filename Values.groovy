@@ -405,6 +405,17 @@ CONFIGURATIONS PER HOST
       logRotator : [7, -1, -1, -1],
       description : "See <a href='https://wiki.apidb.org/index.php/FeatureWebsites'>FeatureWebsites wiki</a> for overview.",
     ],
+    a2 : [
+      label : 'oak',
+      timeout : 60,
+      scmSchedule : rebuilderStepForWww,
+      checkoutRetryCount : 1,
+      rebuilderStep: rebuilderStepForQa,
+      testngStep: testngStepForQa,
+      extendedEmail : qaExtendedEmail,
+      jabberContacts: jabberContactsProduction,
+      jabberNotification: jabberNotificationWww,
+    ],
     q1 : [
       label : 'myrtle',
       timeout : 60,
