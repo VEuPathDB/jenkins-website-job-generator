@@ -408,7 +408,6 @@ CONFIGURATIONS PER HOST
     a2 : [
       label : 'oak',
       timeout : 60,
-      scmSchedule : rebuilderStepForWww,
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
