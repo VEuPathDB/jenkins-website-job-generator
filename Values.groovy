@@ -457,7 +457,7 @@ CONFIGURATIONS PER HOST
     ],
     r28 : [
       label : 'myrtle',
-      rebuilderStep: rebuilderStepForWww,
+      rebuilderStep: rebuilderStepForQa,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
