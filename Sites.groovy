@@ -83,6 +83,9 @@ public class Sites {
     'w1.hostdb.org' : null,
     'w2.hostdb.org' : null,
 
+    'r28.hostdb.org': null,
+    'r28.microbiomedb.org': null,
+
     'a1.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.alpha", // REQUIRED
