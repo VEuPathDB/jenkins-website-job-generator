@@ -58,6 +58,7 @@ public class Sites {
     'q2',
     'w1',
     'w2',
+    'r28',
   ]
 
   // There must be configurations for each in Values.productSpecificConfig
