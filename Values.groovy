@@ -1,5 +1,27 @@
 public class Values {
 
+  /**
+    * Read-only credentials for CBIL's subversion repo are registered in the
+    * Jenkins Jenkins Credentials plugin. For this script to add them to SCM
+    * entries for jenkins jobs we need the credential ID (not a username).
+    * To find that ID, go to https://<jenkins.host>/credential-store/ and
+    * navigate to the relevant global or restricted domain to find the
+    * specific user for CBIL's subversion server. Vist the details page for
+    * that user and note the UUID in the url (also shown under Advanced on
+    * the Update page).
+    *
+    * Credentials are mapped to the local path in JobConfigurator.getSvnLocations().
+  */
+  static private def datasetSvnCredentialsId = '4450087d-31ca-4ea4-b48a-cd9aa1ea99b9'
+  static public def scmCredentialsForLocalPath = [
+    'EuPathDatasets'         : datasetSvnCredentialsId,
+    'FungiDBDatasets'        : datasetSvnCredentialsId,
+    'MicrobiomeDBDatasets'   : datasetSvnCredentialsId,
+    'OrthoMCLDatasets'       : datasetSvnCredentialsId,
+    'EuPathPresenters'       : datasetSvnCredentialsId,
+    'FungiDBPresenters'      : datasetSvnCredentialsId,
+    'MicrobiomeDBPresenters' : datasetSvnCredentialsId,
+  ]
 
   static public def productSpecificConfig = [
     AmoebaDB : [

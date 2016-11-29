@@ -224,6 +224,9 @@ public class JobConfigurator {
             svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
               remote remoteValue
               local localValue
+              if (Values.scmCredentialsForLocalPath[localValue]) {
+                credentialsId Values.scmCredentialsForLocalPath[localValue]
+              }
             }
             
             svnNode / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
