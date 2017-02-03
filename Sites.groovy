@@ -79,10 +79,9 @@ public class Sites {
     'TriTrypDB',
   ]
 
-  // Set jobName to null to remove from the list of jobs auto-generated from host + product lists
+  // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
+  // list of jobs auto-generated from host + product lists
   static public def customJobs = [
-    'w1.hostdb.org' : null,
-    'w2.hostdb.org' : null,
 
     'r28.hostdb.org': null,
     'r28.microbiomedb.org': null,
@@ -273,32 +272,6 @@ public class Sites {
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
-
-    'b1.hostdb.org' : [
-        product : "HostDB", // REQUIRED
-        webapp : "hostdb", // REQUIRED
-        host : "b1", // REQUIRED
-        tld : "org", // REQUIRED
-        label : 'myrtle', // REQUIRED
-        checkoutRetryCount : 1,
-        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-        extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
-        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-        jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
-    ],
-
-    'b2.hostdb.org' : [
-        product : "HostDB", // REQUIRED
-        webapp : "hostdb", // REQUIRED
-        host : "b2", // REQUIRED
-        tld : "org", // REQUIRED
-        label : 'oak', // REQUIRED
-        checkoutRetryCount : 1,
-        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-        extendedEmail : Values.wwwExtendedEmail, // OPTIONAL
-        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-        jabberNotification: Values.jabberNotificationWww,  // OPTIONAL
-    ],
 
   ]
 
