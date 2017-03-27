@@ -173,21 +173,6 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
-    'icemr.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.icemr", // REQUIRED
-       host : "icemr", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       checkoutRetryCount : 1,
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
     'pr1.plasmodb.org' : [
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
