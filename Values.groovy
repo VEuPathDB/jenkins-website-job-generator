@@ -162,6 +162,15 @@ REBUILDER
     .stripIndent()
   }
 
+  static public def rebuilderStepWithJava7 = { host, product, webapp, tld ->
+    return """
+      env
+      # Using Java 7
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}  --java-home /usr/java/jdk1.7.0_80
+    """
+    .stripIndent()
+  }
+
   static public def rebuilderStepForWww = { host, product, webapp, tld ->
     return """
       env
@@ -479,7 +488,7 @@ CONFIGURATIONS PER HOST
     ],
     r28 : [
       label : 'myrtle',
-      rebuilderStep: rebuilderStepForQa,
+      rebuilderStep: rebuilderStepWithJava7,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
