@@ -424,7 +424,7 @@ CONFIGURATIONS PER HOST
     ],
     feature : [
       /** redmine #18965 **/
-      label : 'oak',
+      label : 'pine',
       timeout : 30,
       checkoutRetryCount : 1,
       scmSchedule : scmScheduleNightly,
@@ -437,7 +437,7 @@ CONFIGURATIONS PER HOST
       description : "See <a href='https://wiki.apidb.org/index.php/FeatureWebsites'>FeatureWebsites wiki</a> for overview.",
     ],
     a2 : [
-      label : 'oak',
+      label : 'pine',
       timeout : 60,
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
@@ -458,7 +458,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     q2 : [
-      label : 'oak',
+      label : 'pine',
       timeout : 60,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,
@@ -478,7 +478,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     w2 : [
-      label : 'oak',
+      label : 'pine',
       rebuilderStep: rebuilderStepForWww,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],

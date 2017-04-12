@@ -31,7 +31,7 @@ Additional sites can be added in Sites.customJobs() and set to null (to remove t
          product : "PlasmoDB", // REQUIRED
          webapp : "plasmo", // REQUIRED
          host : "a1", // REQUIRED
-         label : 'oak', // REQUIRED
+         label : 'pine', // REQUIRED
          disabled: false // OPTIONAL, job should be disabled, default false
          scmSchedule : Values.scmScheduleNightly, // OPTIONAL
          rebuilderStep: Values.rebuilderStepForQa // REQUIRED,

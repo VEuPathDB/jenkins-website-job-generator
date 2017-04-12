@@ -36,7 +36,7 @@ public class Sites {
 *       webapp : "plasmo", // REQUIRED
 *       host : "a1", // REQUIRED
 *       tld : "org", // REQUIRED
-*       label : 'oak', // REQUIRED
+*       label : 'pine', // REQUIRED
 *       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
 *       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
 *       testngStep: Values.testngStepForIntegration, // OPTIONAL
@@ -105,7 +105,7 @@ public class Sites {
   *    webapp : "plasmo.alpha", // REQUIRED
   *    host : "a2", // REQUIRED
   *    tld : "org", // REQUIRED
-  *    label : 'oak', // REQUIRED
+  *    label : 'pine', // REQUIRED
   *    scmSchedule : Values.scmScheduleNightly, // OPTIONAL
   *    rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
   *    testngStep: Values.testngStepForQa, // OPTIONAL
@@ -119,7 +119,7 @@ public class Sites {
        webapp : "plasmo.cdi", // REQUIRED
        host : "cdi", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -132,7 +132,7 @@ public class Sites {
        webapp : "plasmo.cdiqa", // REQUIRED
        host : "qa.cdi", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        checkoutRetryCount : 1,
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -162,7 +162,7 @@ public class Sites {
        webapp : "templatesite.b20", // REQUIRED
        host : "qa.wdk", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        checkoutRetryCount : 1,
        svnDefaultLocations : Values.svnWdkTemplateLocations,
@@ -192,7 +192,7 @@ public class Sites {
        webapp : "plasmo.prism", // REQUIRED
        host : "pr2", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -206,7 +206,7 @@ public class Sites {
        webapp : "plasmo.amazonia", // REQUIRED
        host : "amazonia", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -234,7 +234,7 @@ public class Sites {
        webapp : "plasmo.prismqa", // REQUIRED
        host : "q2.prism", // REQUIRED
        tld : "org", // REQUIRED
-       label : 'oak', // REQUIRED
+       label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
