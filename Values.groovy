@@ -504,22 +504,22 @@ CONFIGURATIONS PER HOST
     Default svn urls for jobs that do not have an existing SCM configuration.
   ******************************************************************************** **/
   static public def svnDefaultLocations = ([
-    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk'
-    'ApiCommonDatasets'   : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonDatasets/trunk'
-    'ApiCommonModel'      : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonModel/trunk'
-    'ApiCommonPresenters' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonPresenters/trunk'
-    'ApiCommonWebService' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk'
-    'ApiCommonWebsite'    : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk'
-    'CBIL'                : 'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk'
-    'EbrcModelCommon'     : 'https://www.cbil.upenn.edu/svn/apidb/EbrcModelCommon/trunk'
-    'EbrcWebsiteCommon'   : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk'
-    'EbrcWebSvcCommon'    : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebSvcCommon/trunk'
-    'FgpUtil'             : 'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk'
-    'GBrowse'             : 'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk'
-    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk'
-    'ReFlow'              : 'https://www.cbil.upenn.edu/svn/gus/ReFlow/trunk'
-    'WDK'                 : 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk'
-    'WSF'                 : 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk'
+    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk',
+    'ApiCommonDatasets'   : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonDatasets/trunk',
+    'ApiCommonModel'      : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonModel/trunk',
+    'ApiCommonPresenters' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonPresenters/trunk',
+    'ApiCommonWebService' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
+    'ApiCommonWebsite'    : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk',
+    'CBIL'                : 'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk',
+    'EbrcModelCommon'     : 'https://www.cbil.upenn.edu/svn/apidb/EbrcModelCommon/trunk',
+    'EbrcWebsiteCommon'   : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk',
+    'EbrcWebSvcCommon'    : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebSvcCommon/trunk',
+    'FgpUtil'             : 'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk',
+    'GBrowse'             : 'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk',
+    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk',
+    'ReFlow'              : 'https://www.cbil.upenn.edu/svn/gus/ReFlow/trunk',
+    'WDK'                 : 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
+    'WSF'                 : 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
   ]).asImmutable()
 
   static public def svnWdkTemplateLocations = ([
