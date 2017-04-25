@@ -195,20 +195,20 @@ TEST NG
   static public def testngStepForIntegration = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
+      props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
         'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
         'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
-      buildFile 'EuPathSiteCommon/Watar/build.xml'
+      buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
   }
 
   static public def testngStepForQa = { host, product, webapp, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
-      props('proj':'EuPathSiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
+      props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
         'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
         'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
-      buildFile 'EuPathSiteCommon/Watar/build.xml'
+      buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
   }
 
@@ -504,20 +504,22 @@ CONFIGURATIONS PER HOST
     Default svn urls for jobs that do not have an existing SCM configuration.
   ******************************************************************************** **/
   static public def svnDefaultLocations = ([
-    'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
-    'CBIL'                :   'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk',
-    'install'             :   'https://www.cbil.upenn.edu/svn/gus/install/trunk',
-    'ReFlow'              :   'https://www.cbil.upenn.edu/svn/gus/ReFlow/trunk',
-    'FgpUtil'             :   'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk',
-    'ApiCommonWebService' :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
-    'ApiCommonShared'     :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonShared/trunk',
-    'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
-    'EuPathPresenters'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathPresenters/trunk',
-    'GBrowse'             :   'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk',
-    'ApiCommonWebsite'    :   'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk',
-    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/trunk',
-    'EuPathDatasets'      :   'https://www.cbil.upenn.edu/svn/apidb/EuPathDatasets/trunk',
-    'EuPathWebSvcCommon'  :   'https://www.cbil.upenn.edu/svn/apidb/EuPathWebSvcCommon/trunk',
+    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk'
+    'ApiCommonDatasets'   : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonDatasets/trunk'
+    'ApiCommonModel'      : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonModel/trunk'
+    'ApiCommonPresenters' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonPresenters/trunk'
+    'ApiCommonWebService' : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebService/trunk'
+    'ApiCommonWebsite'    : 'https://www.cbil.upenn.edu/svn/apidb/ApiCommonWebsite/trunk'
+    'CBIL'                : 'https://www.cbil.upenn.edu/svn/gus/CBIL/trunk'
+    'EbrcModelCommon'     : 'https://www.cbil.upenn.edu/svn/apidb/EbrcModelCommon/trunk'
+    'EbrcWebsiteCommon'   : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk'
+    'EbrcWebSvcCommon'    : 'https://www.cbil.upenn.edu/svn/apidb/EbrcWebSvcCommon/trunk'
+    'FgpUtil'             : 'https://www.cbil.upenn.edu/svn/gus/FgpUtil/trunk'
+    'GBrowse'             : 'https://www.cbil.upenn.edu/svn/apidb/GBrowse/trunk'
+    'install'             : 'https://www.cbil.upenn.edu/svn/gus/install/trunk'
+    'ReFlow'              : 'https://www.cbil.upenn.edu/svn/gus/ReFlow/trunk'
+    'WDK'                 : 'https://www.cbil.upenn.edu/svn/gus/WDK/trunk'
+    'WSF'                 : 'https://www.cbil.upenn.edu/svn/gus/WSF/trunk'
   ]).asImmutable()
 
   static public def svnWdkTemplateLocations = ([
@@ -527,7 +529,7 @@ CONFIGURATIONS PER HOST
     'WDK'                 :   'https://www.cbil.upenn.edu/svn/gus/WDK/trunk',
     'WSF'                 :   'https://www.cbil.upenn.edu/svn/gus/WSF/trunk',
     'WDKTemplateSite'     :   'https://www.cbil.upenn.edu/svn/gus/WDKTemplateSite/trunk',
-    'EuPathSiteCommon'    :   'https://www.cbil.upenn.edu/svn/apidb/EuPathSiteCommon/trunk',
+    'EbrcWebsiteCommon'   :   'https://www.cbil.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk',
   ]).asImmutable()
 
 
