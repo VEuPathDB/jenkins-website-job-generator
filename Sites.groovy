@@ -64,6 +64,7 @@ public class Sites {
   // There must be configurations for each in Values.productSpecificConfig
   static public def inclusiveProducts = [
     'AmoebaDB',
+    'ClinEpiDB',
     'CryptoDB',
     'EuPathDB',
     'FungiDB',
