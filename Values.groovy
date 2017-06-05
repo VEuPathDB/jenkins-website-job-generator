@@ -36,7 +36,7 @@ public class Values {
       tld : "org",
     ],
     ClinEpiDB : [
-      webapp : "cd",
+      webapp : "ce",
       tld : "org",
     ],
     CryptoDB : [
