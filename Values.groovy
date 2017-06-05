@@ -35,6 +35,10 @@ public class Values {
       webapp : "amoeba",
       tld : "org",
     ],
+    ClinEpiDB : [
+      webapp : "cd",
+      tld : "org",
+    ],
     CryptoDB : [
       webapp : "cryptodb",
       tld : "org",
