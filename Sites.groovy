@@ -115,33 +115,6 @@ public class Sites {
   *    jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
   * ],
   **/
-    'cdi.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.cdi", // REQUIRED
-       host : "cdi", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       checkoutRetryCount : 1,
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-    'qa.cdi.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.cdiqa", // REQUIRED
-       host : "qa.cdi", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       checkoutRetryCount : 1,
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
     'integrate.wdk.apidb.org' : [
        product : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
@@ -192,20 +165,6 @@ public class Sites {
        product : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
        host : "pr2", // REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
-    'amazonia.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.amazonia", // REQUIRED
-       host : "amazonia", // REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
