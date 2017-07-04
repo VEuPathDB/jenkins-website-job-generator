@@ -13,22 +13,6 @@ public class Values {
     * Credentials are mapped to the local path in JobConfigurator.getSvnLocations().
   */
   static private def datasetSvnCredentialsId = '4450087d-31ca-4ea4-b48a-cd9aa1ea99b9'
-  static public def scmCredentialsForLocalPath = [
-    'ApiCommonDatasets'       : datasetSvnCredentialsId,
-    'ApiCommonPresenters'     : datasetSvnCredentialsId,
-    'ClinEpiDatasets'         : datasetSvnCredentialsId,
-    'ClinEpiPresenters'       : datasetSvnCredentialsId,
-    'EuPathDatasets'          : datasetSvnCredentialsId,
-    'EuPathPresenters'        : datasetSvnCredentialsId,
-    'FungiDBDatasets'         : datasetSvnCredentialsId,
-    'FungiDBPresenters'       : datasetSvnCredentialsId,
-    'MicrobiomeDatasets'      : datasetSvnCredentialsId,
-    'MicrobiomePresenters'    : datasetSvnCredentialsId,
-    'MicrobiomeDBDatasets'    : datasetSvnCredentialsId,
-    'MicrobiomeDBPresenters'  : datasetSvnCredentialsId,
-    'OrthoMCLDatasets'        : datasetSvnCredentialsId,
-    'OrthoMCLPresenters'      : datasetSvnCredentialsId,
-  ]
 
   static public def productSpecificConfig = [
     AmoebaDB : [

@@ -224,8 +224,8 @@ public class JobConfigurator {
             svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
               remote remoteValue
               local localValue
-              if (Values.scmCredentialsForLocalPath[localValue]) {
-                credentialsId Values.scmCredentialsForLocalPath[localValue]
+              if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
+                credentialsId Values.datasetSvnCredentialsId
               }
             }
             
