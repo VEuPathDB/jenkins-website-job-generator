@@ -203,6 +203,34 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
+    'gates.clinepidb.org' : [
+       product : "ClinEpiDb", // REQUIRED
+       webapp : "ce.gates", // REQUIRED
+       host : "gates", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'icemr.clinepidb.org' : [
+       product : "ClinEpiDb", // REQUIRED
+       webapp : "ce.icemr", // REQUIRED
+       host : "icemr", // REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
   ]
 
 }
