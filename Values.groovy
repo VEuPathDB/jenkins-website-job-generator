@@ -95,6 +95,13 @@ REBUILDER
       #sudo instance_manager start  ${product} verbose
       #sleep 15
 
+      # Copy Conifer site vars file from source in to etc.
+      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml"
+      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      cp "\$src_yml" \
+          "\$dest_yml"
+          sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
+
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 30
@@ -110,12 +117,15 @@ REBUILDER
       ulimit -u 4096
       ulimit -n 4096
       env
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.maint
 
-      # configula is run as part of rebuilder-jenkins to do initial configuration,
-      # but now want make adjustments that configula is not equipped to handle.
-      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
-      \$GUS_HOME/bin/eupathSiteConfigure -model ${product} -filename \$PROJECT_HOME/../etc/metaConfig_configula "monitorBlockedThreads: false";
+      # Copy Conifer site vars file from source in to etc.
+      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_maint_site_vars.yml"
+      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      cp "\$src_yml" \
+          "\$dest_yml"
+          sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
+
+      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.maint
     """
     .stripIndent()
   }
@@ -139,6 +149,14 @@ REBUILDER
   static public def rebuilderStepForQa = { host, product, webapp, tld ->
     return """
       env
+
+      # Copy Conifer site vars file from source in to etc.
+      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml"
+      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      cp "\$src_yml" \
+          "\$dest_yml"
+          sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
+
       \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}
 
       # give webapp time to reload before running tests
