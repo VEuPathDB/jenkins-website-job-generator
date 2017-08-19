@@ -96,8 +96,8 @@ REBUILDER
       #sleep 15
 
       # Copy Conifer site vars file from source in to etc.
-      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      src_yml=\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml
+      dest_yml=/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml
       cp "\$src_yml" \
           "\$dest_yml"
           sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
@@ -119,8 +119,8 @@ REBUILDER
       env
 
       # Copy Conifer site vars file from source in to etc.
-      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_maint_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      src_yml=\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_maint_site_vars.yml
+      dest_yml=/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml
       cp "\$src_yml" \
           "\$dest_yml"
           sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
@@ -151,8 +151,8 @@ REBUILDER
       env
 
       # Copy Conifer site vars file from source in to etc.
-      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      src_yml=\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/vars/ebrc_prod_site_vars.yml
+      dest_yml=/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml
       cp "\$src_yml" \
           "\$dest_yml"
           sed -i "1i# DO NOT EDIT!\n# This file copied from\n# \$src_yml,\n# $(date)\n# by Jenkins\n\n" "\$dest_yml"
