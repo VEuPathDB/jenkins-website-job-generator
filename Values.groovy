@@ -198,7 +198,8 @@ REBUILDER
       source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
       if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
         export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
-        wdkRunPublicStrats -model ${product}
+        # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
+        #wdkRunPublicStrats -model ${product}
       fi
     """
     .stripIndent()
