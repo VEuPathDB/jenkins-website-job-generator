@@ -208,7 +208,7 @@ public class JobConfigurator {
       return svnDefaultLocations
     }
 
-    console.println "Existing job, using existing svn locations"
+    console.println "Existing job " + jobName + ", using existing svn locations"
     return locations
   }
 
@@ -220,12 +220,23 @@ public class JobConfigurator {
         def firstKey = svnLocations.find().key
         svn(svnLocations[firstKey], firstKey) { svnNode ->
           svnLocations.each { localValue, remoteValue -> 
-            if (localValue == firstKey) { return }
-            svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
-              remote remoteValue
-              local localValue
-              if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
-                credentialsId Values.datasetSvnCredentialsId
+            if (localValue == firstKey) { 
+              svnNode / locations { 
+                'hudson.scm.SubversionSCM_-ModuleLocation' {
+                  remote remoteValue
+                  local localValue
+                  if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
+                    credentialsId Values.datasetSvnCredentialsId
+                  }
+                }
+              }
+            } else {
+              svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
+                remote remoteValue
+                local localValue
+                if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
+                  credentialsId Values.datasetSvnCredentialsId
+                }
               }
             }
             
