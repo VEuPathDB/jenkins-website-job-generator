@@ -4,7 +4,7 @@ public class JobConfigurator {
   def jobFactory
   java.io.PrintStream console
   def masterMap
-  
+
   public JobConfigurator(jobFactory) {
     this.jobFactory = jobFactory
     /**
@@ -25,7 +25,7 @@ public class JobConfigurator {
     }
     console.println()
   }
-  
+
 
   public Map makeMasterMap() {
     console.println()
@@ -52,9 +52,9 @@ public class JobConfigurator {
             timeout : hostconf['timeout'] ?: null,
             rebuilderStep : hostconf['rebuilderStep'](host, product, webapp, tld),
             testngStep : hostconf['testngStep'] ?
-                              hostconf['testngStep'](host, product, webapp, tld) : 
+                              hostconf['testngStep'](host, product, webapp, tld) :
                               null,
-            jabberNotification : hostconf['jabberNotification'] ? 
+            jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
           ]
@@ -107,20 +107,20 @@ public class JobConfigurator {
     jobFactory.freeStyleJob(jobName) {
       wrappers {
         label masterMap[jobName]['label']
-  
+
         disabled masterMap[jobName]['disabled'] ?: false
-        
+
         description  masterMap[jobName]['description']
 
         if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
-  
+
         if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
 
         if (masterMap[jobName]['checkoutRetryCount'] != null) checkoutRetryCount(masterMap[jobName]['checkoutRetryCount'])
 
         customWorkspace(masterMap[jobName]['customWorkspace'])
         scm masterMap[jobName]['scm']
-        
+
         if (
           masterMap[jobName]['scmSchedule'] != null ||
           masterMap[jobName]['ignorePostCommitHooks'] != null
@@ -128,30 +128,30 @@ public class JobConfigurator {
           triggers {
             //scm(masterMap[jobName]['scmSchedule'])
             configure scmTrigger(
-              masterMap[jobName]['scmSchedule'], 
+              masterMap[jobName]['scmSchedule'],
               masterMap[jobName]['ignorePostCommitHooks']
             )
-  
+
           }
-        }            
-  
+        }
+
         if (masterMap[jobName]['timeout'])
           timeout { absolute(masterMap[jobName]['timeout']) }
-        
-  
+
+
         jdk('(Default)')
-  
-        steps { 
+
+        steps {
           shell(masterMap[jobName]['rebuilderStep'])
           masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
         }
-  
+
         if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
-  
+
         publishers {
            masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
         } // publishers
-  
+
         if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
 
       } // wrappers
@@ -177,8 +177,8 @@ public class JobConfigurator {
 
   def scmTrigger(crontab, bool) {
     {project -> project/triggers/'hudson.triggers.SCMTrigger' {
-      crontab = crontab ?: '' 
-      bool = bool ?: 'true' 
+      crontab = crontab ?: ''
+      bool = bool ?: 'true'
       spec crontab
       ignorePostCommitHooks bool
     }
@@ -202,7 +202,7 @@ public class JobConfigurator {
       if ( ! it.local && ! it.remote) return
       locations.put(it.local, it.remote)
     }
-    
+
     if (locations.size() == 0) {
       console.println jobName + " exists, but no valid svn locations; using default svn locations"
       return svnDefaultLocations
@@ -215,13 +215,13 @@ public class JobConfigurator {
   def getSvnLocations(svnLocations) {
     {it ->
         def installUrl = svnLocations['install']
-        if (installUrl == null) 
+        if (installUrl == null)
           throw new java.lang.NullPointerException("SCM location for 'install' is not defined'")
         def firstKey = svnLocations.find().key
         svn(svnLocations[firstKey], firstKey) { svnNode ->
-          svnLocations.each { localValue, remoteValue -> 
-            if (localValue == firstKey) { 
-              svnNode / locations { 
+          svnLocations.each { localValue, remoteValue ->
+            if (localValue == firstKey) {
+              svnNode / locations {
                 'hudson.scm.SubversionSCM_-ModuleLocation' {
                   remote remoteValue
                   local localValue
@@ -239,17 +239,17 @@ public class JobConfigurator {
                 }
               }
             }
-            
+
             svnNode / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
               url "http://websvn.apidb.org/revision.php?repname=TBD"
               baseUrl "http://websvn.apidb.org"
               repname "repname=TBD&"
             }
-            
+
         } // svnLocations.each
-        
+
         svnNode / excludedRegions('/ApiCommonData/.*/Load/.*')
-        
+
         // https://issues.jenkins-ci.org/browse/JENKINS-17513
         def updaterNode = svnNode / workspaceUpdater
         updaterNode.attributes().put('class','hudson.scm.subversion.UpdateWithRevertUpdater')
