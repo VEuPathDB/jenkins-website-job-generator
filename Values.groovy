@@ -98,7 +98,7 @@ REBUILDER
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
       dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "$src_yml" ]]; then
+      if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
@@ -122,7 +122,7 @@ REBUILDER
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_maint_site_vars.yml"
       dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "$src_yml" ]]; then
+      if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
@@ -155,7 +155,7 @@ REBUILDER
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
       dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "$src_yml" ]]; then
+      if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
@@ -194,7 +194,7 @@ REBUILDER
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
       dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "$src_yml" ]]; then
+      if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
