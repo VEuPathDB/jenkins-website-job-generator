@@ -14,65 +14,90 @@ public class Values {
   */
   static private def datasetSvnCredentialsId = '4450087d-31ca-4ea4-b48a-cd9aa1ea99b9'
 
-  static public def productSpecificConfig = [
+  static public def modelSpecificConfig = [
     AmoebaDB : [
       webapp : "amoeba",
+      sld: "amoebadb",
       tld : "org",
     ],
     ClinEpiDB : [
       webapp : "ce",
+      sld : "clinepidb",
       tld : "org",
     ],
     CryptoDB : [
       webapp : "cryptodb",
+      sld : "cryptodb",
       tld : "org",
     ],
     EuPathDB : [
       webapp : "eupathdb",
+      sld : "eupathdb",
       tld : "org",
     ],
     FungiDB : [
       webapp : "fungidb",
+      sld : "fungidb",
+      tld : "org",
+    ],
+    Gates : [
+      webapp : "ce",
+      sld : "clinepidb",
       tld : "org",
     ],
     GiardiaDB : [
       webapp : "giardiadb",
+      sld : "giardiadb",
       tld : "org",
     ],
     HostDB : [
       webapp : "hostdb",
+      sld : "hostdb",
+      tld : "org",
+    ],
+    ICEMR : [
+      webapp : "ce",
+      sld : "clinepidb",
       tld : "org",
     ],
     MicrobiomeDB : [
       webapp : "mbio",
+      sld: "microbiomedb",
       tld : "org",
     ],
     MicrosporidiaDB : [
       webapp : "micro",
+      sld: "microsporidiadb",
       tld : "org",
     ],
     PiroplasmaDB : [
       webapp : "piro",
+      sld: "piroplasmadb",
       tld : "org",
     ],
     PlasmoDB : [
       webapp : "plasmo",
+      sld: "plasmodb",
       tld : "org",
     ],
     SchistoDB : [
       webapp : "schisto",
+      sld: "schistodb",
       tld : "net",
     ],
     ToxoDB : [
       webapp : "toxo",
+      sld: "toxodb",
       tld : "org",
     ],
     TrichDB : [
       webapp : "trichdb",
+      sld: "trichdb",
       tld : "org",
     ],
     TriTrypDB : [
       webapp : "tritrypdb",
+      sld: "tritrypdb",
       tld : "org",
     ],
   ]
@@ -83,27 +108,27 @@ public class Values {
 REBUILDER
 ******************************************************************************** **/
 
-  static public def rebuilderStepForIntegration = { host, product, webapp, tld ->
+  static public def rebuilderStepForIntegration = { host, model, webapp, sld, tld ->
     return """
       date > .hudsonTimestamp
       ulimit -u 4096
       ulimit -n 4096
       env
       # Restarting tomcat interferes with maint websites, so stop this.
-      #sudo instance_manager stop ${product} force
+      #sudo instance_manager stop ${model} force
       #sleep 5
-      #sudo instance_manager start  ${product} verbose
+      #sudo instance_manager start  ${model} verbose
       #sleep 15
 
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
       if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
 
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.integrate
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}.integrate
       # give webapp time to reload before running tests
       sleep 30
     """
@@ -112,7 +137,7 @@ REBUILDER
 
 
   /** Cristina maint.*.org websites for testing apicomm maintenance scripts, etc. **/
-  static public def rebuilderStepForMaint = { host, product, webapp, tld ->
+  static public def rebuilderStepForMaint = { host, model, webapp, sld, tld ->
     return """
       date > .hudsonTimestamp
       ulimit -u 4096
@@ -121,46 +146,46 @@ REBUILDER
 
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_maint_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
       if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
 
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}.maint
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}.maint
     """
     .stripIndent()
   }
 
 
-  static public def rebuilderStepForWdkTemplate = { host, product, webapp, tld ->
+  static public def rebuilderStepForWdkTemplate = { host, model, webapp, sld, tld ->
     return """
       date > .hudsonTimestamp
       env
-      sudo instance_manager stop ${product} force
+      sudo instance_manager stop ${model} force
       sleep 5
-      sudo instance_manager start  ${product} verbose
+      sudo instance_manager start  ${model} verbose
       sleep 15
-      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${product}:${webapp} --ignore-ip
+      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${model}:${webapp} --ignore-ip
       \$HOME/bin/resetWdkPgTestDb
     """
     .stripIndent()
   }
 
 
-  static public def rebuilderStepForQa = { host, product, webapp, tld ->
+  static public def rebuilderStepForQa = { host, model, webapp, sld, tld ->
     return """
       env
 
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
       if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
 
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld}
 
       # give webapp time to reload before running tests
       sleep 15
@@ -169,45 +194,45 @@ REBUILDER
       ## Disabled: it seems of limited benefit for QA and it slows builds.
       ## It could be useful as a pre-release check of strategies but
       ## there's no useable reporting so failures will go unnoticed.
-      #source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
+      #source /var/www/${host}.${sld}.${tld}/etc/setenv
       #if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
       #  export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
-      #  wdkRunPublicStrats -model ${product}
+      #  wdkRunPublicStrats -model ${model}
       #fi
     """
     .stripIndent()
   }
 
-  static public def rebuilderStepWithJava7 = { host, product, webapp, tld ->
+  static public def rebuilderStepWithJava7 = { host, model, webapp, sld, tld ->
     return """
       env
       # Using Java 7
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld}  --java-home /usr/java/jdk1.7.0_80
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld}  --java-home /usr/java/jdk1.7.0_80
     """
     .stripIndent()
   }
 
-  static public def rebuilderStepForWww = { host, product, webapp, tld ->
+  static public def rebuilderStepForWww = { host, model, webapp, sld, tld ->
     return """
       env
 
       # Copy Conifer site vars file from source in to etc.
       src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${product.toLowerCase()}.${tld}/etc/conifer_site_vars.yml"
+      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
       if [[ -f "\$src_yml" ]]; then
         cp "\$src_yml" "\$dest_yml"
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
 
-      \$HOME/bin/rebuilder-jenkins ${host}.${product.toLowerCase()}.${tld} --webapp ${product}:${webapp}
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}
       sleep 15
 
       # cache public strategy results (redmine #18944) with non-debug logging
-      source /var/www/${host}.${product.toLowerCase()}.${tld}/etc/setenv
+      source /var/www/${host}.${sld}.${tld}/etc/setenv
       if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
         export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
         # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
-        #wdkRunPublicStrats -model ${product}
+        #wdkRunPublicStrats -model ${model}
       fi
     """
     .stripIndent()
@@ -218,21 +243,21 @@ REBUILDER
 TEST NG
 ******************************************************************************** **/
 
-  static public def testngStepForIntegration = { host, product, webapp, tld ->
+  static public def testngStepForIntegration = { host, model, webapp, sld, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${sld}.${tld}",
         'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
       buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
   }
 
-  static public def testngStepForQa = { host, product, webapp, tld ->
+  static public def testngStepForQa = { host, model, webapp, sld, tld ->
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${product.toLowerCase()}.${tld}",
+        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${sld}.${tld}",
         'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
       buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
@@ -584,13 +609,13 @@ the web UI will be lost.</font> <br>
   /** ********************************************************************************
     Disable QA Jobs
   ******************************************************************************** **/
-  def disableQABuilds(product, tld) {
+  def disableQABuilds(model, sld, tld) {
     {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
         'configs'  {
           'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
             'configs' {
               'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {
-                properties "JENKINS_JOBS=q1.${product.toLowerCase()}.${tld} q2.${product.toLowerCase()}.${tld}"
+                properties "JENKINS_JOBS=q1.${sld}.${tld} q2.${sld}.${tld}"
               }
             }
             projects '~disablejobs'

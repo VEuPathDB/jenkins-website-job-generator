@@ -1,10 +1,10 @@
 public class Sites {
 
 /**
-*  Jobs will be created for all combinations of inclusiveHosts and inclusiveProducts .
+*  Jobs will be created for all combinations of inclusiveHosts and inclusiveModels .
 *
 *  Additional sites can be added in customJobs() and set to null (to remove them from
-*  the host/product combo) or set to an Map of values.
+*  the host/model combo) or set to an Map of values.
 *
 *  You can decide which is less work: remove a few jobs from the combinatorially generated list
 *  or add jobs manually.
@@ -15,7 +15,7 @@ public class Sites {
 *        'integrate', 'w1'
 *      ]
 *
-*      static public def inclusiveProducts = [
+*      static public def inclusiveModels = [
 *        'HostDB',
 *      ]
 *
@@ -32,9 +32,10 @@ public class Sites {
 *  a2 hosts off the inclusiveHosts list and configure custom jobs manually
 *
 *      'a1.plasmodb.org' : [
-*       product : "PlasmoDB", // REQUIRED
+*       model : "PlasmoDB", // REQUIRED
 *       webapp : "plasmo", // REQUIRED
 *       host : "a1", // REQUIRED
+*       sld : "plasmodb", //REQUIRED
 *       tld : "org", // REQUIRED
 *       label : 'pine', // REQUIRED
 *       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -47,7 +48,7 @@ public class Sites {
 *
 **/
 
-  // hosts that should be configured for all inclusiveProducts
+  // hosts that should be configured for all inclusiveModels
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
     'feature',
@@ -61,8 +62,8 @@ public class Sites {
     'r28',
   ]
 
-  // There must be configurations for each in Values.productSpecificConfig
-  static public def inclusiveProducts = [
+  // There must be configurations for each in Values.modelSpecificConfig
+  static public def inclusiveModels = [
     'AmoebaDB',
     'ClinEpiDB',
     'CryptoDB',
@@ -81,16 +82,17 @@ public class Sites {
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
-  // list of jobs auto-generated from host + product lists
+  // list of jobs auto-generated from host + model lists
   static public def customJobs = [
 
     'r28.hostdb.org': null,
     'r28.microbiomedb.org': null,
 
     'a1.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
+       model : "PlasmoDB", // REQUIRED
        webapp : "plasmo.alpha", // REQUIRED
        host : "a1", // REQUIRED
+       sld : "plasmodb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -102,9 +104,10 @@ public class Sites {
     ],
 /** a2.plasmo, et al. now in inclusiveHosts for build-29 pre-release
   * 'a2.plasmodb.org' : [
-  *    product : "PlasmoDB", // REQUIRED
+  *    model : "PlasmoDB", // REQUIRED
   *    webapp : "plasmo.alpha", // REQUIRED
   *    host : "a2", // REQUIRED
+  *    sld : "plasmodb", //REQUIRED
   *    tld : "org", // REQUIRED
   *    label : 'pine', // REQUIRED
   *    scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -116,9 +119,10 @@ public class Sites {
   * ],
   **/
     'integrate.wdk.apidb.org' : [
-       product : "TemplateDB", // REQUIRED
+       model : "TemplateDB", // REQUIRED
        webapp : "ROOT", // REQUIRED
        host : "integrate.wdk", // REQUIRED
+       sld : "apidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'santol', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
@@ -132,9 +136,10 @@ public class Sites {
     ],
 
     'qa.wdk.apidb.org' : [
-       product : "TemplateDB", // REQUIRED
+       model : "TemplateDB", // REQUIRED
        webapp : "templatesite.b20", // REQUIRED
        host : "qa.wdk", // REQUIRED
+       sld : "apidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
@@ -148,9 +153,10 @@ public class Sites {
     ],
 
     'pr1.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
+       model : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
        host : "pr1", // REQUIRED
+       sld : "plasmodb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -162,9 +168,10 @@ public class Sites {
    ],
 
     'pr2.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
+       model : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prism", // REQUIRED
        host : "pr2", // REQUIRED
+       sld : "plasmodb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -176,9 +183,10 @@ public class Sites {
    ],
 
     'q1.prism.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
+       model : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prismqa", // REQUIRED
        host : "q1.prism", // REQUIRED
+       sld : "plasmodb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -190,9 +198,10 @@ public class Sites {
    ],
 
     'q2.prism.plasmodb.org' : [
-       product : "PlasmoDB", // REQUIRED
+       model : "PlasmoDB", // REQUIRED
        webapp : "plasmo.prismqa", // REQUIRED
        host : "q2.prism", // REQUIRED
+       sld : "plasmodb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -204,9 +213,10 @@ public class Sites {
    ],
 
     'gates.clinepidb.org' : [
-       product : "ClinEpiDb", // REQUIRED
+       model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
        host : "gates", // REQUIRED
+       sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -218,9 +228,10 @@ public class Sites {
    ],
 
     'gems.clinepidb.org' : [
-       product : "Gates", // REQUIRED
+       model : "Gates", // REQUIRED
        webapp : "ce.gems", // REQUIRED
        host : "gems", // REQUIRED
+       sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
@@ -232,9 +243,10 @@ public class Sites {
    ],
 
     'icemr.clinepidb.org' : [
-       product : "ClinEpiDb", // REQUIRED
+       model : "ClinEpiDb", // REQUIRED
        webapp : "ce.icemr", // REQUIRED
        host : "icemr", // REQUIRED
+       sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,

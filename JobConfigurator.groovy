@@ -31,10 +31,11 @@ public class JobConfigurator {
     console.println()
     def map = [:]
     Sites.inclusiveHosts.each { host ->
-        Sites.inclusiveProducts.each { product ->
-          def webapp = Values.productSpecificConfig[product]['webapp']
-          def tld = Values.productSpecificConfig[product]['tld']
-          def jobName = "${host}.${product.toLowerCase()}.${tld}"
+        Sites.inclusiveModels.each { model ->
+          def webapp = Values.modelSpecificConfig[model]['webapp']
+          def sld = Values.modelSpecificConfig[model]['sld']
+          def tld = Values.modelSpecificConfig[model]['tld']
+          def jobName = "${host}.${sld}.${tld}"
           def existingJob = jenkins.getJob(jobName)
           def hostconf = Values.hostSpecificConfig[host]
           def svnDefaultLocations = Values.svnDefaultLocations
@@ -50,9 +51,9 @@ public class JobConfigurator {
             scmSchedule : hostconf['scmSchedule'] ?: null,
             ignorePostCommitHooks : hostconf['ignorePostCommitHooks'] ?: null,
             timeout : hostconf['timeout'] ?: null,
-            rebuilderStep : hostconf['rebuilderStep'](host, product, webapp, tld),
+            rebuilderStep : hostconf['rebuilderStep'](host, model, webapp, sld, tld),
             testngStep : hostconf['testngStep'] ?
-                              hostconf['testngStep'](host, product, webapp, tld) :
+                              hostconf['testngStep'](host, model, webapp, sld, tld) :
                               null,
             jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
@@ -73,8 +74,9 @@ public class JobConfigurator {
             console.println 'Custom ' + jobName + ' is null, no conf generated.'
             return
           }
-          def product = conf['product']
+          def model = conf['model']
           def webapp = conf['webapp']
+          def sld = conf['sld']
           def tld = conf['tld']
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
@@ -91,8 +93,8 @@ public class JobConfigurator {
             scmSchedule : conf['scmSchedule'] ?: null,
             ignorePostCommitHooks : conf['ignorePostCommitHooks'] ?: null,
             timeout : conf['timeout'] ?: null,
-            rebuilderStep : conf['rebuilderStep'](host, product, webapp, tld),
-            testngStep : conf['testngStep'] ? conf['testngStep'](host, product, webapp, tld) : null,
+            rebuilderStep : conf['rebuilderStep'](host, model, webapp, sld, tld),
+            testngStep : conf['testngStep'] ? conf['testngStep'](host, model, webapp, sld, tld) : null,
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
          ]
