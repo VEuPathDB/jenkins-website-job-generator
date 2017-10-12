@@ -267,106 +267,110 @@ TEST NG
 Extended Email
 ******************************************************************************** **/
   static public def integrateExtendedEmail = { delegate ->
-    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
-        trigger(
-          triggerName: 'Unstable',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: false,
-        )
-        trigger(
-          triggerName: 'Failure',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: true,
-          sendToRequester: true,
-          includeCulprits: true,
-          sendToRecipientList: false,
-        )
-        configure { node ->
-            node / contentType << 'default'
+    delegate.extendedEmail {
+      recipientList('aurreco@uga.edu')
+      defaultSubject('$DEFAULT_SUBJECT')
+      defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
+      contentType('text/plain')
+      triggers {
+        unstable {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+          }
         }
+        failure {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            developers()
+            requester()
+            culprits()
+          }
+        }
+      }
     }
   } // integrateExtendedEmail closure
 
   static public def qaExtendedEmail = { delegate ->
-    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
-        trigger(
-          triggerName: 'Unstable',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        trigger(
-          triggerName: 'Failure',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        configure { node ->
-            node / contentType << 'default'
+    delegate.extendedEmail {
+      recipientList('aurreco@uga.edu')
+      defaultSubject('$DEFAULT_SUBJECT')
+      defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
+      contentType('text/plain')
+      triggers {
+        unstable {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
         }
+        failure {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
+        }
+      }
     }
   } // qaExtendedEmail
 
   static public def wwwExtendedEmail = { delegate ->
-    delegate.extendedEmail('mheiges@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
-        trigger(
-          triggerName: 'Unstable',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        trigger(
-          triggerName: 'Failure',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        configure { node ->
-            node / contentType << 'default'
+    delegate.extendedEmail {
+      recipientList('aurreco@uga.edu')
+      defaultSubject('$DEFAULT_SUBJECT')
+      defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
+      contentType('text/plain')
+      triggers {
+        unstable {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
         }
+        failure {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
+        }
+      }
     }
   } // wwwExtendedEmail
 
   static public def maintExtendedEmail = { delegate ->
-    delegate.extendedEmail('aurreco@uga.edu', '$DEFAULT_SUBJECT', '${JELLY_SCRIPT,template="eupath-email-ext"}') {
-        trigger(
-          triggerName: 'Unstable',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        trigger(
-          triggerName: 'Failure',
-          subject: '$PROJECT_DEFAULT_SUBJECT',
-          body: '$PROJECT_DEFAULT_CONTENT',
-          sendToDevelopers: false,
-          sendToRequester: true,
-          includeCulprits: false,
-          sendToRecipientList: true,
-        )
-        configure { node ->
-            node / contentType << 'default'
+    delegate.extendedEmail {
+      recipientList('aurreco@uga.edu')
+      defaultSubject('$DEFAULT_SUBJECT')
+      defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
+      contentType('text/plain')
+      triggers {
+        unstable {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
         }
+        failure {
+          subject('$PROJECT_DEFAULT_SUBJECT')
+          content('$PROJECT_DEFAULT_CONTENT')
+          sendTo {
+            requester()
+            recipientList()
+          }
+        }
+      }
     }
   } // qaExtendedEmail
 
