@@ -59,7 +59,6 @@ public class Sites {
     'q2',
     'w1',
     'w2',
-    'r28',
   ]
 
   // There must be configurations for each in Values.modelSpecificConfig
@@ -84,9 +83,6 @@ public class Sites {
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
-
-    'r28.hostdb.org': null,
-    'r28.microbiomedb.org': null,
 
     'a1.plasmodb.org' : [
        model : "PlasmoDB", // REQUIRED

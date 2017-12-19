@@ -541,15 +541,6 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
-    r28 : [
-      label : 'myrtle',
-      rebuilderStep: rebuilderStepWithJava7,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      extendedEmail : wwwExtendedEmail,
-      jabberContacts : jabberContactsProduction,
-      jabberNotification: jabberNotificationWww,
-    ],
   ]
 
 
