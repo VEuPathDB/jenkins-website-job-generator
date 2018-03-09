@@ -148,36 +148,6 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
-    'pr1.plasmodb.org' : [
-       model : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.prism", // REQUIRED
-       host : "pr1", // REQUIRED
-       sld : "plasmodb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'myrtle', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
-    'pr2.plasmodb.org' : [
-       model : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.prism", // REQUIRED
-       host : "pr2", // REQUIRED
-       sld : "plasmodb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
     'gates.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
