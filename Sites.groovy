@@ -173,7 +173,7 @@ public class Sites {
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       scmSchedule : scmScheduleNightly,
+       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
@@ -190,7 +190,7 @@ public class Sites {
        label : 'pine', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       scmSchedule : scmScheduleNightly,
+       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
