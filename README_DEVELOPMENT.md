@@ -92,3 +92,10 @@ git clone git@github.com:EuPathDB/jenkins-website-job-generator.git
 ```
 
 In Jenkins UI for `generate-website-jobs` run `Build Now`.
+
+Do your edits and commits from
+`/vagrant/scratch/jenkins-website-job-generator` on the guest or
+`scratch/jenkins-website-job-generator` in the Vagrant directory on the
+host.
+
+
