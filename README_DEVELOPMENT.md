@@ -39,8 +39,10 @@ $ git clone git@github.com:EuPathDB/jenkins-website-job-generator.git
 Puppet isn't reloading the firewall after opening Jenkins port, so do it
 manually.
 
+```bash
 $ vcssh master
 $ sudo systemctl restart firewalld
+```
 
 Jenkins will be available at
 [http://ci.jenkins.vm:9181](http://ci.jenkins.vm:9181)
@@ -54,6 +56,14 @@ Install plugins
 - Jabber (XMPP) notifier and control plugin
 - Update Subversion Plug-in (if needed)
 
+A quick way to install (esp. if current plugins are too new for the version of Jenkins)
+is to rsync from production.
+
+```
+[root@ci ~]# rsync -av -e 'ssh -p2112' <user>@<prod_jenkins_host>:/usr/local/home/jenkins/Instances/CI/plugins/ ~jenkins/Instances/CI/plugins/
+[root@ci ~]# systemctl restart jenkins@CI
+```
+
 Download a copy of our extended email template.
 
 ```bash
@@ -62,7 +72,7 @@ $ rsync -a <user>@<prod_jenkins_host>:/usr/local/home/jenkins/Instances/CI/email
  	
 Create Freestyle project for `generate-website-jobs`
 
-Project Settings
+Use project settings:
 
   - Advanced Project Options
     - Use custom workspace `/vagrant/scratch/jenkins-website-job-generator/`
@@ -70,4 +80,15 @@ Project Settings
   - Build
     - Process Job DSLs
       - Look on Filesystem
-        - DSL Scripts generate_website_jobs
+        - DSL Scripts: generate_website_jobs
+
+  - Save
+
+On Vagrant box,
+
+```
+cd /vagrant/scratch/
+git clone git@github.com:EuPathDB/jenkins-website-job-generator.git
+```
+
+In Jenkins UI for `generate-website-jobs` run `Build Now`.
