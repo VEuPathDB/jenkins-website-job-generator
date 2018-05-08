@@ -252,9 +252,9 @@ public class JobConfigurator {
 
         svnNode / excludedRegions('/ApiCommonData/.*/Load/.*')
 
-        // https://issues.jenkins-ci.org/browse/JENKINS-17513
+        // syntax learned from https://issues.jenkins-ci.org/browse/JENKINS-17513
         def updaterNode = svnNode / workspaceUpdater
-        updaterNode.attributes().put('class','hudson.scm.subversion.UpdateWithRevertUpdater')
+        updaterNode.attributes().put('class','hudson.scm.subversion.UpdateWithCleanUpdater')
 
       } // svn()
     } // closure
