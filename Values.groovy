@@ -295,7 +295,7 @@ Extended Email
 
   static public def qaExtendedEmail = { delegate ->
     delegate.extendedEmail {
-      recipientList('mheiges@uga.edu,aurreco@uga.edu')
+      recipientList('robert.belnap@uga.edu,aurreco@uga.edu')
       defaultSubject('$DEFAULT_SUBJECT')
       defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
       contentType('text/plain')
@@ -322,7 +322,7 @@ Extended Email
 
   static public def wwwExtendedEmail = { delegate ->
     delegate.extendedEmail {
-      recipientList('mheiges@uga.edu,aurreco@uga.edu')
+      recipientList('robert.belnap@uga.edu,aurreco@uga.edu')
       defaultSubject('$DEFAULT_SUBJECT')
       defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
       contentType('text/plain')
@@ -426,7 +426,7 @@ SCM POLL SCHEDULE
 JABBER CONTACTS
 ******************************************************************************** **/
   static public def jabberContactsIntegrate = ['caurreco@gmail.com']
-  static public def jabberContactsProduction = ['mheiges@apidb.org', 'caurreco@gmail.com']
+  static public def jabberContactsProduction = ['caurreco@gmail.com']
 
 
 /** ********************************************************************************
