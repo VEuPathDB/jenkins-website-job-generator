@@ -84,20 +84,22 @@ public class Sites {
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
 
-    'a1.plasmodb.org' : [
-       model : "PlasmoDB", // REQUIRED
-       webapp : "plasmo.alpha", // REQUIRED
-       host : "a1", // REQUIRED
-       sld : "plasmodb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'myrtle', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+/**    'a1.plasmodb.org' : [
+  *     model : "PlasmoDB", // REQUIRED
+  *     webapp : "plasmo.alpha", // REQUIRED
+  *     host : "a1", // REQUIRED
+  *     sld : "plasmodb", //REQUIRED
+  *     tld : "org", // REQUIRED
+  *     label : 'myrtle', // REQUIRED
+  *     scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+  *     rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+  *     testngStep: Values.testngStepForQa, // OPTIONAL
+  *     extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+  *     jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+  *     jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
+  **/
+
 /** a2.plasmo, et al. now in inclusiveHosts for build-29 pre-release
   * 'a2.plasmodb.org' : [
   *    model : "PlasmoDB", // REQUIRED
