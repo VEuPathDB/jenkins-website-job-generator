@@ -264,6 +264,30 @@ TEST NG
   }
 
 /** ********************************************************************************
+Api testing for QA
+******************************************************************************** **/
+
+  static public def apitestStepForQa = { host, model, webapp, sld, tld ->
+    return """
+    echo "This is the  api testing step for ${host}.${sld}.${tld}"
+
+    export REPOSRC=https://github.com/EuPathDB-Infra/wdk-api-test
+    export LOCALREPO=wdk-api-test
+    git clone \$REPOSRC \$LOCALREPO || (cd \$LOCALREPO ; git pull)
+
+    # follow redirect to get full url.  /service does not pass through redirect
+    export SITE_PATH=\$(curl -s -I http://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
+
+    cd wdk-api-test
+    ./run -a \$API_CREDS
+
+    """
+    .stripIndent()
+  }
+
+
+
+/** ********************************************************************************
 Extended Email
 ******************************************************************************** **/
   static public def integrateExtendedEmail = { delegate ->
@@ -508,6 +532,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
+      apitestStep: apitestStepForQa,
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,

@@ -55,6 +55,9 @@ public class JobConfigurator {
             testngStep : hostconf['testngStep'] ?
                               hostconf['testngStep'](host, model, webapp, sld, tld) :
                               null,
+            apitestStep : hostconf['apitestStep'] ?
+                              hostconf['apitestStep'](host, model, webapp, sld, tld) :
+                              null,
             jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
@@ -143,15 +146,20 @@ public class JobConfigurator {
 
         jdk('(Default)')
 
+        if (masterMap[jobName]['apitestStep'] != null) credentialsBinding { usernamePassword('API_CREDS', 'website_apitest_user') }
+
         steps {
           shell(masterMap[jobName]['rebuilderStep'])
           masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
+          masterMap[jobName]['apitestStep'] ? shell(masterMap[jobName]['apitestStep']) : null
         }
 
         if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
 
         publishers {
            masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
+           if (masterMap[jobName]['apitestStep'] != null) archiveJunit('wdk-api-test/build/test-results/test/*.xml')
+
         } // publishers
 
         if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
