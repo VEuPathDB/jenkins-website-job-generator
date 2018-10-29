@@ -279,7 +279,7 @@ Api testing for QA
     export SITE_PATH=\$(curl -s -I http://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
 
     cd wdk-api-test
-    ./run -a \$API_CREDS
+    ./run -c -a \$API_CREDS
 
     """
     .stripIndent()
