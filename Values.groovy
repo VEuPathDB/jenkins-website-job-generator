@@ -527,7 +527,7 @@ CONFIGURATIONS PER HOST
     ],
     q1 : [
       label : 'myrtle',
-      timeout : 60,
+      timeout : 90,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
