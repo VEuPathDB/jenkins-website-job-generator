@@ -275,8 +275,17 @@ Api testing for QA
     export LOCALREPO=wdk-api-test
     git clone \$REPOSRC \$LOCALREPO || (cd \$LOCALREPO ; git pull)
 
+    # domains are substituted here via groovy, to keep the if logic in bash,
+    # but this ends up looking weird in the generated job... sorry.
+    if [[ "${sld}" == "eupathdb" || "${sld}" == "clinepidb" ]]
+    then
+        export SCHEME="https"
+    else
+        export SCHEME="http"
+    fi
+
     # follow redirect to get full url.  /service does not pass through redirect
-    export SITE_PATH=\$(curl -s -I http://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
+    export SITE_PATH=\$(curl -s -I $SCHEME://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
 
     cd wdk-api-test
     ./run -c -a \$API_CREDS
