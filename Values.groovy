@@ -285,7 +285,7 @@ Api testing for QA
     fi
 
     # follow redirect to get full url.  /service does not pass through redirect
-    export SITE_PATH=\$(curl -s -I $SCHEME://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
+    export SITE_PATH=\$(curl -s -I \$SCHEME://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
 
     cd wdk-api-test
     ./run -c -a \$API_CREDS
