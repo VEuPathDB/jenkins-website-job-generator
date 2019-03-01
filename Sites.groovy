@@ -153,7 +153,7 @@ public class Sites {
     'w2.gates.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
-       host : "gates", // REQUIRED
+       host : "w2.gates", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
@@ -168,7 +168,7 @@ public class Sites {
     'w1.gates.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
-       host : "gates", // REQUIRED
+       host : "w1.gates", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
@@ -232,7 +232,7 @@ public class Sites {
      'w2.icemr.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.icemr", // REQUIRED
-       host : "icemr", // REQUIRED
+       host : "w2.icemr", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
@@ -247,7 +247,7 @@ public class Sites {
      'w1.icemr.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.icemr", // REQUIRED
-       host : "icemr", // REQUIRED
+       host : "w2.icemr", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
