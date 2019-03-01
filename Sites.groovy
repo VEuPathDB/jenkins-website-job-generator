@@ -150,13 +150,28 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
-    'gates.clinepidb.org' : [
+    'w2.gates.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
        host : "gates", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'w1.gates.clinepidb.org' : [
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.gates", // REQUIRED
+       host : "gates", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -214,13 +229,28 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-    'icemr.clinepidb.org' : [
+     'w2.icemr.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.icemr", // REQUIRED
        host : "icemr", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+     'w1.icemr.clinepidb.org' : [
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.icemr", // REQUIRED
+       host : "icemr", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
