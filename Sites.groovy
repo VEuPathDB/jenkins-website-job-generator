@@ -247,7 +247,7 @@ public class Sites {
      'w1.icemr.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.icemr", // REQUIRED
-       host : "w2.icemr", // REQUIRED
+       host : "w1.icemr", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
