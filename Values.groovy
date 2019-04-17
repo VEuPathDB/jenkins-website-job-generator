@@ -452,7 +452,7 @@ JABBER
 SCM POLL SCHEDULE
 ******************************************************************************** **/
   static public def scmScheduleAsap = '*/5 * * * *'
-  static public def scmScheduleNightly = '0 3 * * *'
+  static public def scmScheduleNightly = 'H H(0-2) * * *'
   static public def scmScheduleYearly = '@yearly'
 
 /** ********************************************************************************
