@@ -180,6 +180,39 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
+    'q2.gates.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.gates.q2", // REQUIRED
+       host : "q2.gates", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       scmSchedule : Values.scmScheduleNightly,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'q1.gates.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.gates.q1", // REQUIRED
+       host : "q1.gates", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
     'qa.gates.clinepidb.org' : [
       /** https://redmine.apidb.org/issues/28565 **/
        model : "ClinEpiDb", // REQUIRED
@@ -191,6 +224,39 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'q2.icemr.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.icemr.q2", // REQUIRED
+       host : "q2.icemr", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       scmSchedule : Values.scmScheduleNightly,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'q1.icemr.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "ClinEpiDb", // REQUIRED
+       webapp : "ce.icemr.q1", // REQUIRED
+       host : "q1.icemr", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
