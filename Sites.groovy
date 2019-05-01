@@ -215,23 +215,6 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
 
-    'qa.gates.clinepidb.org' : [
-      /** https://redmine.apidb.org/issues/28565 **/
-       model : "ClinEpiDb", // REQUIRED
-       webapp : "ce.gates.qa", // REQUIRED
-       host : "qa.gates", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
     'q2.icemr.clinepidb.org' : [
       /** https://redmine.apidb.org/issues/34369 **/
        model : "ClinEpiDb", // REQUIRED
@@ -261,23 +244,6 @@ public class Sites {
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-   ],
-
-    'qa.icemr.clinepidb.org' : [
-      /** https://redmine.apidb.org/issues/28565 **/
-       model : "ClinEpiDb", // REQUIRED
-       webapp : "ce.icemr.qa", // REQUIRED
-       host : "qa.icemr", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
