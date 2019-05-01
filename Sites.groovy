@@ -188,6 +188,7 @@ public class Sites {
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
+       timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
@@ -205,6 +206,7 @@ public class Sites {
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
+       timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -238,6 +240,7 @@ public class Sites {
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'pine', // REQUIRED
+       timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
@@ -255,6 +258,7 @@ public class Sites {
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
        label : 'myrtle', // REQUIRED
+       timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
