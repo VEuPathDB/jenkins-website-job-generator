@@ -12,7 +12,7 @@ public class Values {
     *
     * Credentials are mapped to the local path in JobConfigurator.getSvnLocations().
   */
-  static private def datasetSvnCredentialsId = '4450087d-31ca-4ea4-b48a-cd9aa1ea99b9'
+  static private def datasetSvnCredentialsId = '3cf5388f-54e2-491b-a7fc-83160dcab3e3'
 
   static public def modelSpecificConfig = [
     AmoebaDB : [
@@ -489,6 +489,7 @@ CONFIGURATIONS PER HOST
       ignorePostCommitHooks : 'false',
       quietPeriod : 180,
       checkoutRetryCount : 1,
+      scmSchedule : scmScheduleAsap,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,
       jabberContacts : jabberContactsIntegrate,
@@ -583,32 +584,32 @@ CONFIGURATIONS PER HOST
     Default svn urls for jobs that do not have an existing SCM configuration.
   ******************************************************************************** **/
   static public def svnDefaultLocations = ([
-    'install'             : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/install/trunk',
-    'ApiCommonDatasets'   : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/ApiCommonDatasets/trunk',
-    'ApiCommonModel'      : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/ApiCommonModel/trunk',
-    'ApiCommonPresenters' : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/ApiCommonPresenters/trunk',
-    'ApiCommonWebService' : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/ApiCommonWebService/trunk',
-    'ApiCommonWebsite'    : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/ApiCommonWebsite/trunk',
-    'CBIL'                : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/CBIL/trunk',
-    'EbrcModelCommon'     : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/EbrcModelCommon/trunk',
-    'EbrcWebsiteCommon'   : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk',
-    'EbrcWebSvcCommon'    : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/EbrcWebSvcCommon/trunk',
-    'FgpUtil'             : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/FgpUtil/trunk',
-    'GBrowse'             : 'https://cbilsvn.pmacs.upenn.edu/svn/apidb/GBrowse/trunk',
-    'install'             : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/install/trunk',
-    'ReFlow'              : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/ReFlow/trunk',
-    'WDK'                 : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/WDK/trunk',
-    'WSF'                 : 'https://cbilsvn.pmacs.upenn.edu/svn/gus/WSF/trunk',
+    'install'             : 'https://github.com/EuPathDB/install/trunk@HEAD',
+    'ApiCommonDatasets'   : 'https://github.com/EuPathDB/ApiCommonDatasets/trunk@HEAD',
+    'ApiCommonModel'      : 'https://github.com/EuPathDB/ApiCommonModel/trunk@HEAD',
+    'ApiCommonPresenters' : 'https://github.com/EuPathDB/ApiCommonPresenters/trunk@HEAD',
+    'ApiCommonWebService' : 'https://github.com/EuPathDB/ApiCommonWebService/trunk@HEAD',
+    'ApiCommonWebsite'    : 'https://github.com/EuPathDB/ApiCommonWebsite/trunk@HEAD',
+    'CBIL'                : 'https://github.com/EuPathDB/CBIL/trunk@HEAD',
+    'EbrcModelCommon'     : 'https://github.com/EuPathDB/EbrcModelCommon/trunk@HEAD',
+    'EbrcWebsiteCommon'   : 'https://github.com/EuPathDB/EbrcWebsiteCommon/trunk@HEAD',
+    'EbrcWebSvcCommon'    : 'https://github.com/EuPathDB/EbrcWebSvcCommon/trunk@HEAD',
+    'FgpUtil'             : 'https://github.com/EuPathDB/FgpUtil/trunk@HEAD',
+    'GBrowse'             : 'https://github.com/EuPathDB/GBrowse/trunk@HEAD',
+    'install'             : 'https://github.com/EuPathDB/install/trunk@HEAD',
+    'ReFlow'              : 'https://github.com/EuPathDB/ReFlow/trunk@HEAD',
+    'WDK'                 : 'https://github.com/EuPathDB/WDK/trunk@HEAD',
+    'WSF'                 : 'https://github.com/EuPathDB/WSF/trunk@HEAD',
   ]).asImmutable()
 
   static public def svnWdkTemplateLocations = ([
-    'CBIL'                :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/CBIL/trunk',
-    'FgpUtil'             :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/FgpUtil/trunk',
-    'install'             :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/install/trunk',
-    'WDK'                 :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/WDK/trunk',
-    'WSF'                 :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/WSF/trunk',
-    'WDKTemplateSite'     :   'https://cbilsvn.pmacs.upenn.edu/svn/gus/WDKTemplateSite/trunk',
-    'EbrcWebsiteCommon'   :   'https://cbilsvn.pmacs.upenn.edu/svn/apidb/EbrcWebsiteCommon/trunk',
+    'CBIL'                :   'https://github.com/EuPathDB/CBIL/trunk@HEAD',
+    'FgpUtil'             :   'https://github.com/EuPathDB/FgpUtil/trunk@HEAD',
+    'install'             :   'https://github.com/EuPathDB/install/trunk@HEAD',
+    'WDK'                 :   'https://github.com/EuPathDB/WDK/trunk@HEAD',
+    'WSF'                 :   'https://github.com/EuPathDB/WSF/trunk@HEAD',
+    'WDKTemplateSite'     :   'https://github.com/EuPathDB/WDKTemplateSite/trunk@HEAD',
+    'EbrcWebsiteCommon'   :   'https://github.com/EuPathDB/EbrcWebsiteCommon/trunk@HEAD',
   ]).asImmutable()
 
 
