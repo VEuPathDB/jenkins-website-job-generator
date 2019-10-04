@@ -150,6 +150,73 @@ public class Sites {
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
     ],
 
+    'w2.restricted.clinepidb.org' : [
+       model : "AllClinEpiDb", // REQUIRED
+       webapp : "ce.restricted", // REQUIRED
+       host : "w2.restricted", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'w1.restricted.clinepidb.org' : [
+       model : "AllClinEpiDb", // REQUIRED
+       webapp : "ce.restricted", // REQUIRED
+       host : "w1.restricted", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'q2.restricted.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "AllClinEpiDb", // REQUIRED
+       webapp : "ce.restricted.qa", // REQUIRED
+       host : "q2.restricted", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'pine', // REQUIRED
+       timeout : 60, // OPTIONAL
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       scmSchedule : Values.scmScheduleNightly,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+    'q1.restricted.clinepidb.org' : [
+      /** https://redmine.apidb.org/issues/34369 **/
+       model : "AllClinEpiDb", // REQUIRED
+       webapp : "ce.restricted.qa", // REQUIRED
+       host : "q1.restricted", // REQUIRED
+       sld : "clinepidb", //REQUIRED
+       tld : "org", // REQUIRED
+       label : 'myrtle', // REQUIRED
+       timeout : 60, // OPTIONAL
+       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       checkoutRetryCount : 1,
+       scmSchedule : Values.scmScheduleNightly,
+       testngStep: Values.testngStepForQa, // OPTIONAL
+       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
+       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
+       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+   ],
+
+
     'w2.gates.clinepidb.org' : [
        model : "ClinEpiDb", // REQUIRED
        webapp : "ce.gates", // REQUIRED
