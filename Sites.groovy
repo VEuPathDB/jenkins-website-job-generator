@@ -258,7 +258,6 @@ public class Sites {
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
@@ -293,7 +292,6 @@ public class Sites {
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
@@ -361,6 +359,23 @@ public class Sites {
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
        jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
    ],
+
+    // q1.clinepidb.org doesn't build nightly, because it is pointed to clin-dg readonly replicated db
+      'q1.clinepidb.org' : [
+         model : "ClinEpiDb", // REQUIRED
+         webapp : "ce.qa", // REQUIRED
+         host : "q1", // REQUIRED
+         sld : "clinepidb", //REQUIRED
+         tld : "org", // REQUIRED
+         label : 'myrtle',
+         timeout : 90,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForQa,
+         testngStep: Values.testngStepForQa,
+         extendedEmail : Values.qaExtendedEmail,
+         jabberContacts: Values.jabberContactsProduction,
+         jabberNotification: Values.jabberNotificationWww,
+       ],
 
   ]
 
