@@ -209,7 +209,6 @@ public class Sites {
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
