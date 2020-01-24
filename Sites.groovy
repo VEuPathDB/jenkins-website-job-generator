@@ -78,6 +78,7 @@ public class Sites {
     'ToxoDB',
     'TrichDB',
     'TriTrypDB',
+    'VectorBase',
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the

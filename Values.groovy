@@ -100,6 +100,11 @@ public class Values {
       sld: "tritrypdb",
       tld : "org",
     ],
+    VectorBase : [
+      webapp : "vectorbase",
+      sld: "vectorbase",
+      tld : "org",
+    ],
   ]
 
 
