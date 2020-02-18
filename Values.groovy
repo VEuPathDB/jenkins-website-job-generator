@@ -105,6 +105,11 @@ public class Values {
       sld: "vectorbase",
       tld : "org",
     ],
+    VEuPathDB : [
+      webapp : "veupathdb",
+      sld : "veupathdb",
+      tld : "org",
+    ],
   ]
 
 

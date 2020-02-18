@@ -79,6 +79,7 @@ public class Sites {
     'TrichDB',
     'TriTrypDB',
     'VectorBase',
+    'VEuPathDB',
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
