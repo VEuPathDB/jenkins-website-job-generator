@@ -66,7 +66,6 @@ public class Sites {
     'AmoebaDB',
     'ClinEpiDB',
     'CryptoDB',
-    'EuPathDB',
     'FungiDB',
     'GiardiaDB',
     'HostDB',
