@@ -524,7 +524,7 @@ CONFIGURATIONS PER HOST
     feature : [
       /** redmine #18965 **/
       label : 'pine',
-      timeout : 30,
+      timeout : 60,
       checkoutRetryCount : 1,
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
