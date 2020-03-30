@@ -567,6 +567,24 @@ CONFIGURATIONS PER HOST
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
     ],
+    b1 : [
+      label : 'myrtle',
+      rebuilderStep: rebuilderStepForWww,
+      checkoutRetryCount : 1,
+      logRotator : [-1, 50, -1, -1],
+      extendedEmail : wwwExtendedEmail,
+      jabberContacts : jabberContactsProduction,
+      jabberNotification: jabberNotificationWww,
+    ],
+    b2 : [
+      label : 'pine',
+      rebuilderStep: rebuilderStepForWww,
+      checkoutRetryCount : 1,
+      logRotator : [-1, 50, -1, -1],
+      extendedEmail : wwwExtendedEmail,
+      jabberContacts : jabberContactsProduction,
+      jabberNotification: jabberNotificationWww,
+    ],
     w1 : [
       label : 'myrtle',
       rebuilderStep: rebuilderStepForWww,
@@ -605,10 +623,13 @@ CONFIGURATIONS PER HOST
     'EbrcWebsiteCommon'   : 'https://github.com/VEuPathDB/EbrcWebsiteCommon/trunk@HEAD',
     'EbrcWebSvcCommon'    : 'https://github.com/VEuPathDB/EbrcWebSvcCommon/trunk@HEAD',
     'FgpUtil'             : 'https://github.com/VEuPathDB/FgpUtil/trunk@HEAD',
+    'JBrowse'             : 'https://github.com/VEuPathDB/JBrowse/trunk@HEAD',
     'GBrowse'             : 'https://github.com/VEuPathDB/GBrowse/trunk@HEAD',
     'install'             : 'https://github.com/VEuPathDB/install/trunk@HEAD',
     'ReFlow'              : 'https://github.com/VEuPathDB/ReFlow/trunk@HEAD',
     'WDK'                 : 'https://github.com/VEuPathDB/WDK/trunk@HEAD',
+    'WDKClient'           : 'https://github.com/VEuPathDB/WDKClient/trunk@HEAD',
+    'WDKWebsite'          : 'https://github.com/VEuPathDB/WDKWebsite/trunk@HEAD',
     'WSF'                 : 'https://github.com/VEuPathDB/WSF/trunk@HEAD',
   ]).asImmutable()
 

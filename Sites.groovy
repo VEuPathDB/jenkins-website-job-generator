@@ -55,6 +55,8 @@ public class Sites {
     'integrate',
     'maint',
     //'a2',
+    'b1',
+    'b2',
     'q1',
     'q2',
     'w1',
