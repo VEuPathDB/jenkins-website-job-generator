@@ -222,6 +222,32 @@ REBUILDER
     .stripIndent()
   }
 
+  static public def rebuilderStepForBeta = { host, model, webapp, sld, tld ->
+    return """
+      env
+
+      # Copy Conifer site vars file from source in to etc.
+      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
+      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
+      if [[ -f "\$src_yml" ]]; then
+        cp "\$src_yml" "\$dest_yml"
+        sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
+      fi
+
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}.beta
+      sleep 15
+
+      # cache public strategy results (redmine #18944) with non-debug logging
+      source /var/www/${host}.${sld}.${tld}/etc/setenv
+      if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
+        export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
+        # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
+        #wdkRunPublicStrats -model ${model}
+      fi
+    """
+    .stripIndent()
+  }
+
   static public def rebuilderStepForWww = { host, model, webapp, sld, tld ->
     return """
       env
@@ -569,7 +595,7 @@ CONFIGURATIONS PER HOST
     ],
     b1 : [
       label : 'myrtle',
-      rebuilderStep: rebuilderStepForWww,
+      rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
@@ -578,7 +604,7 @@ CONFIGURATIONS PER HOST
     ],
     b2 : [
       label : 'pine',
-      rebuilderStep: rebuilderStepForWww,
+      rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
