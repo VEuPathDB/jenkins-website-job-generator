@@ -58,6 +58,9 @@ public class JobConfigurator {
             apitestStep : hostconf['apitestStep'] ?
                               hostconf['apitestStep'](host, model, webapp, sld, tld) :
                               null,
+            cacheStep : hostconf['cacheStep'] ?
+                              hostconf['cacheStep'](host, model, webapp, sld, tld) :
+                              null,
             jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
@@ -157,6 +160,7 @@ public class JobConfigurator {
         if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
 
         publishers {
+           masterMap[jobName]['cacheStep'] ? downstreamParameterized(masterMap[jobName]['cacheStep']) : null
            masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
            if (masterMap[jobName]['apitestStep'] != null) archiveJunit('wdk-api-test/build/test-results/test/*.xml')
 

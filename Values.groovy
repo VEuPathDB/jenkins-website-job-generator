@@ -330,6 +330,20 @@ Api testing for QA
     .stripIndent()
   }
 
+/** ********************************************************************************
+Cache building step
+******************************************************************************** **/
+
+  static public def cacheStep = { host, model, webapp, sld, tld ->
+    return {
+         trigger('site-cache-build') {
+            condition('SUCCESS')
+            parameters {
+              predefinedProp('SITE_NAME', "${host}.${sld}.${tld}")
+            }
+         }
+      }
+  }
 
 
 /** ********************************************************************************
@@ -578,6 +592,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
+      cacheStep: cacheStep,
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
