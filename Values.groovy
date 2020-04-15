@@ -610,6 +610,7 @@ CONFIGURATIONS PER HOST
     ],
     b1 : [
       label : 'myrtle',
+      scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
@@ -619,6 +620,7 @@ CONFIGURATIONS PER HOST
     ],
     b2 : [
       label : 'pine',
+      scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
