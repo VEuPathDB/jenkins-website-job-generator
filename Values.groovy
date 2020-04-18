@@ -605,6 +605,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
+      cacheStep: cacheStep,
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
