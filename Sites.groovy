@@ -193,6 +193,7 @@ public class Sites {
        label : 'pine', // REQUIRED
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       cacheStep: Values.cacheStep,
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -211,6 +212,7 @@ public class Sites {
        label : 'myrtle', // REQUIRED
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+       cacheStep: Values.cacheStep,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
@@ -229,6 +231,7 @@ public class Sites {
          timeout : 90,
          checkoutRetryCount : 1,
          rebuilderStep: Values.rebuilderStepForQa,
+         cacheStep: Values.cacheStep,
          testngStep: Values.testngStepForQa,
          extendedEmail : Values.qaExtendedEmail,
          jabberContacts: Values.jabberContactsProduction,

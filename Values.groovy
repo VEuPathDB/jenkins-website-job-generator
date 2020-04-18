@@ -503,6 +503,7 @@ SCM POLL SCHEDULE
 ******************************************************************************** **/
   static public def scmScheduleAsap = 'H/5 * * * *'
   static public def scmScheduleNightly = 'H H(0-2) * * *'
+  static public def scmScheduleNightlyLate = 'H H(3-4) * * *'
   static public def scmScheduleYearly = '@yearly'
 
 /** ********************************************************************************
@@ -612,6 +613,7 @@ CONFIGURATIONS PER HOST
       label : 'myrtle',
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
+      cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
@@ -622,6 +624,7 @@ CONFIGURATIONS PER HOST
       label : 'pine',
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
+      cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
