@@ -612,7 +612,6 @@ CONFIGURATIONS PER HOST
     ],
     b1 : [
       label : 'myrtle',
-      scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
@@ -623,7 +622,6 @@ CONFIGURATIONS PER HOST
     ],
     b2 : [
       label : 'pine',
-      scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
