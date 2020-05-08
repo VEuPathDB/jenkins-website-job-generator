@@ -101,6 +101,8 @@ public class JobConfigurator {
             timeout : conf['timeout'] ?: null,
             rebuilderStep : conf['rebuilderStep'](host, model, webapp, sld, tld),
             testngStep : conf['testngStep'] ? conf['testngStep'](host, model, webapp, sld, tld) : null,
+            cacheStep : conf['cacheStep'] ? conf['cacheStep'](host, model, webapp, sld, tld) : null,
+
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
          ]
