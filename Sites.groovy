@@ -238,6 +238,20 @@ public class Sites {
          jabberNotification: Values.jabberNotificationWww,
        ],
 
+      'integrate.orthomcl.org' : [
+         model : "OrthoMCL", // REQUIRED
+         webapp : "orthomcl", // REQUIRED
+         host : "integrate", // REQUIRED
+         sld : "orthomcl", //REQUIRED
+         tld : "org", // REQUIRED
+         label : 'santol',
+         timeout : 90,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForIntegration,
+         testngStep: Values.testngStepForIntegration,
+       ],
+
+
   ]
 
 }

@@ -111,8 +111,6 @@ public class JobConfigurator {
   }
 
   public void createJob(jobName) {
-    if (jobName.toLowerCase().contains('orthomcl'))
-      throw new java.lang.RuntimeException(jobName + " looks like an OrthoMCL site. It requires additional configurations not supported here. Remove it.")
     console.println "Creating " + jobName
     jobFactory.freeStyleJob(jobName) {
       wrappers {

@@ -70,6 +70,11 @@ public class Values {
       sld: "microsporidiadb",
       tld : "org",
     ],
+    OrthoMCL : [
+      webapp : "orthomcl",
+      sld: "orthomcl",
+      tld : "org",
+    ],
     PiroplasmaDB : [
       webapp : "piro",
       sld: "piroplasmadb",
@@ -106,6 +111,8 @@ public class Values {
       tld : "org",
     ],
     VEuPathDB : [
+//      scmSchedule : scmScheduleNightlyLate,
+      scmSchedule : 'H H(3-4) * * *',
       webapp : "veupathdb",
       sld : "veupathdb",
       tld : "org",
