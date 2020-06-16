@@ -246,6 +246,7 @@ public class Sites {
          tld : "org", // REQUIRED
          label : 'santol',
          timeout : 90,
+         scmSchedule : Values.scmScheduleAsap, // OPTIONAL
          checkoutRetryCount : 1,
          rebuilderStep: Values.rebuilderStepForIntegration,
          testngStep: Values.testngStepForIntegration,
