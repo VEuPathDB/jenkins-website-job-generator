@@ -594,7 +594,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     q1 : [
-      label : 'myrtle',
+      label : 'watermelon',
       timeout : 90,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,
