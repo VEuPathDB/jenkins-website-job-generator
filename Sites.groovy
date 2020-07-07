@@ -209,7 +209,7 @@ public class Sites {
        host : "q1.restricted", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
-       label : 'myrtle', // REQUIRED
+       label : 'watermelon', // REQUIRED
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        cacheStep: Values.cacheStep,
@@ -227,7 +227,7 @@ public class Sites {
          host : "q1", // REQUIRED
          sld : "clinepidb", //REQUIRED
          tld : "org", // REQUIRED
-         label : 'myrtle',
+         label : 'watermelon',
          timeout : 90,
          checkoutRetryCount : 1,
          rebuilderStep: Values.rebuilderStepForQa,
