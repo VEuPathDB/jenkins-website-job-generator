@@ -214,6 +214,7 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        cacheStep: Values.cacheStep,
        checkoutRetryCount : 1,
+       scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
        extendedEmail : Values.qaExtendedEmail, // OPTIONAL
        jabberContacts: Values.jabberContactsProduction, // OPTIONAL
@@ -221,6 +222,7 @@ public class Sites {
    ],
 
     // q1.clinepidb.org doesn't build nightly, because it is pointed to clin-dg readonly replicated db
+    // This is no longer the case, but leaving block here in case clin-dg returns
       'q1.clinepidb.org' : [
          model : "ClinEpiDb", // REQUIRED
          webapp : "ce.qa", // REQUIRED
@@ -230,6 +232,7 @@ public class Sites {
          label : 'watermelon',
          timeout : 90,
          checkoutRetryCount : 1,
+         scmSchedule : Values.scmScheduleNightly,
          rebuilderStep: Values.rebuilderStepForQa,
          cacheStep: Values.cacheStep,
          testngStep: Values.testngStepForQa,
