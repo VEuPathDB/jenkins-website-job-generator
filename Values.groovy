@@ -541,7 +541,7 @@ CONFIGURATIONS PER HOST
 
   static public def hostSpecificConfig = [
     integrate : [
-      label : 'santol',
+      label : 'pineapple',
       timeout : 30,
       scmSchedule : scmScheduleYearly,
       ignorePostCommitHooks : 'false',
@@ -558,7 +558,7 @@ CONFIGURATIONS PER HOST
     ],
     maint : [
       /** redmine #18103 **/
-      label : 'santol',
+      label : 'pineapple',
       timeout : 30,
       checkoutRetryCount : 1,
       rebuilderStep : rebuilderStepForMaint,

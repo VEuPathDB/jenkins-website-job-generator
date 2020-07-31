@@ -125,7 +125,7 @@ public class Sites {
        host : "integrate.wdk", // REQUIRED
        sld : "apidb", //REQUIRED
        tld : "org", // REQUIRED
-       label : 'santol', // REQUIRED
+       label : 'pineapple', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
        checkoutRetryCount : 1,
        svnDefaultLocations : Values.svnWdkTemplateLocations,
@@ -247,7 +247,7 @@ public class Sites {
          host : "integrate", // REQUIRED
          sld : "orthomcl", //REQUIRED
          tld : "org", // REQUIRED
-         label : 'santol',
+         label : 'pineapple',
          timeout : 90,
          scmSchedule : Values.scmScheduleAsap, // OPTIONAL
          checkoutRetryCount : 1,
