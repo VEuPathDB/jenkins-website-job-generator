@@ -255,6 +255,42 @@ public class Sites {
          testngStep: Values.testngStepForIntegration,
        ],
 
+        // build the portal sites an hour later so they cache correctly after component sites build
+       'q1.veupathdb.org' : [
+         webapp : "veupathdb",
+         host : "q1",
+         sld : "veupathdb",
+         tld : "org",
+         label : 'watermelon',
+         timeout : 90,
+         logRotator : [7, -1, -1, -1],
+         scmSchedule : Values.scmScheduleNightlyLate,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForQa,
+         testngStep: Values.testngStepForQa,
+         cacheStep: Values.cacheStep,
+         extendedEmail : Values.qaExtendedEmail,
+         jabberContacts: Values.jabberContactsProduction,
+         jabberNotification: Values.jabberNotificationWww,
+       ],
+       'q2.veupathdb.org' : [
+         webapp : "veupathdb",
+         host : "q2",
+         sld : "veupathdb",
+         tld : "org",
+         label : 'fir',
+         timeout : 60,
+         logRotator : [7, -1, -1, -1],
+         scmSchedule : Values.scmScheduleNightlyLate,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForQa,
+         testngStep: Values.testngStepForQa,
+         cacheStep: Values.cacheStep,
+         extendedEmail : Values.qaExtendedEmail,
+         jabberContacts: Values.jabberContactsProduction,
+         jabberNotification: Values.jabberNotificationWww,
+       ],
+
 
   ]
 
