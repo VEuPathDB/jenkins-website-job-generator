@@ -584,7 +584,7 @@ CONFIGURATIONS PER HOST
       description : featureDescription(),
     ],
     a2 : [
-      label : 'pine',
+      label : 'fir',
       timeout : 60,
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
@@ -606,7 +606,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     q2 : [
-      label : 'pine',
+      label : 'fir',
       timeout : 60,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,

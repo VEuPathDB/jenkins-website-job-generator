@@ -190,7 +190,7 @@ public class Sites {
        host : "q2.restricted", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
+       label : 'fir', // REQUIRED
        timeout : 60, // OPTIONAL
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        cacheStep: Values.cacheStep,
