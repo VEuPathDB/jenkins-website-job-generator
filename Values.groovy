@@ -267,7 +267,7 @@ REBUILDER
         sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
       fi
 
-      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} # --webapp ${model}:${webapp}
+      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}
       sleep 15
 
       # cache public strategy results (redmine #18944) with non-debug logging
