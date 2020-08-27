@@ -294,8 +294,10 @@ public class Sites {
        ],
        'l2.clinepidb.org' : null,
        'l2.microbiomedb.org' : null,
+       'l2.vectorbase.org' : null,
        'l1.clinepidb.org' : null,
        'l1.microbiomedb.org' : null,
+       'l1.vectorbase.org' : null,
 
 
   ]
