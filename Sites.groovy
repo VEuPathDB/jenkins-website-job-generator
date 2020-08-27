@@ -57,6 +57,8 @@ public class Sites {
     //'a2',
     'b1',
     'b2',
+    'l1',
+    'l2',
     'q1',
     'q2',
     'w1',
@@ -290,6 +292,10 @@ public class Sites {
          jabberContacts: Values.jabberContactsProduction,
          jabberNotification: Values.jabberNotificationWww,
        ],
+       'l2.clinepidb.org' : null,
+       'l2.microbiomedb.org' : null,
+       'l1.clinepidb.org' : null,
+       'l1.microbiomedb.org' : null,
 
 
   ]
