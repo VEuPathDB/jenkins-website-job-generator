@@ -299,6 +299,36 @@ public class Sites {
        'l1.microbiomedb.org' : null,
        'l1.vectorbase.org' : null,
 
+        // legacy eupath sites
+       'l1.eupathdb.org' : [
+         model : "EuPathDB",
+         webapp : "eupathdb",
+         label : 'myrtle',
+         host : "l1",
+         sld : "eupathdb",
+         tld : "org",
+         rebuilderStep: Values.rebuilderStepForWww,
+         checkoutRetryCount : 1,
+         logRotator : [-1, 50, -1, -1],
+         extendedEmail : Values.wwwExtendedEmail,
+         jabberContacts : Values.jabberContactsProduction,
+         jabberNotification: Values.jabberNotificationWww,
+       ],
+
+       'l2.eupathdb.org' : [
+         model : "EuPathDB",
+         webapp : "eupathdb",
+         label : 'pine',
+         host : "l2",
+         sld : "eupathdb",
+         tld : "org",
+         rebuilderStep: Values.rebuilderStepForWww,
+         checkoutRetryCount : 1,
+         logRotator : [-1, 50, -1, -1],
+         extendedEmail : Values.wwwExtendedEmail,
+         jabberContacts : Values.jabberContactsProduction,
+         jabberNotification: Values.jabberNotificationWww,
+       ],
 
   ]
 
