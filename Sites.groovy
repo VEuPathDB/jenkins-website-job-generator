@@ -82,7 +82,7 @@ public class Sites {
     'TrichDB',
     'TriTrypDB',
     'VectorBase',
-    'VEuPathDB',
+    'EuPathDB',
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
@@ -259,6 +259,7 @@ public class Sites {
 
         // build the portal sites an hour later so they cache correctly after component sites build
        'q1.veupathdb.org' : [
+         model : "EuPathDB",
          webapp : "veupathdb",
          host : "q1",
          sld : "veupathdb",
@@ -276,6 +277,7 @@ public class Sites {
          jabberNotification: Values.jabberNotificationWww,
        ],
        'q2.veupathdb.org' : [
+         model : "EuPathDB",
          webapp : "veupathdb",
          host : "q2",
          sld : "veupathdb",

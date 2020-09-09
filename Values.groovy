@@ -31,8 +31,8 @@ public class Values {
       tld : "org",
     ],
     EuPathDB : [
-      webapp : "eupathdb",
-      sld : "eupathdb",
+      webapp : "veupathdb",
+      sld : "veupathdb",
       tld : "org",
     ],
     FungiDB : [
@@ -108,13 +108,6 @@ public class Values {
     VectorBase : [
       webapp : "vectorbase",
       sld: "vectorbase",
-      tld : "org",
-    ],
-    VEuPathDB : [
-//      scmSchedule : scmScheduleNightlyLate,
-      scmSchedule : 'H H(3-4) * * *',
-      webapp : "veupathdb",
-      sld : "veupathdb",
       tld : "org",
     ],
   ]
