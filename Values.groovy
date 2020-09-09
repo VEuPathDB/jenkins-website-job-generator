@@ -620,7 +620,6 @@ CONFIGURATIONS PER HOST
     l1 : [
       label : 'myrtle',
       rebuilderStep: rebuilderStepForBeta,
-      cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
@@ -630,7 +629,6 @@ CONFIGURATIONS PER HOST
     l2 : [
       label : 'pine',
       rebuilderStep: rebuilderStepForBeta,
-      cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       extendedEmail : wwwExtendedEmail,
