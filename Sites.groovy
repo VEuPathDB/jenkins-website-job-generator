@@ -225,23 +225,23 @@ public class Sites {
 
     // q1.clinepidb.org doesn't build nightly, because it is pointed to clin-dg readonly replicated db
     // This is no longer the case, but leaving block here in case clin-dg returns
-      'q1.clinepidb.org' : [
-         model : "ClinEpiDb", // REQUIRED
-         webapp : "ce.qa", // REQUIRED
-         host : "q1", // REQUIRED
-         sld : "clinepidb", //REQUIRED
-         tld : "org", // REQUIRED
-         label : 'watermelon',
-         timeout : 90,
-         checkoutRetryCount : 1,
-         scmSchedule : Values.scmScheduleNightly,
-         rebuilderStep: Values.rebuilderStepForQa,
-         cacheStep: Values.cacheStep,
-         testngStep: Values.testngStepForQa,
-         extendedEmail : Values.qaExtendedEmail,
-         jabberContacts: Values.jabberContactsProduction,
-         jabberNotification: Values.jabberNotificationWww,
-       ],
+    //  'q1.clinepidb.org' : [
+    //     model : "ClinEpiDb", // REQUIRED
+    //     webapp : "ce", // REQUIRED
+    //     host : "q1", // REQUIRED
+    //     sld : "clinepidb", //REQUIRED
+    //     tld : "org", // REQUIRED
+    //     label : 'watermelon',
+    //     timeout : 90,
+    //     checkoutRetryCount : 1,
+    //     scmSchedule : Values.scmScheduleNightly,
+    //     rebuilderStep: Values.rebuilderStepForQa,
+    //     cacheStep: Values.cacheStep,
+    //     testngStep: Values.testngStepForQa,
+    //     extendedEmail : Values.qaExtendedEmail,
+    //     jabberContacts: Values.jabberContactsProduction,
+    //     jabberNotification: Values.jabberNotificationWww,
+    //   ],
 
       'integrate.orthomcl.org' : [
          model : "OrthoMCL", // REQUIRED
