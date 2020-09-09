@@ -161,7 +161,7 @@ public class Sites {
        host : "w2.restricted", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
+       label : 'fir', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
@@ -176,7 +176,7 @@ public class Sites {
        host : "w1.restricted", // REQUIRED
        sld : "clinepidb", //REQUIRED
        tld : "org", // REQUIRED
-       label : 'myrtle', // REQUIRED
+       label : 'watermelon', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
