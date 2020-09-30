@@ -351,7 +351,7 @@ Extended Email
 ******************************************************************************** **/
   static public def integrateExtendedEmail = { delegate ->
     delegate.extendedEmail {
-      recipientList('aurreco@uga.edu')
+      recipientList('aurreco@uga.edu,bindu@upenn.edu')
       defaultSubject('$DEFAULT_SUBJECT')
       defaultContent('${JELLY_SCRIPT,template="eupath-email-ext"}')
       contentType('text/plain')
@@ -367,6 +367,7 @@ Extended Email
           subject('$PROJECT_DEFAULT_SUBJECT')
           content('$PROJECT_DEFAULT_CONTENT')
           sendTo {
+            recipientList()
             developers()
             requester()
             culprits()
