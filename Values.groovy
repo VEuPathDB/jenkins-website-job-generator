@@ -283,7 +283,7 @@ TEST NG
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${sld}.${tld}",
+        'projectsDir':'\$WORKSPACE', 'baseurl':"https://${host}.${sld}.${tld}",
         'webappname':"${webapp}.integrate", 'testnames':'"Integration"', 'msTimeout':"30000")
       buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
@@ -293,7 +293,7 @@ TEST NG
     return {
       targets(['cleantestresults', 'cleaninstall', 'testbynames'])
       props('proj':'EbrcWebsiteCommon', 'comp':'Watar', 'targetDir':'\$WORKSPACE/test_home',
-        'projectsDir':'\$WORKSPACE', 'baseurl':"http://${host}.${sld}.${tld}",
+        'projectsDir':'\$WORKSPACE', 'baseurl':"https://${host}.${sld}.${tld}",
         'webappname':"${webapp}", 'testnames':'"QA"', 'msTimeout':"30000")
       buildFile 'EbrcWebsiteCommon/Watar/build.xml'
     }
