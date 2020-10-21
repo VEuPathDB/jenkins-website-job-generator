@@ -61,6 +61,9 @@ public class JobConfigurator {
             cacheStep : hostconf['cacheStep'] ?
                               hostconf['cacheStep'](host, model, webapp, sld, tld) :
                               null,
+            sitesearchStep : hostconf['sitesearchStep'] ?
+                              hostconf['sitesearchStep'](host, model, webapp, sld, tld) :
+                              null,
             jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
@@ -102,6 +105,7 @@ public class JobConfigurator {
             rebuilderStep : conf['rebuilderStep'](host, model, webapp, sld, tld),
             testngStep : conf['testngStep'] ? conf['testngStep'](host, model, webapp, sld, tld) : null,
             cacheStep : conf['cacheStep'] ? conf['cacheStep'](host, model, webapp, sld, tld) : null,
+            sitesearchStep : conf['sitesearchStep'] ? conf['sitesearchStep'](host, model, webapp, sld, tld) : null,
 
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
@@ -155,6 +159,7 @@ public class JobConfigurator {
           shell(masterMap[jobName]['rebuilderStep'])
           masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
           masterMap[jobName]['apitestStep'] ? shell(masterMap[jobName]['apitestStep']) : null
+          masterMap[jobName]['sitesearchStep'] ? shell(masterMap[jobName]['sitesearchStep']) : null
         }
 
         if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()

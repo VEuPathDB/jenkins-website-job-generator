@@ -345,6 +345,37 @@ Cache building step
       }
   }
 
+/** ********************************************************************************
+Sitesearch step
+******************************************************************************** **/
+
+  static public def sitesearchStepForWww = { host, model, webapp, sld, tld ->
+    return """
+    # only run if container_env exists (this restricts currently to
+    # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
+    # but since the script requires it, it is a harmless check regardless)
+
+    if [ -e \$WORKSPACE/gus_home/config/*/container_env ]
+    then
+      sudo /usr/local/bin/jenkins_presenter_update.sh \$WORKSPACE prod
+    fi
+    """
+    .stripIndent()
+  }
+
+  static public def sitesearchStepForQa = { host, model, webapp, sld, tld ->
+    return """
+    # only run if container_env exists (this restricts currently to
+    # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
+    # but since the script requires it, it is a harmless check regardless)
+
+    if [ -e \$WORKSPACE/gus_home/config/*/container_env ]
+    then
+      sudo /usr/local/bin/jenkins_presenter_update.sh \$WORKSPACE qa
+    fi
+    """
+    .stripIndent()
+  }
 
 /** ********************************************************************************
 Extended Email
@@ -598,6 +629,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
+      sitesearchStep: sitesearchStepForQa,
     ],
     q2 : [
       label : 'fir',
@@ -610,6 +642,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
+      sitesearchStep: sitesearchStepForQa,
     ],
     l1 : [
       label : 'myrtle',
@@ -657,6 +690,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
+      sitesearchStep: sitesearchStepForWww,
     ],
     w2 : [
       label : 'fir',
@@ -666,6 +700,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : wwwExtendedEmail,
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
+      sitesearchStep: sitesearchStepForWww,
     ],
   ]
 
