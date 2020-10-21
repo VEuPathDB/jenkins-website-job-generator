@@ -355,9 +355,9 @@ Sitesearch step
     # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
     # but since the script requires it, it is a harmless check regardless)
 
-    if [ -e \$WORKSPACE/gus_home/config/*/container_env ]
+    if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/*/container_env ]
     then
-      sudo /usr/local/bin/jenkins_presenter_update.sh \$WORKSPACE prod
+      sudo /usr/local/bin/jenkins_presenter_update.sh /var/www/${host}.${sld}.${tld} prod
     fi
     """
     .stripIndent()
@@ -369,9 +369,9 @@ Sitesearch step
     # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
     # but since the script requires it, it is a harmless check regardless)
 
-    if [ -e \$WORKSPACE/gus_home/config/*/container_env ]
+    if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/*/container_env ]
     then
-      sudo /usr/local/bin/jenkins_presenter_update.sh \$WORKSPACE qa
+      sudo /usr/local/bin/jenkins_presenter_update.sh /var/www/${host}.${sld}.${tld} qa
     fi
     """
     .stripIndent()
