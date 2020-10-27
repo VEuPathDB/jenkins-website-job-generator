@@ -307,24 +307,7 @@ Api testing for QA
     return """
     echo "This is the  api testing step for ${host}.${sld}.${tld}"
 
-    export REPOSRC=https://github.com/EuPathDB-Infra/wdk-api-test
-    export LOCALREPO=wdk-api-test
-    git clone \$REPOSRC \$LOCALREPO || (cd \$LOCALREPO ; git pull)
-
-    # domains are substituted here via groovy, to keep the if logic in bash,
-    # but this ends up looking weird in the generated job... sorry.
-    if [[ "${sld}" == "eupathdb" || "${sld}" == "clinepidb" ]]
-    then
-        export SCHEME="https"
-    else
-        export SCHEME="http"
-    fi
-
-    # follow redirect to get full url.  /service does not pass through redirect
-    export SITE_PATH=\$(curl -s -I \$SCHEME://${host}.${sld}.${tld} | awk '/Location/{printf \$2}' | tr -d '[:space:]' )
-
-    cd wdk-api-test
-    ./run -c -a \$API_CREDS
+    time testRunner.sh ${model} https://${host}.${sld}.${tld} \$GUS_HOME/../html/test_output /tmp/test_${host}.${sld}.${tld}
 
     """
     .stripIndent()
@@ -637,6 +620,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
+      apitestStep: apitestStepForQa,
       cacheStep: cacheStep,
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
@@ -650,6 +634,7 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
+      apitestStep: apitestStepForQa,
       cacheStep: cacheStep,
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
