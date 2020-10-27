@@ -307,7 +307,9 @@ Api testing for QA
     return """
     echo "This is the  api testing step for ${host}.${sld}.${tld}"
 
-    time testRunner.sh ${model} https://${host}.${sld}.${tld} \$GUS_HOME/../html/test_output /tmp/test_${host}.${sld}.${tld}
+    source /var/www/${host}.${sld}.${tld}/etc/setenv
+
+    time testRunner.sh ${model} https://${host}.${sld}.${tld} \$GUS_HOME/../html/test_output /tmp/test_${host}.${sld}.${tld} || true
 
     """
     .stripIndent()
