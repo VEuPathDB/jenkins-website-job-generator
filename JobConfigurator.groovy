@@ -167,7 +167,6 @@ public class JobConfigurator {
         publishers {
            masterMap[jobName]['cacheStep'] ? downstreamParameterized(masterMap[jobName]['cacheStep']) : null
            masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
-           if (masterMap[jobName]['apitestStep'] != null) archiveJunit('wdk-api-test/build/test-results/test/*.xml')
 
         } // publishers
 
