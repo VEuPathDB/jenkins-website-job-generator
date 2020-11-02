@@ -627,7 +627,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
-//      sitesearchStep: sitesearchStepForQa,
+      sitesearchStep: sitesearchStepForQa,
     ],
     q2 : [
       label : 'fir',
@@ -641,7 +641,7 @@ CONFIGURATIONS PER HOST
       extendedEmail : qaExtendedEmail,
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
-//      sitesearchStep: sitesearchStepForQa,
+      sitesearchStep: sitesearchStepForQa,
     ],
     l1 : [
       label : 'myrtle',
