@@ -593,7 +593,7 @@ CONFIGURATIONS PER HOST
     ],
     feature : [
       /** redmine #18965 **/
-      label : 'pine',
+      label : 'fir',
       timeout : 60,
       checkoutRetryCount : 1,
       scmSchedule : scmScheduleNightly,

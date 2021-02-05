@@ -294,6 +294,7 @@ public class Sites {
          jabberContacts: Values.jabberContactsProduction,
          jabberNotification: Values.jabberNotificationWww,
        ],
+       'feature.eupathdb.org' : null,
        'l2.clinepidb.org' : null,
        'l2.microbiomedb.org' : null,
        'l2.vectorbase.org' : null,
