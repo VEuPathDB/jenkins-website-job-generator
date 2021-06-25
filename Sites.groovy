@@ -75,6 +75,7 @@ public class Sites {
     'HostDB',
     'MicrobiomeDB',
     'MicrosporidiaDB',
+    'OrthoMCL',
     'PiroplasmaDB',
     'PlasmoDB',
     'SchistoDB',
@@ -242,20 +243,6 @@ public class Sites {
     //     jabberContacts: Values.jabberContactsProduction,
     //     jabberNotification: Values.jabberNotificationWww,
     //   ],
-
-      'integrate.orthomcl.org' : [
-         model : "OrthoMCL", // REQUIRED
-         webapp : "orthomcl", // REQUIRED
-         host : "integrate", // REQUIRED
-         sld : "orthomcl", //REQUIRED
-         tld : "org", // REQUIRED
-         label : 'pineapple',
-         timeout : 90,
-         scmSchedule : Values.scmScheduleAsap, // OPTIONAL
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForIntegration,
-         testngStep: Values.testngStepForIntegration,
-       ],
 
         // build the portal sites an hour later so they cache correctly after component sites build
        'q1.veupathdb.org' : [
