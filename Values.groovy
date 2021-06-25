@@ -85,11 +85,6 @@ public class Values {
       sld: "plasmodb",
       tld : "org",
     ],
-    SchistoDB : [
-      webapp : "schisto",
-      sld: "schistodb",
-      tld : "net",
-    ],
     ToxoDB : [
       webapp : "toxo",
       sld: "toxodb",

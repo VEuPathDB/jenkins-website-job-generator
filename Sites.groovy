@@ -78,7 +78,6 @@ public class Sites {
     'OrthoMCL',
     'PiroplasmaDB',
     'PlasmoDB',
-    'SchistoDB',
     'ToxoDB',
     'TrichDB',
     'TriTrypDB',
