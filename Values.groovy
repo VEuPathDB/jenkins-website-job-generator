@@ -657,7 +657,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     b1 : [
-      label : 'myrtle',
+      label : 'watermelon',
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
@@ -667,7 +667,7 @@ CONFIGURATIONS PER HOST
       jabberNotification: jabberNotificationWww,
     ],
     b2 : [
-      label : 'pine',
+      label : 'fir',
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
