@@ -318,6 +318,18 @@ public class Sites {
          jabberContacts : Values.jabberContactsProduction,
          jabberNotification: Values.jabberNotificationWww,
        ],
+       'bbelnap.cryptodb.org' : [
+         model : "CryptoDB",
+         label : 'durian',
+         webapp : "bbelnap",
+         host : "bbelnap",
+         sld : "cryptodb",
+         tld : "org",
+         rebuilderStep: Values.rebuilderStepForWww,
+         pipelineJob: true,
+         pipelineScript: Values.pipelineScriptForIntegration,
+       ],
+      
 
   ]
 

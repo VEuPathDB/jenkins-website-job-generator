@@ -21,7 +21,14 @@ public class JobConfigurator {
     console.println()
     masterMap.each {
       def jobName = it.key
-      createJob(jobName)
+
+      // create pipeline job only if flag is set in conf
+      if (masterMap[jobName].get('pipelineJob')) {
+        createPipelineJob(jobName)
+      }
+      else {
+        createJob(jobName)
+      }
     }
     console.println()
   }
@@ -39,6 +46,7 @@ public class JobConfigurator {
           def existingJob = jenkins.getJob(jobName)
           def hostconf = Values.hostSpecificConfig[host]
           def svnDefaultLocations = Values.svnDefaultLocations
+          def rebuilderStep = hostconf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : hostconf['label'],
             description : hostconf['description'] ?: Values.stdDescription(jobName, "boo"),
@@ -67,6 +75,8 @@ public class JobConfigurator {
             jabberNotification : hostconf['jabberNotification'] ?
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
+            pipelineJob : hostconf['pipelineJob'] ?: null,
+            pipelineScript : hostconf['pipelineScript'] ? hostconf['pipelineScript'](host, model, webapp, sld, tld, conf['label'], rebuilderStep) : null,
           ]
         }
     }
@@ -90,6 +100,7 @@ public class JobConfigurator {
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
           def svnDefaultLocations = conf['svnDefaultLocations'] ?: Values.svnDefaultLocations
+          def rebuilderStep = conf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : conf['label'],
             description : conf['description'] ?: Values.stdDescription(jobName, "boo"),
@@ -109,13 +120,27 @@ public class JobConfigurator {
 
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
+            pipelineJob : conf['pipelineJob'] ?: null,
+            pipelineScript : conf['pipelineScript'] ? conf['pipelineScript'](host, model, webapp, sld, tld, conf['label'], rebuilderStep) : null,
          ]
 
     }
   }
 
+  public void createPipelineJob(jobName) {
+    console.println "Creating pipeline job " + jobName
+    jobFactory.pipelineJob(jobName) {
+      definition {
+        cps {
+          script(masterMap[jobName]['pipelineScript'])
+        }
+      }
+    }
+  }
+
+
   public void createJob(jobName) {
-    console.println "Creating " + jobName
+    console.println "Creating freeStyleJob " + jobName
     jobFactory.freeStyleJob(jobName) {
       wrappers {
         label masterMap[jobName]['label']
@@ -205,6 +230,13 @@ public class JobConfigurator {
 
   // convert SubversionSCM.ModuleLocation fields to a map
   def moduleLocations(jobName, job, svnDefaultLocations) {
+
+    def jobType = job.getClass().toString()
+    if(jobType.contains('WorkflowJob')){
+      console.println jobName + " is a  pipeline job, I don't care about scm"
+      return "noscm"
+    }
+
     if (job == null) {
       console.println jobName + " is new, using default svn locations"
       return svnDefaultLocations
