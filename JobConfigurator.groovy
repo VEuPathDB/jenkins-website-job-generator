@@ -114,6 +114,7 @@ public class JobConfigurator {
             timeout : conf['timeout'] ?: null,
             rebuilderStep : conf['rebuilderStep'](host, model, webapp, sld, tld),
             testngStep : conf['testngStep'] ? conf['testngStep'](host, model, webapp, sld, tld) : null,
+            apitestStep : conf['apitestStep'] ? conf['apitestStep'](host, model, webapp, sld, tld) : null,
             cacheStep : conf['cacheStep'] ? conf['cacheStep'](host, model, webapp, sld, tld) : null,
             sitesearchStep : conf['sitesearchStep'] ? conf['sitesearchStep'](host, model, webapp, sld, tld) : null,
 
@@ -122,6 +123,35 @@ public class JobConfigurator {
             pipelineJob : conf['pipelineJob'] ?: null,
          ]
 
+    }
+  }
+
+
+  // helper class to transform freestyle job style ant definitions to scripted
+  // pipeline definitions.  This lets us reuse the existing ant templating
+
+  class pipelineAnt {
+    private String prefix = 'ant'
+    private String targetsArgs = ''
+    private String propArgs = ''
+    private String buildFileArgs = ''
+
+
+    def targets( t ) {
+      t.each { this.targetsArgs = this.targetsArgs + " ${it}"}
+    }
+
+    def props( p) {
+      p.each { this.propArgs = this.propArgs + " -D${it.key}=${it.value}"}
+    }
+
+    def buildFile( b ) {
+      this.buildFileArgs = ' -buildfile ' + b
+    }
+
+    def getCommand() {
+      def command = prefix + buildFileArgs + propArgs + targetsArgs
+      return command
     }
   }
 
@@ -181,18 +211,34 @@ ${masterMap[jobName]['rebuilderStep']}
 
 // TEST SNIPPET
     def stage_test = ''
+    def testng_snippet = ''
+    def apitest_snippet = ''
+
+    if (masterMap[jobName]['testngStep'] != null) {
+      def pa = new pipelineAnt()
+      def t = masterMap[jobName]['testngStep']
+      t.delegate = pa
+      t()
+      def antCommand = t.getCommand()
+      testng_snippet = "sh ''' ${antCommand} '''"
+    }
+
+    console.println("yow! ${masterMap[jobName]['apitestStep']}")
     if (masterMap[jobName]['apitestStep'] != null) {
+      apitest_snippet = "sh ''' ${masterMap[jobName]['apitestStep']} '''"
+    }
+
+    if (testng_snippet || apitest_snippet ) {
       stage_test = """
 
   stage('Test') {
       ws("${masterMap[jobName]['customWorkspace']}"){
-        sh '''
-${masterMap[jobName]['apitestStep']}
-'''
-      
+        ${testng_snippet}
+        ${apitest_snippet}
       }
     }
-"""
+    """
+
     }
 
 // SITESEARCH SNIPPET
