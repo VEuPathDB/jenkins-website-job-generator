@@ -113,52 +113,6 @@ public class Values {
 REBUILDER
 ******************************************************************************** **/
 
-  static public def pipelineScriptForIntegration = { host, model, webapp, sld, tld, label, rebuilderStep ->
-    return """
-node("${label}") {
-    stage('Checkout') {
-        sh '/bin/env'
-        ws('/var/www/${host}.${sld}.${tld}/project_home'){
-
-            scm_conf = readYaml file: '../scm_config.yaml'
-            //print scm_conf['bbelnap.plasmodb.org']
-
-            for (project in scm_conf['bbelnap.cryptodb.org']) {
-                checkout(
-                    [
-                        \$class: 'GitSCM', 
-                        branches: [[name: "*/\${project['branch']}"]], 
-                        extensions: [[
-                            \$class: 'RelativeTargetDirectory', 
-                            relativeTargetDir: project['src']
-                            ]], 
-                            userRemoteConfigs: [[
-                                credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
-                                url: project['url']
-                            ]]
-                        ]
-                    )
-            }
-        }
-    }
-    stage('Build') {
-        ws('/var/www/bbelnap.cryptodb.org/project_home'){
-            //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
-            sh ''''
-${rebuilderStep}
-'''
-        }
-    }
-    stage('Results') {
-    
-    }
-}
-    
-    """
-    .stripIndent()
-  }
-
-
   static public def rebuilderStepForIntegration = { host, model, webapp, sld, tld ->
     return """
       date > .hudsonTimestamp

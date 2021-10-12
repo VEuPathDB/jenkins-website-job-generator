@@ -325,9 +325,12 @@ public class Sites {
          host : "bbelnap",
          sld : "cryptodb",
          tld : "org",
+         quietPeriod : 20, // OPTIONAL
          rebuilderStep: Values.rebuilderStepForWww,
          pipelineJob: true,
-         pipelineScript: Values.pipelineScriptForIntegration,
+         scmSchedule : Values.scmScheduleNightlyLate,
+         logRotator : [7, -1, -1, -1],
+         sitesearchStep: Values.sitesearchStepForQa,
        ],
       
 

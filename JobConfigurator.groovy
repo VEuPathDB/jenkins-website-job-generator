@@ -76,7 +76,6 @@ public class JobConfigurator {
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
             pipelineJob : hostconf['pipelineJob'] ?: null,
-            pipelineScript : hostconf['pipelineScript'] ? hostconf['pipelineScript'](host, model, webapp, sld, tld, conf['label'], rebuilderStep) : null,
           ]
         }
     }
@@ -121,18 +120,136 @@ public class JobConfigurator {
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
             pipelineJob : conf['pipelineJob'] ?: null,
-            pipelineScript : conf['pipelineScript'] ? conf['pipelineScript'](host, model, webapp, sld, tld, conf['label'], rebuilderStep) : null,
          ]
 
     }
   }
 
   public void createPipelineJob(jobName) {
+
+// Because we want to re-use logic from the old freestyle jobs, we split up the
+// pipeline script to include the steps from the old jobs.  
+//
+// Some properties we apply to the job itself (logRotator, quietPeriod,
+// scmSchedule, etc.) but most of the logic is in thepipeline script definition
+
     console.println "Creating pipeline job " + jobName
+
+
+// CHECKOUT SNIPPET
+    def stage_checkout = """
+    stage('Checkout') {
+        sh '/bin/env'
+        ws('${masterMap[jobName]['customWorkspace']}'){
+
+            scm_conf = readYaml file: '../scm_config.yaml'
+            //print scm_conf['bbelnap.plasmodb.org']
+
+            for (project in scm_conf["${jobName}"]) {
+                checkout(
+                    [
+                        \$class: 'GitSCM', 
+                        branches: [[name: "*/\${project['branch']}"]], 
+                        extensions: [[
+                            \$class: 'RelativeTargetDirectory', 
+                            relativeTargetDir: project['src']
+                            ]], 
+                            userRemoteConfigs: [[
+                                credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
+                                url: project['url']
+                            ]]
+                        ]
+                    )
+            }
+        }
+    }
+"""
+
+// BUILD SNIPPET
+    def stage_build = ''
+    if (masterMap[jobName]['rebuilderStep'] != null) {
+      stage_build = """
+  stage('Build') {
+        ws("${masterMap[jobName]['customWorkspace']}"){
+            //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
+            sh ''''
+${masterMap[jobName]['rebuilderStep']}
+'''
+        }
+"""
+    }
+
+// TEST SNIPPET
+    def stage_test = ''
+    if (masterMap[jobName]['apitestStep'] != null) {
+      stage_test = """
+
+  stage('Test') {
+      ws("${masterMap[jobName]['customWorkspace']}"){
+        sh '''
+${masterMap[jobName]['apitestStep']}
+'''
+      
+      }
+    }
+"""
+    }
+
+// SITESEARCH SNIPPET
+    def stage_sitesearch = ''
+    if (masterMap[jobName]['sitesearchStep'] != null) {
+      stage_sitesearch = """
+  stage('Sitesearch') {
+      ws("${masterMap[jobName]['customWorkspace']}"){
+        sh '''
+${masterMap[jobName]['sitesearchStep']}
+'''
+      }
+  }
+"""
+
+
+    }
+
+// Script definition - this brings together all the stages above, if defined
+
+    def pscript = """
+node("${masterMap[jobName]['label']}") {
+    ${stage_checkout}
+    ${stage_build}
+    ${stage_test}
+    ${stage_sitesearch}
+}
+    
+"""
+
+// The actual pielinejob definition
     jobFactory.pipelineJob(jobName) {
+      disabled masterMap[jobName]['disabled'] ?: false
+      description  masterMap[jobName]['description']
+
+      if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
+
+      if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
+
+      if (masterMap[jobName]['timeout']) timeout { absolute(masterMap[jobName]['timeout']) }
+
+      if (
+        masterMap[jobName]['scmSchedule'] != null ||
+        masterMap[jobName]['ignorePostCommitHooks'] != null
+        ) {
+        triggers {
+          configure scmTrigger(
+            masterMap[jobName]['scmSchedule'],
+            masterMap[jobName]['ignorePostCommitHooks']
+          )
+        }
+      }
+
+
       definition {
         cps {
-          script(masterMap[jobName]['pipelineScript'])
+           script(pscript)
         }
       }
     }
