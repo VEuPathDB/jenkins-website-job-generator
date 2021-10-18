@@ -169,13 +169,11 @@ public class JobConfigurator {
 // CHECKOUT SNIPPET
     def stage_checkout = """
     stage('Checkout') {
-        sh '/bin/env'
         ws('${masterMap[jobName]['customWorkspace']}'){
+            sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
+            site_conf = readYaml file: '../etc/site_config.yaml'
 
-            scm_conf = readYaml file: '../scm_config.yaml'
-            //print scm_conf['bbelnap.plasmodb.org']
-
-            for (project in scm_conf["${jobName}"]) {
+            for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
                 checkout(
                     [
                         \$class: 'GitSCM', 
@@ -220,10 +218,12 @@ ${masterMap[jobName]['rebuilderStep']}
       t.delegate = pa
       t()
       def antCommand = t.getCommand()
-      testng_snippet = "sh ''' ${antCommand} '''"
+      testng_snippet = """
+        sh ''' ${antCommand} '''
+        junit 'test_home/**/junitreports/*.xml'
+      """
     }
 
-    console.println("yow! ${masterMap[jobName]['apitestStep']}")
     if (masterMap[jobName]['apitestStep'] != null) {
       apitest_snippet = "sh ''' ${masterMap[jobName]['apitestStep']} '''"
     }
@@ -255,18 +255,38 @@ ${masterMap[jobName]['sitesearchStep']}
 """
 
 
+
     }
 
 // Script definition - this brings together all the stages above, if defined
 
     def pscript = """
-node("${masterMap[jobName]['label']}") {
+try {
+  node("${masterMap[jobName]['label']}") {
     ${stage_checkout}
     ${stage_build}
     ${stage_test}
     ${stage_sitesearch}
-}
+  }
     
+}catch(exc){
+  echo 'I failed'
+
+    def userIds = slackUserIdsFromCommitters()
+    def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
+    def blameMessage = ''
+    if ( userIdsString ) {
+        blameMessage = "\${userIdsString} broke it"
+    }
+
+    def slackResponse = slackSend(
+      channel: "#bot-test",
+      color: 'danger',
+      message: "FAILED: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
+    )
+
+  throw exc
+}
 """
 
 // The actual pielinejob definition
