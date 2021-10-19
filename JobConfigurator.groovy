@@ -161,49 +161,63 @@ public class JobConfigurator {
 // pipeline script to include the steps from the old jobs.  
 //
 // Some properties we apply to the job itself (logRotator, quietPeriod,
-// scmSchedule, etc.) but most of the logic is in thepipeline script definition
+// scmSchedule, etc.) but most of the logic is in the pipeline script definition
 
     console.println "Creating pipeline job " + jobName
 
 
+// OPTIONS SNIPET
+// currently only used for timeout, could expand later
+
+    def pipeline_options = ''
+    if (masterMap[jobName]['timeout'] != null) { //timeout{ absolute(masterMap[jobName]['timeout']) }
+      pipeline_options = """
+  options {
+   timeout(time: ${masterMap[jobName]['timeout']}, unit: 'MINUTES') 
+  }
+"""
+    }
 // CHECKOUT SNIPPET
     def stage_checkout = """
-    stage('Checkout') {
-        ws('${masterMap[jobName]['customWorkspace']}'){
+      stage('Checkout') {
+        steps {
+          script{
             sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
             site_conf = readYaml file: '../etc/site-conf.yaml'
 
             for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
                 checkout(
                     [
-                        \$class: 'GitSCM', 
-                        branches: [[name: "*/\${project['branch']}"]], 
-                        extensions: [[
-                            \$class: 'RelativeTargetDirectory', 
-                            relativeTargetDir: project['src']
-                            ]], 
-                            userRemoteConfigs: [[
-                                credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
-                                url: project['url']
-                            ]]
-                        ]
-                    )
+                      \$class: 'GitSCM', 
+                      branches: [[name: "*/\${project['branch']}"]], 
+                      extensions: [[
+                          \$class: 'RelativeTargetDirectory', 
+                          relativeTargetDir: project['src']
+                          ]], 
+                          userRemoteConfigs: [[
+                              credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
+                              url: project['url']
+                          ]]
+                    ]
+                )
             }
+          }
         }
-    }
+      }
 """
 
 // BUILD SNIPPET
     def stage_build = ''
     if (masterMap[jobName]['rebuilderStep'] != null) {
       stage_build = """
-  stage('Build') {
-        ws("${masterMap[jobName]['customWorkspace']}"){
-            //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
-            sh ''''
+      stage('Build') {
+        steps {
+          //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
+          sh ''''
 ${masterMap[jobName]['rebuilderStep']}
 '''
         }
+      }
 """
     }
 
@@ -230,62 +244,68 @@ ${masterMap[jobName]['rebuilderStep']}
 
     if (testng_snippet || apitest_snippet ) {
       stage_test = """
-
-  stage('Test') {
-      ws("${masterMap[jobName]['customWorkspace']}"){
+      stage('Test') {
+        steps {
         ${testng_snippet}
         ${apitest_snippet}
+        }
       }
-    }
     """
-
     }
 
 // SITESEARCH SNIPPET
     def stage_sitesearch = ''
     if (masterMap[jobName]['sitesearchStep'] != null) {
       stage_sitesearch = """
-  stage('Sitesearch') {
-      ws("${masterMap[jobName]['customWorkspace']}"){
-        sh '''
+      stage('Sitesearch') {
+        steps {
+          sh '''
 ${masterMap[jobName]['sitesearchStep']}
 '''
+        }
       }
-  }
 """
-
-
-
     }
 
 // Script definition - this brings together all the stages above, if defined
 
     def pscript = """
-try {
-  node("${masterMap[jobName]['label']}") {
+pipeline {
+  agent {
+    node {
+      label "${masterMap[jobName]['label']}"
+      customWorkspace "${masterMap[jobName]['customWorkspace']}"
+    }
+  }
+
+  ${pipeline_options}
+
+  stages {
     ${stage_checkout}
     ${stage_build}
     ${stage_test}
     ${stage_sitesearch}
   }
+  post { 
+    unsuccessful { 
+      script {
+        def userIds = slackUserIdsFromCommitters()
+        def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
+        def blameMessage = ''
+        if ( userIdsString ) {
+            blameMessage = "\${userIdsString} broke it"
+        }
     
-}catch(exc){
-  echo 'I failed'
+        def slackResponse = slackSend(
+          channel: "#bot-test",
+          color: 'danger',
+          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
+        )
 
-    def userIds = slackUserIdsFromCommitters()
-    def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
-    def blameMessage = ''
-    if ( userIdsString ) {
-        blameMessage = "\${userIdsString} broke it"
+      }
     }
+  }
 
-    def slackResponse = slackSend(
-      channel: "#bot-test",
-      color: 'danger',
-      message: "FAILED: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
-    )
-
-  throw exc
 }
 """
 
@@ -297,8 +317,6 @@ try {
       if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
 
       if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
-
-      if (masterMap[jobName]['timeout']) timeout { absolute(masterMap[jobName]['timeout']) }
 
       if (
         masterMap[jobName]['scmSchedule'] != null ||
