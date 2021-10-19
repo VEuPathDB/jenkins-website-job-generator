@@ -356,6 +356,7 @@ pipeline {
       definition {
         cps {
            script(pscript)
+           sandbox(true)
         }
       }
     }
