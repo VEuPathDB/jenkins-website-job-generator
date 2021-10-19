@@ -171,7 +171,7 @@ public class JobConfigurator {
     stage('Checkout') {
         ws('${masterMap[jobName]['customWorkspace']}'){
             sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
-            site_conf = readYaml file: '../etc/site_config.yaml'
+            site_conf = readYaml file: '../etc/site-conf.yaml'
 
             for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
                 checkout(
