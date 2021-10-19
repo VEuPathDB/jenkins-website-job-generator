@@ -76,6 +76,8 @@ public class JobConfigurator {
                   hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
             extendedEmail : hostconf['extendedEmail'] ?: null,
             pipelineJob : hostconf['pipelineJob'] ?: null,
+            slackChannel : hostconf['slackChannel'] ?: null,
+            githubPush : hostconf['githubPush'] ?: null,
           ]
         }
     }
@@ -121,6 +123,8 @@ public class JobConfigurator {
             jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
             extendedEmail : conf['extendedEmail'] ?: null,
             pipelineJob : conf['pipelineJob'] ?: null,
+            slackChannel : conf['slackChannel'] ?: null,
+            githubPush : conf['githubPush'] ?: null,
          ]
 
     }
@@ -195,7 +199,7 @@ public class JobConfigurator {
                           relativeTargetDir: project['src']
                           ]], 
                           userRemoteConfigs: [[
-                              credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
+                              credentialsId: '2dfe5e9c-d974-47b5-a060-34f57039268b',
                               url: project['url']
                           ]]
                     ]
@@ -213,7 +217,7 @@ public class JobConfigurator {
       stage('Build') {
         steps {
           //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
-          sh ''''
+          sh '''
 ${masterMap[jobName]['rebuilderStep']}
 '''
         }
@@ -287,7 +291,17 @@ pipeline {
     ${stage_sitesearch}
   }
   post { 
-    unsuccessful { 
+    fixed {
+      script {
+        def slackResponse = slackSend(
+          channel: "${masterMap[jobName]['slackChannel']}",
+          color: 'good',
+          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL}"
+        )
+      }
+
+    }
+    regression { 
       script {
         def userIds = slackUserIdsFromCommitters()
         def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
@@ -297,7 +311,7 @@ pipeline {
         }
     
         def slackResponse = slackSend(
-          channel: "#bot-test",
+          channel: "${masterMap[jobName]['slackChannel']}",
           color: 'danger',
           message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
         )
@@ -314,9 +328,17 @@ pipeline {
       disabled masterMap[jobName]['disabled'] ?: false
       description  masterMap[jobName]['description']
 
+      concurrentBuild(false)
+
       if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
 
       if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
+
+      if (masterMap[jobName]['githubPush'] != null ) {
+        triggers {
+          if (masterMap[jobName]['githubPush']) githubPush()
+        }
+      }
 
       if (
         masterMap[jobName]['scmSchedule'] != null ||

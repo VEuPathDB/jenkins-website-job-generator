@@ -572,6 +572,7 @@ CONFIGURATIONS PER HOST
       logRotator : [7, -1, -1, -1],
       extendedEmail : integrateExtendedEmail,
       jabberNotification: jabberNotificationIntegrate,
+      slackChannel: "#integration-notifications",
     ],
     maint : [
       /** redmine #18103 **/
@@ -623,6 +624,7 @@ CONFIGURATIONS PER HOST
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForQa,
+      slackChannel: "#qa-notifications",
     ],
     q2 : [
       label : 'fir',
@@ -637,6 +639,7 @@ CONFIGURATIONS PER HOST
       jabberContacts: jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForQa,
+      slackChannel: "#qa-notifications",
     ],
     l1 : [
       label : 'myrtle',
@@ -685,6 +688,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForWww,
+      slackChannel: "#livesite-notifications",
     ],
     w2 : [
       label : 'fir',
@@ -695,6 +699,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForWww,
+      slackChannel: "#livesite-notifications",
     ],
   ]
 
