@@ -560,19 +560,15 @@ CONFIGURATIONS PER HOST
     integrate : [
       label : 'pineapple',
       timeout : 30,
-      scmSchedule : scmScheduleYearly,
-      ignorePostCommitHooks : 'false',
       quietPeriod : 180,
       checkoutRetryCount : 1,
-      scmSchedule : scmScheduleAsap,
       rebuilderStep : rebuilderStepForIntegration,
       testngStep : testngStepForIntegration,
-      jabberContacts : jabberContactsIntegrate,
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
       logRotator : [7, -1, -1, -1],
-      extendedEmail : integrateExtendedEmail,
-      jabberNotification: jabberNotificationIntegrate,
       slackChannel: "#integration-notifications",
+      pipelineJob: true,
+      githubPush: true,
     ],
     maint : [
       /** redmine #18103 **/
