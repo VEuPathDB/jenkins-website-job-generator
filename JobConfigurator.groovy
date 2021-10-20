@@ -199,7 +199,7 @@ public class JobConfigurator {
                           relativeTargetDir: project['src']
                           ]], 
                           userRemoteConfigs: [[
-                              credentialsId: '2dfe5e9c-d974-47b5-a060-34f57039268b',
+                              credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
                               url: project['url']
                           ]]
                     ]
