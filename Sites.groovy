@@ -337,29 +337,6 @@ public class Sites {
          githubPush: true,
        ],
       
-       'integrate.cryptodb.org' : [
-         model : "CryptoDB",
-         label : 'pineapple',
-         timeout : 30,
-         webapp : "cryptodb",
-         host: "integrate",
-         sld : "cryptodb",
-         tld : "org",
-         //scmSchedule : Values.scmScheduleYearly,
-         //ignorePostCommitHooks : 'false',
-         quietPeriod : 180,
-         checkoutRetryCount : 1,
-         rebuilderStep : Values.rebuilderStepForIntegration,
-         testngStep : Values.testngStepForIntegration,
-         jabberContacts : Values.jabberContactsIntegrate,
-         logRotator : [7, -1, -1, -1],
-         extendedEmail : Values.integrateExtendedEmail,
-         jabberNotification: Values.jabberNotificationIntegrate,
-         pipelineJob: true,
-         slackChannel: "#integration-notifications",
-         githubPush: true,
-       ],
-
   ]
 
 }
