@@ -616,11 +616,11 @@ CONFIGURATIONS PER HOST
       testngStep: testngStepForQa,
       apitestStep: apitestStepForQa,
       cacheStep: cacheStep,
-      extendedEmail : qaExtendedEmail,
-      jabberContacts: jabberContactsProduction,
-      jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForQa,
       slackChannel: "#qa-notifications",
+      pipelineJob: true,
+      githubPush: false,
+
     ],
     q2 : [
       label : 'fir',

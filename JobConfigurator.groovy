@@ -271,6 +271,15 @@ ${masterMap[jobName]['sitesearchStep']}
 """
     }
 
+// CACHE SNIPPET (for qa sites)
+    def cache_step = ""
+    if (masterMap[jobName]['cacheStep'] != null) {
+      cache_step = """ 
+      build job: 'site-cache-build', parameters: [string(name: 'SITE_NAME', value: "${jobName}")] 
+"""
+    }
+    
+
 // Script definition - this brings together all the stages above, if defined
 
     def pscript = """
@@ -317,6 +326,10 @@ pipeline {
         )
 
       }
+    }
+    success {
+      echo 'I did it!  Yay!'
+      ${cache_step}
     }
   }
 
