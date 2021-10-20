@@ -218,9 +218,8 @@ public class Sites {
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+       pipelineJob: true,
+       githubPush: false,
    ],
 
     // q1.clinepidb.org doesn't build nightly, because it is pointed to clin-dg readonly replicated db
@@ -258,9 +257,9 @@ public class Sites {
          rebuilderStep: Values.rebuilderStepForQa,
          testngStep: Values.testngStepForQa,
          cacheStep: Values.cacheStep,
-         extendedEmail : Values.qaExtendedEmail,
-         jabberContacts: Values.jabberContactsProduction,
-         jabberNotification: Values.jabberNotificationWww,
+         pipelineJob: true,
+         githubPush: false,
+
        ],
        'q2.veupathdb.org' : [
          model : "EuPathDB",
