@@ -57,8 +57,6 @@ public class Sites {
     //'a2',
     'b1',
     'b2',
-    'l1',
-    'l2',
     'q1',
     'q2',
     'w1',
@@ -199,9 +197,8 @@ public class Sites {
        checkoutRetryCount : 1,
        scmSchedule : Values.scmScheduleNightly,
        testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+       pipelineJob: true,
+       githubPush: false,
    ],
 
     'q1.restricted.clinepidb.org' : [
@@ -275,48 +272,11 @@ public class Sites {
          rebuilderStep: Values.rebuilderStepForQa,
          testngStep: Values.testngStepForQa,
          cacheStep: Values.cacheStep,
-         extendedEmail : Values.qaExtendedEmail,
-         jabberContacts: Values.jabberContactsProduction,
-         jabberNotification: Values.jabberNotificationWww,
+         pipelineJob: true,
+         githubPush: false,
        ],
        'feature.eupathdb.org' : null,
-       'l2.clinepidb.org' : null,
-       'l2.microbiomedb.org' : null,
-       'l2.vectorbase.org' : null,
-       'l1.clinepidb.org' : null,
-       'l1.microbiomedb.org' : null,
-       'l1.vectorbase.org' : null,
 
-        // legacy eupath sites
-       'l1.eupathdb.org' : [
-         model : "EuPathDB",
-         webapp : "eupathdb",
-         label : 'myrtle',
-         host : "l1",
-         sld : "eupathdb",
-         tld : "org",
-         rebuilderStep: Values.rebuilderStepForWww,
-         checkoutRetryCount : 1,
-         logRotator : [-1, 50, -1, -1],
-         extendedEmail : Values.wwwExtendedEmail,
-         jabberContacts : Values.jabberContactsProduction,
-         jabberNotification: Values.jabberNotificationWww,
-       ],
-
-       'l2.eupathdb.org' : [
-         model : "EuPathDB",
-         webapp : "eupathdb",
-         label : 'pine',
-         host : "l2",
-         sld : "eupathdb",
-         tld : "org",
-         rebuilderStep: Values.rebuilderStepForWww,
-         checkoutRetryCount : 1,
-         logRotator : [-1, 50, -1, -1],
-         extendedEmail : Values.wwwExtendedEmail,
-         jabberContacts : Values.jabberContactsProduction,
-         jabberNotification: Values.jabberNotificationWww,
-       ],
        'bbelnap.cryptodb.org' : [
          model : "CryptoDB",
          label : 'durian',
