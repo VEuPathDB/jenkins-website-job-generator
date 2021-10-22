@@ -523,6 +523,54 @@ JABBER
   }
 
 /** ********************************************************************************
+PIPELINE NOTIFICATIONS
+******************************************************************************** **/
+
+
+  static public def pipelineNotificationChangeOnly = { channel ->
+    if ( channel == null ) return null
+
+    def notifications = [:]
+
+    notifications['begin'] = ''
+    notifications['fixed'] = ''
+    notifications['regression'] = ''
+    notifications['success'] = ''
+    notifications['unsuccessful'] = ''
+
+    notifications['fixed'] = """
+      script {
+        def slackResponse = slackSend(
+          channel: "${channel}",
+          color: 'good',
+          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL}"
+        )
+      }
+"""
+
+    notifications['regression'] = """
+      script {
+        def userIds = slackUserIdsFromCommitters()
+        def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
+        def blameMessage = ''
+        if ( userIdsString ) {
+            blameMessage = "\${userIdsString} broke it"
+        }
+    
+        def slackResponse = slackSend(
+          channel: "${channel}",
+          color: 'danger',
+          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
+        )
+
+      }
+"""
+
+    return notifications
+
+    }
+
+/** ********************************************************************************
 SCM POLL SCHEDULE
 ******************************************************************************** **/
   static public def scmScheduleAsap = 'H/5 * * * *'
@@ -566,6 +614,7 @@ CONFIGURATIONS PER HOST
       testngStep : testngStepForIntegration,
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
       logRotator : [7, -1, -1, -1],
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#integration-notifications",
       pipelineJob: true,
       githubPush: true,
@@ -615,6 +664,7 @@ CONFIGURATIONS PER HOST
       apitestStep: apitestStepForQa,
       cacheStep: cacheStep,
       sitesearchStep: sitesearchStepForQa,
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#qa-notifications",
       pipelineJob: true,
       githubPush: false,
@@ -630,6 +680,7 @@ CONFIGURATIONS PER HOST
       apitestStep: apitestStepForQa,
       cacheStep: cacheStep,
       sitesearchStep: sitesearchStepForQa,
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#qa-notifications",
       pipelineJob: true,
       githubPush: false,
@@ -663,6 +714,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForWww,
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#livesite-notifications",
     ],
     w2 : [
@@ -674,6 +726,7 @@ CONFIGURATIONS PER HOST
       jabberContacts : jabberContactsProduction,
       jabberNotification: jabberNotificationWww,
       sitesearchStep: sitesearchStepForWww,
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#livesite-notifications",
     ],
   ]

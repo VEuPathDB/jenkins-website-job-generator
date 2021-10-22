@@ -77,6 +77,7 @@ public class JobConfigurator {
             extendedEmail : hostconf['extendedEmail'] ?: null,
             pipelineJob : hostconf['pipelineJob'] ?: null,
             slackChannel : hostconf['slackChannel'] ?: null,
+            pipelineNotification : hostconf['pipelineNotification'] ? hostconf['pipelineNotification'](hostconf['slackChannel']) : null,
             githubPush : hostconf['githubPush'] ?: null,
           ]
         }
@@ -124,6 +125,7 @@ public class JobConfigurator {
             extendedEmail : conf['extendedEmail'] ?: null,
             pipelineJob : conf['pipelineJob'] ?: null,
             slackChannel : conf['slackChannel'] ?: null,
+            pipelineNotification : conf['pipelineNotification'] ? conf['pipelineNotification'](conf['slackChannel']) : null,
             githubPush : conf['githubPush'] ?: null,
          ]
 
@@ -170,7 +172,12 @@ public class JobConfigurator {
     console.println "Creating pipeline job " + jobName
 
 
-// OPTIONS SNIPET
+// We use rudimentary (i.e. awful) string substitution as a templating system.
+// When everything moves to pipeline, this could be cleaned up.  Optional
+// pieces are defined as 'snippets' which are then included into the final
+// pipeline script.
+
+// OPTIONS SNIPPET
 // currently only used for timeout, could expand later
 
     def pipeline_options = ''
@@ -181,6 +188,7 @@ public class JobConfigurator {
   }
 """
     }
+
 // CHECKOUT SNIPPET
     def stage_checkout = """
       stage('Checkout') {
@@ -301,34 +309,16 @@ pipeline {
   }
   post { 
     fixed {
-      script {
-        def slackResponse = slackSend(
-          channel: "${masterMap[jobName]['slackChannel']}",
-          color: 'good',
-          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL}"
-        )
-      }
-
+      echo 'fixed!'
+      ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['fixed'] : ''}
     }
     regression { 
-      script {
-        def userIds = slackUserIdsFromCommitters()
-        def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
-        def blameMessage = ''
-        if ( userIdsString ) {
-            blameMessage = "\${userIdsString} broke it"
-        }
-    
-        def slackResponse = slackSend(
-          channel: "${masterMap[jobName]['slackChannel']}",
-          color: 'danger',
-          message: "\${currentBuild.currentResult}: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL} \$blameMessage "
-        )
-
-      }
+      echo 'failed after working :~('
+      ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['regression'] : ''}
     }
     success {
       echo 'I did it!  Yay!'
+      ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['success'] : ''}
       ${cache_step}
     }
   }
