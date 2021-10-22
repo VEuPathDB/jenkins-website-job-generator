@@ -577,11 +577,10 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep : rebuilderStepForMaint,
       ignorePostCommitHooks : 'true',
-      extendedEmail : maintExtendedEmail,
-      jabberContacts : jabberContactsIntegrate,
-      jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
       description : maintDescription(),
+      pipelineJob: true,
+      githubPush: false,
     ],
     feature : [
       /** redmine #18965 **/
@@ -603,9 +602,8 @@ CONFIGURATIONS PER HOST
       checkoutRetryCount : 1,
       rebuilderStep: rebuilderStepForQa,
       testngStep: testngStepForQa,
-      extendedEmail : qaExtendedEmail,
-      jabberContacts: jabberContactsProduction,
-      jabberNotification: jabberNotificationWww,
+      pipelineJob: true,
+      githubPush: false,
     ],
     q1 : [
       label : 'watermelon',
