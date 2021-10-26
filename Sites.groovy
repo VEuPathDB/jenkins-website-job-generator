@@ -163,9 +163,10 @@ public class Sites {
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
        testngStep: Values.testngStepForQa, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+       pipelineNotification: Values.pipelineNotificationEveryBuild,
+       slackChannel: "#livesite-notifications",
+       pipelineJob: true,
+       githubPush: false,
    ],
 
     'w1.restricted.clinepidb.org' : [
