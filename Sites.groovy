@@ -162,7 +162,6 @@ public class Sites {
        label : 'fir', // REQUIRED
        rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
        checkoutRetryCount : 1,
-       testngStep: Values.testngStepForQa, // OPTIONAL
        pipelineNotification: Values.pipelineNotificationEveryBuild,
        slackChannel: "#livesite-notifications",
        pipelineJob: true,
