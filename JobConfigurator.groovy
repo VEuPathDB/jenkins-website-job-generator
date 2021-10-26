@@ -291,6 +291,7 @@ ${masterMap[jobName]['sitesearchStep']}
 // Script definition - this brings together all the stages above, if defined
 
     def pscript = """
+${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['begin'] : ''}
 pipeline {
   agent {
     node {
@@ -321,7 +322,11 @@ pipeline {
       ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['success'] : ''}
       ${cache_step}
     }
-  }
+     unsuccessful {
+      echo 'I failed :~('
+      ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['unsuccessful'] : ''}
+    }
+ }
 
 }
 """

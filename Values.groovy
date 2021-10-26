@@ -570,6 +570,44 @@ PIPELINE NOTIFICATIONS
 
     }
 
+  static public def pipelineNotificationEveryBuild = { channel ->
+    if ( channel == null ) return null
+
+    def notifications = [:]
+
+    notifications['begin'] = ''
+    notifications['fixed'] = ''
+    notifications['regression'] = ''
+    notifications['success'] = ''
+    notifications['unsuccessful'] = ''
+
+
+    notifications['begin'] = """
+      script {
+        slackResponse = slackSend(
+          channel: "${channel}",
+          message: "Starting Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL}"
+        )
+      }
+"""
+    notifications['success'] = """
+      script {
+        slackResponse.addReaction("jenkins-success")
+      }
+"""
+    notifications['unsuccessful'] = """
+      script {
+        slackResponse.addReaction("jenkins-failed")
+      }
+"""
+
+    return notifications
+
+    }
+
+
+
+
 /** ********************************************************************************
 SCM POLL SCHEDULE
 ******************************************************************************** **/
