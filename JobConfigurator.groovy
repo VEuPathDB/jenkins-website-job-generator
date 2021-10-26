@@ -201,7 +201,7 @@ public class JobConfigurator {
                 checkout(
                     [
                       \$class: 'GitSCM', 
-                      branches: [[name: "*/\${project['scm_branch']}"]],
+                      branches: [[name: "*/\${project['branch']}"]], 
                       extensions: [[
                           \$class: 'RelativeTargetDirectory', 
                           relativeTargetDir: project['src']
