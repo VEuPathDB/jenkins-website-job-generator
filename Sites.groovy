@@ -277,6 +277,20 @@ public class Sites {
        ],
        'feature.eupathdb.org' : null,
 
+       'feature.clinepidb.org' : [
+         label : 'palm',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         scmSchedule : Values.scmScheduleNightly,
+         rebuilderStep: Values.rebuilderStepForQa,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         description : Values.featureDescription(),
+         pipelineJob: true,
+         githubPush: false,
+       ],
+
+
        'bbelnap.cryptodb.org' : [
          model : "CryptoDB",
          label : 'durian',

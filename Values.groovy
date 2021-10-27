@@ -677,11 +677,10 @@ CONFIGURATIONS PER HOST
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForQa,
       ignorePostCommitHooks : 'true',
-      extendedEmail : maintExtendedEmail,
-      jabberContacts : jabberContactsIntegrate,
-      jabberNotification: jabberNotificationWww,
       logRotator : [7, -1, -1, -1],
       description : featureDescription(),
+      pipelineJob: true,
+      githubPush: false,
     ],
     a2 : [
       label : 'fir',
