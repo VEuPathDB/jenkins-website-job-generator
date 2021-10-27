@@ -278,6 +278,11 @@ public class Sites {
        'feature.eupathdb.org' : null,
 
        'feature.clinepidb.org' : [
+         model : "ClinEpiDB",
+         webapp : "ce",
+         host : "feature",
+         sld : "clinepidb",
+         tld : "org",
          label : 'palm',
          timeout : 60,
          checkoutRetryCount : 1,
