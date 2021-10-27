@@ -202,10 +202,11 @@ public class JobConfigurator {
                     [
                       \$class: 'GitSCM', 
                       branches: [[name: "*/\${project['branch']}"]], 
-                      extensions: [[
-                          \$class: 'RelativeTargetDirectory', 
-                          relativeTargetDir: project['src']
-                          ]], 
+                      extensions: [
+                          [\$class: 'LocalBranch'],
+                          [\$class: 'RelativeTargetDirectory',
+                              relativeTargetDir: project['src']]
+                          ],
                           userRemoteConfigs: [[
                               credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
                               url: project['url']
