@@ -728,9 +728,8 @@ CONFIGURATIONS PER HOST
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-      extendedEmail : wwwExtendedEmail,
-      jabberContacts : jabberContactsProduction,
-      jabberNotification: jabberNotificationWww,
+      pipelineJob: true,
+      githubPush: false,
     ],
     b2 : [
       label : 'fir',
@@ -738,9 +737,8 @@ CONFIGURATIONS PER HOST
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-      extendedEmail : wwwExtendedEmail,
-      jabberContacts : jabberContactsProduction,
-      jabberNotification: jabberNotificationWww,
+      pipelineJob: true,
+      githubPush: false,
     ],
     w1 : [
       label : 'watermelon',
