@@ -225,7 +225,6 @@ public class JobConfigurator {
       stage_build = """
       stage('Build') {
         steps {
-          //sh 'rebuilder bbelnap.cryptodb.org --skip-scm-update --non-interactive'
           sh '''
 ${masterMap[jobName]['rebuilderStep']}
 '''
