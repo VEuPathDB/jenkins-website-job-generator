@@ -127,13 +127,10 @@ public class Sites {
        tld : "org", // REQUIRED
        label : 'pineapple', // REQUIRED
        scmSchedule : Values.scmScheduleAsap, // OPTIONAL
-       checkoutRetryCount : 1,
-       svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
-       extendedEmail : Values.integrateExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsIntegrate, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+       pipelineJob: true,
+       githubPush: false,
     ],
 
     'qa.wdk.apidb.org' : [
@@ -145,12 +142,10 @@ public class Sites {
        label : 'pine', // REQUIRED
        scmSchedule : Values.scmScheduleNightly, // OPTIONAL
        checkoutRetryCount : 1,
-       svnDefaultLocations : Values.svnWdkTemplateLocations,
        rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
        // testngStep: Values.testngStepForIntegration, // OPTIONAL
-       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-       jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
+       pipelineJob: true,
+       githubPush: false,
     ],
 
     'w2.restricted.clinepidb.org' : [
