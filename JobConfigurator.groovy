@@ -45,7 +45,6 @@ public class JobConfigurator {
           def jobName = "${host}.${sld}.${tld}"
           def existingJob = jenkins.getJob(jobName)
           def hostconf = Values.hostSpecificConfig[host]
-          def svnDefaultLocations = Values.svnDefaultLocations
           def rebuilderStep = hostconf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : hostconf['label'],
@@ -55,7 +54,6 @@ public class JobConfigurator {
             quietPeriod : hostconf['quietPeriod'] ?: null,
             checkoutRetryCount : hostconf['checkoutRetryCount'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
-            scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : hostconf['scmSchedule'] ?: null,
             ignorePostCommitHooks : hostconf['ignorePostCommitHooks'] ?: null,
             timeout : hostconf['timeout'] ?: null,
@@ -101,7 +99,6 @@ public class JobConfigurator {
           def tld = conf['tld']
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
-          def svnDefaultLocations = conf['svnDefaultLocations'] ?: Values.svnDefaultLocations
           def rebuilderStep = conf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : conf['label'],
@@ -111,7 +108,6 @@ public class JobConfigurator {
             quietPeriod : conf['quietPeriod'] ?: null,
             checkoutRetryCount : conf['checkoutRetryCount'] ?: null,
             customWorkspace : '/var/www/' + jobName + '/project_home',
-            scm : getSvnLocations(moduleLocations(jobName, existingJob, svnDefaultLocations)),
             scmSchedule : conf['scmSchedule'] ?: null,
             ignorePostCommitHooks : conf['ignorePostCommitHooks'] ?: null,
             timeout : conf['timeout'] ?: null,
@@ -459,86 +455,6 @@ pipeline {
     }
     }
   }
-
-  // convert SubversionSCM.ModuleLocation fields to a map
-  def moduleLocations(jobName, job, svnDefaultLocations) {
-
-    def jobType = job.getClass().toString()
-    if(jobType.contains('WorkflowJob')){
-      console.println jobName + " is a  pipeline job, I don't care about scm"
-      return "noscm"
-    }
-
-    if (job == null) {
-      console.println jobName + " is new, using default svn locations"
-      return svnDefaultLocations
-    }
-
-    if ( ! job.scm.hasProperty('locations')) {
-      console.println jobName + " exists, but no scm defined; using default svn locations"
-      return svnDefaultLocations
-    }
-
-    def locations = [:]
-    job.scm.locations.each{
-      if ( ! it.local && ! it.remote) return
-      locations.put(it.local, it.remote)
-    }
-
-    if (locations.size() == 0) {
-      console.println jobName + " exists, but no valid svn locations; using default svn locations"
-      return svnDefaultLocations
-    }
-
-    console.println "Existing job " + jobName + ", using existing svn locations"
-    return locations
-  }
-
-  def getSvnLocations(svnLocations) {
-    {it ->
-        def installUrl = svnLocations['install']
-        if (installUrl == null)
-          throw new java.lang.NullPointerException("SCM location for 'install' is not defined'")
-        def firstKey = svnLocations.find().key
-        svn(svnLocations[firstKey], firstKey) { svnNode ->
-          svnLocations.each { localValue, remoteValue ->
-            if (localValue == firstKey) {
-              svnNode / locations {
-                'hudson.scm.SubversionSCM_-ModuleLocation' {
-                  remote remoteValue
-                  local localValue
-                  if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
-                    credentialsId Values.datasetSvnCredentialsId
-                  }
-                }
-              }
-            } else {
-              svnNode / locations << 'hudson.scm.SubversionSCM_-ModuleLocation' {
-                remote remoteValue
-                local localValue
-                if ( (localValue ==~ /.+(?:Presenters|Datasets)/) ) {
-                  credentialsId Values.datasetSvnCredentialsId
-                }
-              }
-            }
-
-            svnNode / browser(class:"hudson.plugins.websvn2.WebSVN2RepositoryBrowser") {
-              url "http://websvn.apidb.org/revision.php?repname=TBD"
-              baseUrl "http://websvn.apidb.org"
-              repname "repname=TBD&"
-            }
-
-        } // svnLocations.each
-
-        svnNode / excludedRegions('/ApiCommonData/.*/Load/.*')
-
-        // syntax learned from https://issues.jenkins-ci.org/browse/JENKINS-17513
-        def updaterNode = svnNode / workspaceUpdater
-        updaterNode.attributes().put('class','hudson.scm.subversion.UpdateWithCleanUpdater')
-
-      } // svn()
-    } // closure
-  } // getSvnLocations()
 
 }
 
