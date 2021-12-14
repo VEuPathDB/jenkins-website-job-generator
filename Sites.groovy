@@ -272,6 +272,25 @@ public class Sites {
        ],
        'feature.eupathdb.org' : null,
 
+       'feature.microbiomedb.org' : [
+         model : "MicrobiomeDB",
+         webapp : "mbio",
+         host : "feature",
+         sld : "microbiomedb",
+         tld : "org",
+         label : 'palm',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         scmSchedule : Values.scmScheduleNightly,
+         rebuilderStep: Values.rebuilderStepForQa,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         description : Values.featureDescription(),
+         pipelineJob: true,
+         githubPush: false,
+       ],
+
+
        'feature.clinepidb.org' : [
          model : "ClinEpiDB",
          webapp : "ce",
