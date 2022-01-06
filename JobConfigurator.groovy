@@ -201,7 +201,7 @@ public class JobConfigurator {
                       extensions: [
                           [\$class: 'LocalBranch'],
                           [\$class: 'RelativeTargetDirectory',
-                              relativeTargetDir: project['src']]
+                              relativeTargetDir: project['dest']]
                           ],
                           userRemoteConfigs: [[
                               credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
