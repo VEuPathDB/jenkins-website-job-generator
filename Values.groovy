@@ -401,7 +401,7 @@ PIPELINE NOTIFICATIONS
         def userIdsString = userIds.collect { "<@\${it}>" }.join(' ')
         def blameMessage = ''
         if ( userIdsString ) {
-            blameMessage = "\${userIdsString} broke it"
+            blameMessage = "Last Commits by: \${userIdsString}"
         }
     
         def slackResponse = slackSend(
