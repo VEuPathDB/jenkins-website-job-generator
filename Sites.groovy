@@ -311,7 +311,7 @@ public class Sites {
 
        'l1.clinepidb.org' : [
          model : "ClinEpiDB",
-         webapp : "ce",
+         webapp : "ce.legacy",
          host : "l1",
          sld : "clinepidb",
          tld : "org",
@@ -327,7 +327,7 @@ public class Sites {
 
        'l2.clinepidb.org' : [
          model : "ClinEpiDB",
-         webapp : "ce",
+         webapp : "ce.legacy",
          host : "l2",
          sld : "clinepidb",
          tld : "org",
