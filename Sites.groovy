@@ -148,36 +148,6 @@ public class Sites {
        githubPush: false,
     ],
 
-    'w2.restricted.clinepidb.org' : [
-       model : "AllClinEpiDb", // REQUIRED
-       webapp : "ce.restricted", // REQUIRED
-       host : "w2.restricted", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'fir', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       pipelineNotification: Values.pipelineNotificationEveryBuild,
-       slackChannel: "#alert-build-livesite",
-       pipelineJob: true,
-       githubPush: false,
-   ],
-
-    'w1.restricted.clinepidb.org' : [
-       model : "AllClinEpiDb", // REQUIRED
-       webapp : "ce.restricted", // REQUIRED
-       host : "w1.restricted", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'watermelon', // REQUIRED
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       checkoutRetryCount : 1,
-       pipelineNotification: Values.pipelineNotificationEveryBuild,
-       slackChannel: "#alert-build-livesite",
-       pipelineJob: true,
-       githubPush: false,
-   ],
-
     'q2.restricted.clinepidb.org' : [
       /** https://redmine.apidb.org/issues/34369 **/
        model : "AllClinEpiDb", // REQUIRED
