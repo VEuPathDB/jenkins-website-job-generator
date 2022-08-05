@@ -248,7 +248,7 @@ public class Sites {
          host : "feature",
          sld : "microbiomedb",
          tld : "org",
-         label : 'palm',
+         label : 'fir',
          timeout : 60,
          checkoutRetryCount : 1,
          scmSchedule : Values.scmScheduleNightly,
