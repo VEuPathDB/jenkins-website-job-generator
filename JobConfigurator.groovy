@@ -220,6 +220,9 @@ public class JobConfigurator {
     if (masterMap[jobName]['rebuilderStep'] != null) {
       stage_build = """
       stage('Build') {
+          environment {
+                GITHUB_READONLY = credentials('3cf5388f-54e2-491b-a7fc-83160dcab3e3')
+            }
         steps {
           sh '''
 ${masterMap[jobName]['rebuilderStep']}
