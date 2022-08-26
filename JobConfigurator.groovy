@@ -256,6 +256,9 @@ ${masterMap[jobName]['rebuilderStep']}
     if (testng_snippet || apitest_snippet ) {
       stage_test = """
       stage('Test') {
+          environment {
+                GITHUB_READONLY = credentials('3cf5388f-54e2-491b-a7fc-83160dcab3e3')
+            }
         steps {
         ${testng_snippet}
         ${apitest_snippet}
