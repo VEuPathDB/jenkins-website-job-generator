@@ -304,6 +304,10 @@ Api testing for QA
 
     source /var/www/${host}.${sld}.${tld}/etc/setenv
 
+    # rename jenkins supplied environment vars to what the build requires
+    export GITHUB_USERNAME="\$GITHUB_READONLY_USR"
+    export GITHUB_TOKEN="\$GITHUB_READONLY_PSW"
+
     time testRunner.sh ${model} https://${host}.${sld}.${tld} \$GUS_HOME/../html/test_output /tmp/test_${host}.${sld}.${tld} || true
 
     """
