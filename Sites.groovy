@@ -310,6 +310,38 @@ public class Sites {
          githubPush: false,
        ],
 
+       'l1.microbiomedb.org' : [
+         model : "MicrobiomeDB",
+         webapp : "mbio.legacy",
+         host : "l1",
+         sld : "microbiomedb",
+         tld : "org",
+         label : 'watermelon',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForWww,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         pipelineJob: true,
+         githubPush: false,
+       ],
+
+       'l2.microbiomedb.org' : [
+         model : "MicrobiomeDB",
+         webapp : "mbio.legacy",
+         host : "l2",
+         sld : "microbiomedb",
+         tld : "org",
+         label : 'fir',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForWww,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         pipelineJob: true,
+         githubPush: false,
+       ],
+
        'bbelnap.cryptodb.org' : [
          model : "CryptoDB",
          label : 'durian',
