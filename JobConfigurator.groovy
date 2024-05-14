@@ -282,7 +282,7 @@ ${masterMap[jobName]['sitesearchStep']}
     }
 
 // CACHE SNIPPET
-    def stage_cache = ""
+    def stage_sitecache = ""
     if (masterMap[jobName]['cacheStep'] != null) {
       stage_sitecache = """
       stage('Sitecache') {
