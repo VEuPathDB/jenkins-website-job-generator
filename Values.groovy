@@ -323,7 +323,7 @@ Cache building step
     echo "This is the site cache build step for ${host}.${sld}.${tld}/${webapp}"
 
     source /var/www/${host}.${sld}.${tld}/etc/setenv
-    time wdkCacheSeeder || true
+    time wdkCacheSeeder
 
     echo "Site cache build finished"
     """
