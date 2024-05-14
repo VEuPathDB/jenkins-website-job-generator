@@ -281,11 +281,17 @@ ${masterMap[jobName]['sitesearchStep']}
 """
     }
 
-// CACHE SNIPPET (for qa sites)
-    def cache_step = ""
+// CACHE SNIPPET
+    def stage_cache = ""
     if (masterMap[jobName]['cacheStep'] != null) {
-      cache_step = """ 
-      build job: 'site-cache-build', parameters: [string(name: 'SITE_NAME', value: "${jobName}")] 
+      stage_sitecache = """
+      stage('Sitecache') {
+        steps {
+          sh '''
+${masterMap[jobName]['cacheStep']}
+'''
+        }
+      }
 """
     }
     
@@ -309,8 +315,9 @@ pipeline {
     ${stage_build}
     ${stage_test}
     ${stage_sitesearch}
+    ${stage_sitecache}
   }
-  post { 
+  post {
     fixed {
       echo 'fixed!'
       ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['fixed'] : ''}
@@ -322,7 +329,6 @@ pipeline {
     success {
       echo 'I did it!  Yay!'
       ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['success'] : ''}
-      ${cache_step}
     }
      unsuccessful {
       echo 'I failed :~('
