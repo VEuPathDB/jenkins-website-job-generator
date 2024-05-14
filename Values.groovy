@@ -319,14 +319,15 @@ Cache building step
 ******************************************************************************** **/
 
   static public def cacheStep = { host, model, webapp, sld, tld ->
-    return {
-         trigger('site-cache-build') {
-            condition('SUCCESS')
-            parameters {
-              predefinedProp('SITE_NAME', "${host}.${sld}.${tld}")
-            }
-         }
-      }
+    return """
+    echo "This is the site cache build step for ${host}.${sld}.${tld}/${webapp}"
+
+    source /var/www/${host}.${sld}.${tld}/etc/setenv
+    time wdkCacheSeeder
+
+    echo "Site cache build finished"
+    """
+    .stripIndent()
   }
 
 /** ********************************************************************************
