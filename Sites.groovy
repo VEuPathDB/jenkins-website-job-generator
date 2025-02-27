@@ -342,6 +342,22 @@ public class Sites {
          githubPush: false,
        ],
 
+       'l2.orthomcl.org' : [
+         model : "OrthoMCL",
+         webapp : "orthomcl.l",
+         host : "l2",
+         sld : "orthomcl",
+         tld : "org",
+         label : 'fir',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForWww,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         pipelineJob: true,
+         githubPush: false,
+       ],
+
        'bbelnap.cryptodb.org' : [
          model : "CryptoDB",
          label : 'durian',
