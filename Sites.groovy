@@ -341,6 +341,22 @@ public class Sites {
          pipelineJob: true,
          githubPush: false,
        ],
+      
+       'l1.orthomcl.org' : [
+         model : "OrthoMCL",
+         webapp : "orthomcl.l",
+         host : "l1",
+         sld : "orthomcl",
+         tld : "org",
+         label : 'watermelon',
+         timeout : 60,
+         checkoutRetryCount : 1,
+         rebuilderStep: Values.rebuilderStepForWww,
+         ignorePostCommitHooks : 'true',
+         logRotator : [7, -1, -1, -1],
+         pipelineJob: true,
+         githubPush: false,
+       ],
 
        'l2.orthomcl.org' : [
          model : "OrthoMCL",
