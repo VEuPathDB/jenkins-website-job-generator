@@ -51,16 +51,17 @@ public class Sites {
   // hosts that should be configured for all inclusiveModels
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
-    'feature',
-    'integrate',
-    'maint',
-    //'a2',
-    'b1',
-    'b2',
-    'q1',
-    'q2',
-    'w1',
-    'w2',
+//    'feature',
+//    'integrate',
+//    'maint',
+//    //'a2',
+//    'b1',
+//    'b2',
+//    'q1',
+//    'q2',
+//    'w1',
+//    'w2',
+    'w5',
   ]
 
   // There must be configurations for each in Values.modelSpecificConfig
@@ -119,70 +120,70 @@ public class Sites {
   *    jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
   * ],
   **/
-    'integrate.wdk.apidb.org' : [
-       model : "TemplateDB", // REQUIRED
-       webapp : "ROOT", // REQUIRED
-       host : "integrate.wdk", // REQUIRED
-       sld : "apidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pineapple', // REQUIRED
-       scmSchedule : Values.scmScheduleAsap, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
-       // testngStep: Values.testngStepForIntegration, // OPTIONAL
-       pipelineJob: true,
-       githubPush: false,
-    ],
-
-    'qa.wdk.apidb.org' : [
-       model : "TemplateDB", // REQUIRED
-       webapp : "templatesite.b20", // REQUIRED
-       host : "qa.wdk", // REQUIRED
-       sld : "apidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'pine', // REQUIRED
-       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-       checkoutRetryCount : 1,
-       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
-       // testngStep: Values.testngStepForIntegration, // OPTIONAL
-       pipelineJob: true,
-       githubPush: false,
-    ],
-
-    'q2.restricted.clinepidb.org' : [
-      /** https://redmine.apidb.org/issues/34369 **/
-       model : "AllClinEpiDb", // REQUIRED
-       webapp : "ce.restricted.qa", // REQUIRED
-       host : "q2.restricted", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'fir', // REQUIRED
-       timeout : 60, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       cacheStep: Values.cacheStep,
-       checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       pipelineJob: true,
-       githubPush: false,
-   ],
-
-    'q1.restricted.clinepidb.org' : [
-      /** https://redmine.apidb.org/issues/34369 **/
-       model : "AllClinEpiDb", // REQUIRED
-       webapp : "ce.restricted.qa", // REQUIRED
-       host : "q1.restricted", // REQUIRED
-       sld : "clinepidb", //REQUIRED
-       tld : "org", // REQUIRED
-       label : 'watermelon', // REQUIRED
-       timeout : 60, // OPTIONAL
-       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-       cacheStep: Values.cacheStep,
-       checkoutRetryCount : 1,
-       scmSchedule : Values.scmScheduleNightly,
-       testngStep: Values.testngStepForQa, // OPTIONAL
-       pipelineJob: true,
-       githubPush: false,
-   ],
+//    'integrate.wdk.apidb.org' : [
+//       model : "TemplateDB", // REQUIRED
+//       webapp : "ROOT", // REQUIRED
+//       host : "integrate.wdk", // REQUIRED
+//       sld : "apidb", //REQUIRED
+//       tld : "org", // REQUIRED
+//       label : 'pineapple', // REQUIRED
+//       scmSchedule : Values.scmScheduleAsap, // OPTIONAL
+//       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
+//       // testngStep: Values.testngStepForIntegration, // OPTIONAL
+//       pipelineJob: true,
+//       githubPush: false,
+//    ],
+//
+//    'qa.wdk.apidb.org' : [
+//       model : "TemplateDB", // REQUIRED
+//       webapp : "templatesite.b20", // REQUIRED
+//       host : "qa.wdk", // REQUIRED
+//       sld : "apidb", //REQUIRED
+//       tld : "org", // REQUIRED
+//       label : 'pine', // REQUIRED
+//       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
+//       checkoutRetryCount : 1,
+//       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
+//       // testngStep: Values.testngStepForIntegration, // OPTIONAL
+//       pipelineJob: true,
+//       githubPush: false,
+//    ],
+//
+//    'q2.restricted.clinepidb.org' : [
+//      /** https://redmine.apidb.org/issues/34369 **/
+//       model : "AllClinEpiDb", // REQUIRED
+//       webapp : "ce.restricted.qa", // REQUIRED
+//       host : "q2.restricted", // REQUIRED
+//       sld : "clinepidb", //REQUIRED
+//       tld : "org", // REQUIRED
+//       label : 'fir', // REQUIRED
+//       timeout : 60, // OPTIONAL
+//       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+//       cacheStep: Values.cacheStep,
+//       checkoutRetryCount : 1,
+//       scmSchedule : Values.scmScheduleNightly,
+//       testngStep: Values.testngStepForQa, // OPTIONAL
+//       pipelineJob: true,
+//       githubPush: false,
+//   ],
+//
+//    'q1.restricted.clinepidb.org' : [
+//      /** https://redmine.apidb.org/issues/34369 **/
+//       model : "AllClinEpiDb", // REQUIRED
+//       webapp : "ce.restricted.qa", // REQUIRED
+//       host : "q1.restricted", // REQUIRED
+//       sld : "clinepidb", //REQUIRED
+//       tld : "org", // REQUIRED
+//       label : 'watermelon', // REQUIRED
+//       timeout : 60, // OPTIONAL
+//       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
+//       cacheStep: Values.cacheStep,
+//       checkoutRetryCount : 1,
+//       scmSchedule : Values.scmScheduleNightly,
+//       testngStep: Values.testngStepForQa, // OPTIONAL
+//       pipelineJob: true,
+//       githubPush: false,
+//   ],
 
     // q1.clinepidb.org doesn't build nightly, because it is pointed to clin-dg readonly replicated db
     // This is no longer the case, but leaving block here in case clin-dg returns
@@ -205,195 +206,175 @@ public class Sites {
     //   ],
 
         // build the portal sites an hour later so they cache correctly after component sites build
-       'q1.veupathdb.org' : [
-         model : "EuPathDB",
-         webapp : "veupathdb",
-         host : "q1",
-         sld : "veupathdb",
-         tld : "org",
-         label : 'watermelon',
-         timeout : 90,
-         logRotator : [7, -1, -1, -1],
-         scmSchedule : Values.scmScheduleNightlyLate,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForQa,
-         testngStep: Values.testngStepForQa,
-         cacheStep: Values.cacheStep,
-         pipelineJob: true,
-         githubPush: false,
+//       'q1.veupathdb.org' : [
+//         model : "EuPathDB",
+//         webapp : "veupathdb",
+//         host : "q1",
+//         sld : "veupathdb",
+//         tld : "org",
+//         label : 'watermelon',
+//         timeout : 90,
+//         logRotator : [7, -1, -1, -1],
+//         scmSchedule : Values.scmScheduleNightlyLate,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForQa,
+//         testngStep: Values.testngStepForQa,
+//         cacheStep: Values.cacheStep,
+//         pipelineJob: true,
+//         githubPush: false,
+//
+//       ],
+//       'q2.veupathdb.org' : [
+//         model : "EuPathDB",
+//         webapp : "veupathdb",
+//         host : "q2",
+//         sld : "veupathdb",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         logRotator : [7, -1, -1, -1],
+//         scmSchedule : Values.scmScheduleNightlyLate,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForQa,
+//         testngStep: Values.testngStepForQa,
+//         cacheStep: Values.cacheStep,
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//       'feature.eupathdb.org' : null,
+//
+//       'feature.microbiomedb.org' : [
+//         model : "MicrobiomeDB",
+//         webapp : "mbio",
+//         host : "feature",
+//         sld : "microbiomedb",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         scmSchedule : Values.scmScheduleNightly,
+//         rebuilderStep: Values.rebuilderStepForQa,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         description : Values.featureDescription(),
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//
+//       'feature.clinepidb.org' : [
+//         model : "ClinEpiDB",
+//         webapp : "ce",
+//         host : "feature",
+//         sld : "clinepidb",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForQa,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         description : Values.featureDescription(),
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l1.clinepidb.org' : [
+//         model : "ClinEpiDB",
+//         webapp : "ce.legacy",
+//         host : "l1",
+//         sld : "clinepidb",
+//         tld : "org",
+//         label : 'watermelon',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l2.clinepidb.org' : [
+//         model : "ClinEpiDB",
+//         webapp : "ce.legacy",
+//         host : "l2",
+//         sld : "clinepidb",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l1.microbiomedb.org' : [
+//         model : "MicrobiomeDB",
+//         webapp : "mbio.legacy",
+//         host : "l1",
+//         sld : "microbiomedb",
+//         tld : "org",
+//         label : 'watermelon',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l2.microbiomedb.org' : [
+//         model : "MicrobiomeDB",
+//         webapp : "mbio.legacy",
+//         host : "l2",
+//         sld : "microbiomedb",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l1.orthomcl.org' : [
+//         model : "OrthoMCL",
+//         webapp : "orthomcl.l",
+//         host : "l1",
+//         sld : "orthomcl",
+//         tld : "org",
+//         label : 'watermelon',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
+//
+//       'l2.orthomcl.org' : [
+//         model : "OrthoMCL",
+//         webapp : "orthomcl.l",
+//         host : "l2",
+//         sld : "orthomcl",
+//         tld : "org",
+//         label : 'fir',
+//         timeout : 60,
+//         checkoutRetryCount : 1,
+//         rebuilderStep: Values.rebuilderStepForWww,
+//         ignorePostCommitHooks : 'true',
+//         logRotator : [7, -1, -1, -1],
+//         pipelineJob: true,
+//         githubPush: false,
+//       ],
 
-       ],
-       'q2.veupathdb.org' : [
-         model : "EuPathDB",
-         webapp : "veupathdb",
-         host : "q2",
-         sld : "veupathdb",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         logRotator : [7, -1, -1, -1],
-         scmSchedule : Values.scmScheduleNightlyLate,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForQa,
-         testngStep: Values.testngStepForQa,
-         cacheStep: Values.cacheStep,
-         pipelineJob: true,
-         githubPush: false,
-       ],
-       'feature.eupathdb.org' : null,
-
-       'feature.microbiomedb.org' : [
-         model : "MicrobiomeDB",
-         webapp : "mbio",
-         host : "feature",
-         sld : "microbiomedb",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         scmSchedule : Values.scmScheduleNightly,
-         rebuilderStep: Values.rebuilderStepForQa,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         description : Values.featureDescription(),
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-
-       'feature.clinepidb.org' : [
-         model : "ClinEpiDB",
-         webapp : "ce",
-         host : "feature",
-         sld : "clinepidb",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForQa,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         description : Values.featureDescription(),
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'l1.clinepidb.org' : [
-         model : "ClinEpiDB",
-         webapp : "ce.legacy",
-         host : "l1",
-         sld : "clinepidb",
-         tld : "org",
-         label : 'watermelon',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'l2.clinepidb.org' : [
-         model : "ClinEpiDB",
-         webapp : "ce.legacy",
-         host : "l2",
-         sld : "clinepidb",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'l1.microbiomedb.org' : [
-         model : "MicrobiomeDB",
-         webapp : "mbio.legacy",
-         host : "l1",
-         sld : "microbiomedb",
-         tld : "org",
-         label : 'watermelon',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'l2.microbiomedb.org' : [
-         model : "MicrobiomeDB",
-         webapp : "mbio.legacy",
-         host : "l2",
-         sld : "microbiomedb",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-      
-       'l1.orthomcl.org' : [
-         model : "OrthoMCL",
-         webapp : "orthomcl.l",
-         host : "l1",
-         sld : "orthomcl",
-         tld : "org",
-         label : 'watermelon',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'l2.orthomcl.org' : [
-         model : "OrthoMCL",
-         webapp : "orthomcl.l",
-         host : "l2",
-         sld : "orthomcl",
-         tld : "org",
-         label : 'fir',
-         timeout : 60,
-         checkoutRetryCount : 1,
-         rebuilderStep: Values.rebuilderStepForWww,
-         ignorePostCommitHooks : 'true',
-         logRotator : [7, -1, -1, -1],
-         pipelineJob: true,
-         githubPush: false,
-       ],
-
-       'bbelnap.cryptodb.org' : [
-         model : "CryptoDB",
-         label : 'durian',
-         webapp : "cryptodb.bbelnap",
-         host : "bbelnap",
-         sld : "cryptodb",
-         tld : "org",
-         timeout : 90,
-         rebuilderStep: Values.rebuilderStepForQa,
-         cacheStep: Values.cacheStep,
-         pipelineJob: true,
-         //scmSchedule : Values.scmScheduleNightlyLate,
-         logRotator : [7, -1, -1, -1],
-         //sitesearchStep: Values.sitesearchStepForQa,
-         //testngStep: Values.testngStepForQa,
-         //apitestStep: Values.apitestStepForQa,
-         pipelineNotification: Values.pipelineNotificationEveryBuild,
-         slackChannel: "#bot-test",
-         githubPush: false,
-       ],
       
   ]
 

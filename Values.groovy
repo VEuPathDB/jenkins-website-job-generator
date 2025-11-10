@@ -608,6 +608,17 @@ CONFIGURATIONS PER HOST
       pipelineJob: true,
       githubPush: false,
     ],
+    w5 : [
+      label : 'webtest',
+      rebuilderStep: rebuilderStepForWww,
+      checkoutRetryCount : 1,
+      logRotator : [-1, 50, -1, -1],
+      sitesearchStep: sitesearchStepForWww,
+      pipelineNotification: pipelineNotificationEveryBuild,
+      // slackChannel: "#alert-build-livesite",
+      pipelineJob: true,
+      githubPush: false,
+    ],
   ]
 
 
