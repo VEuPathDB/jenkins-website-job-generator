@@ -339,12 +339,14 @@ pipeline {
 }
 """
 
-// The actual pielinejob definition
+// The actual pipelinejob definition
     jobFactory.pipelineJob(jobName) {
       disabled masterMap[jobName]['disabled'] ?: false
       description  masterMap[jobName]['description']
 
-      concurrentBuild(false)
+      properties {
+          disableConcurrentBuilds()
+      }
 
       if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
 
