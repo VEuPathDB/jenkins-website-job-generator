@@ -353,8 +353,12 @@ pipeline {
       if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
 
       if (masterMap[jobName]['githubPush'] != null ) {
-        triggers {
-          if (masterMap[jobName]['githubPush']) githubPush()
+        properties {
+          pipelineTriggers {
+            triggers {
+              githubPush()
+            }
+          }
         }
       }
 
@@ -362,12 +366,17 @@ pipeline {
         masterMap[jobName]['scmSchedule'] != null ||
         masterMap[jobName]['ignorePostCommitHooks'] != null
         ) {
-        triggers {
-          configure scmTrigger(
-            masterMap[jobName]['scmSchedule'],
-            masterMap[jobName]['ignorePostCommitHooks']
-          )
-        }
+          properties {
+            pipelineTriggers {
+              triggers {
+                pollSCM {
+                  scmpoll_spec(masterMap[jobName]['scmSchedule'])
+                  // Ignore changes notified by SCM post-commit hooks.
+                  ignorePostCommitHooks(masterMap[jobName]['ignorePostCommitHooks'])
+                }
+              }
+            }
+          }
       }
 
 
