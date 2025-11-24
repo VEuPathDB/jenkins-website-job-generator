@@ -1,19 +1,5 @@
 public class Values {
 
-  /**
-    * Read-only credentials for CBIL's subversion repo are registered in the
-    * Jenkins Jenkins Credentials plugin. For this script to add them to SCM
-    * entries for jenkins jobs we need the credential ID (not a username).
-    * To find that ID, go to https://<jenkins.host>/credential-store/ and
-    * navigate to the relevant global or restricted domain to find the
-    * specific user for CBIL's subversion server. Vist the details page for
-    * that user and note the UUID in the url (also shown under Advanced on
-    * the Update page).
-    *
-    * Credentials are mapped to the local path in JobConfigurator.getSvnLocations().
-  */
-  static private def datasetSvnCredentialsId = '3cf5388f-54e2-491b-a7fc-83160dcab3e3'
-
   static public def modelSpecificConfig = [
     AmoebaDB : [
       webapp : "amoeba",
@@ -140,44 +126,6 @@ REBUILDER
     .stripIndent()
   }
 
-
-  /** Cristina maint.*.org websites for testing apicomm maintenance scripts, etc. **/
-  static public def rebuilderStepForMaint = { host, model, webapp, sld, tld ->
-    return """
-      date > .hudsonTimestamp
-      ulimit -u 4096
-      ulimit -n 4096
-      env
-
-      # Copy Conifer site vars file from source in to etc.
-      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_maint_site_vars.yml"
-      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "\$src_yml" ]]; then
-        cp "\$src_yml" "\$dest_yml"
-        sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
-      fi
-
-      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}.maint
-    """
-    .stripIndent()
-  }
-
-
-  static public def rebuilderStepForWdkTemplate = { host, model, webapp, sld, tld ->
-    return """
-      date > .hudsonTimestamp
-      env
-      sudo instance_manager stop ${model} force
-      sleep 5
-      sudo instance_manager start  ${model} verbose
-      sleep 15
-      \$HOME/bin/rebuilder-jenkins ${host}.apidb.org --webapp ${model}:${webapp} --ignore-ip
-      \$HOME/bin/resetWdkPgTestDb
-    """
-    .stripIndent()
-  }
-
-
   static public def rebuilderStepForQa = { host, model, webapp, sld, tld ->
     return """
       env
@@ -204,15 +152,6 @@ REBUILDER
       #  export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
       #  wdkRunPublicStrats -model ${model}
       #fi
-    """
-    .stripIndent()
-  }
-
-  static public def rebuilderStepWithJava7 = { host, model, webapp, sld, tld ->
-    return """
-      env
-      # Using Java 7
-      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld}  --java-home /usr/java/jdk1.7.0_80
     """
     .stripIndent()
   }
@@ -245,28 +184,33 @@ REBUILDER
 
   static public def rebuilderStepForWww = { host, model, webapp, sld, tld ->
     return """
-      env
-
-      # Copy Conifer site vars file from source in to etc.
-      src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
-      dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
-      if [[ -f "\$src_yml" ]]; then
-        cp "\$src_yml" "\$dest_yml"
-        sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
-      fi
-
-      \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}
-      sleep 15
-
-      # cache public strategy results (redmine #18944) with non-debug logging
-      source /var/www/${host}.${sld}.${tld}/etc/setenv
-      if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
-        export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
-        # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
-        #wdkRunPublicStrats -model ${model}
-      fi
+          env
+    
+          # Copy Conifer site vars file from source in to etc.
+          src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
+          dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
+          if [[ -f "\$src_yml" ]]; then
+            cp "\$src_yml" "\$dest_yml"
+            sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
+          fi
+    
+          # \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld} --webapp ${model}:${webapp}
+          /usr/local/bin/rebuilder ${host}.${sld}.${tld} \\
+            --ignore-ip --skip-scm-update --non-interactive --publish-docs \\
+            --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
+            --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
+            --webapp ${model}:${webapp} \\
+            --gusjvmopts '-Dlog4j.configuration=file:${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
+          sleep 15
+    
+          # cache public strategy results (redmine #18944) with non-debug logging
+           source /var/www/${host}.${sld}.${tld}/etc/setenv
+          if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
+            export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
+            # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
+            # wdkRunPublicStrats -model ${model}
+          fi
     """
-    .stripIndent()
   }
 
 
@@ -300,7 +244,7 @@ Api testing for QA
 
   static public def apitestStepForQa = { host, model, webapp, sld, tld ->
     return """
-    echo "This is the  api testing step for ${host}.${sld}.${tld}"
+    echo "This is the api testing step for ${host}.${sld}.${tld}"
 
     source /var/www/${host}.${sld}.${tld}/etc/setenv
 
@@ -333,45 +277,58 @@ Cache building step
 /** ********************************************************************************
 Sitesearch step
 ******************************************************************************** **/
-
-  static public def sitesearchStepForWww = { host, model, webapp, sld, tld ->
+  static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
     // don't run update for portal
     if( model != "EuPathDB") {
       return """
-      # only run if container_env exists (this restricts currently to
-      # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
-      # but since the script requires it, it is a harmless check regardless)
+          # only run if container_env exists (this restricts currently to
+          # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
+          # but since the script requires it, it is a harmless check regardless)
+      
+          if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/$model/container_env ]
+          then
+            source /var/www/${host}.${sld}.${tld}/etc/setenv
 
-      if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/*/container_env ]
-      then
-        sudo /usr/local/bin/jenkins_presenter_update.sh /var/www/${host}.${sld}.${tld} prod
-      fi
+            case "$lifecycle" in
+              dev)
+                IMAGE_BRANCH=latest
+                ;;
+              qa)
+                IMAGE_BRANCH=qa
+                ;;
+              prod)
+                IMAGE_BRANCH=prod
+                ;;
+            esac
+            
+            echo "image branch is \${IMAGE_BRANCH}"
+            echo "core is \${CORE}"
+            
+            podman pull docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-data:\$IMAGE_BRANCH"; exit -1; }
+            
+            podman run --rm \
+              --sysctl net.ipv6.conf.all.disable_ipv6=1 \\
+              --network=pasta:"--map-host-loopback=169.254.1.2" \\
+              --env TNS_ADMIN=/jdbc/network/admin \\
+              --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env \\
+              --add-host=solr-sitesearch-${lifecycle}.local.apidb.org:169.254.1.2 \\
+              --volume=\$ORACLE_HOME/network/admin/ldap.ora:/jdbc/network/admin/ldap.ora \\
+              -it docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH \\
+              presenter_update.sh
+          fi
       """
-      .stripIndent()
     }
     else {
       return null
     }
   }
 
-  static public def sitesearchStepForQa = { host, model, webapp, sld, tld ->
-    // don't run update for portal
-    if( model != "EuPathDB") {
-      return """
-      # only run if container_env exists (this restricts currently to
-      # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
-      # but since the script requires it, it is a harmless check regardless)
+  static public def sitesearchStepForWww = { host, model, webapp, sld, tld ->
+    return sitesearchStep.call(host, model, webapp, sld, tld, "prod")
+  }
 
-      if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/*/container_env ]
-      then
-        sudo /usr/local/bin/jenkins_presenter_update.sh /var/www/${host}.${sld}.${tld} qa
-      fi
-      """
-      .stripIndent()
-    }
-    else {
-      return null
-    }
+  static public def sitesearchStepForQa = { host, model, webapp, sld, tld ->
+    return sitesearchStep.call(host, model, webapp, sld, tld, "qa")
   }
 
 /** ********************************************************************************
@@ -420,7 +377,7 @@ PIPELINE NOTIFICATIONS
 
     return notifications
 
-    }
+  }
 
   static public def pipelineNotificationEveryBuild = { channel ->
     if ( channel == null ) return null
@@ -434,14 +391,15 @@ PIPELINE NOTIFICATIONS
     notifications['unsuccessful'] = ''
 
 
-    notifications['begin'] = """
+    notifications['begin'] = """\
       script {
         slackResponse = slackSend(
           channel: "${channel}",
           message: "Starting Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' Check console output at \${env.BUILD_URL}"
         )
       }
-"""
+    """.stripIndent()
+
     notifications['success'] = """
       script {
         slackResponse.addReaction("jenkins-success")
@@ -455,7 +413,7 @@ PIPELINE NOTIFICATIONS
 
     return notifications
 
-    }
+  }
 
 
 
@@ -480,17 +438,15 @@ CONFIGURATIONS PER HOST
       quietPeriod : 180, // OPTIONAL
       checkoutRetryCount : 1, // OPTIONAL
       testngStep : testngStepForIntegration, // OPTIONAL
-      jabberContacts : jabberContactsIntegrate, // OPTIONAL
       //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
       logRotator : [7, -1, -1, -1], // OPTIONAL
-      extendedEmail : integrateExtendedEmail, // OPTIONAL
-      jabberNotification: jabberNotificationIntegrate, // OPTIONAL
 
 ******************************************************************************** **/
 
   static public def hostSpecificConfig = [
     integrate : [
       label : 'pineapple',
+      folder: 'site-builds/integrate',
       timeout : 30,
       quietPeriod : 180,
       checkoutRetryCount : 1,
@@ -500,24 +456,12 @@ CONFIGURATIONS PER HOST
       logRotator : [7, -1, -1, -1],
       pipelineNotification: Values.pipelineNotificationChangeOnly,
       slackChannel: "#alert-build-integration",
-      pipelineJob: true,
       githubPush: true,
-    ],
-    maint : [
-      /** redmine #18103 **/
-      label : 'pineapple',
-      timeout : 30,
-      checkoutRetryCount : 1,
-      rebuilderStep : rebuilderStepForMaint,
-      ignorePostCommitHooks : 'true',
-      logRotator : [7, -1, -1, -1],
-      description : maintDescription(),
-      pipelineJob: true,
-      githubPush: false,
     ],
     feature : [
       /** redmine #18965 **/
       label : 'fir',
+      folder: 'site-builds/feature',
       timeout : 60,
       checkoutRetryCount : 1,
       scmSchedule : scmScheduleNightly,
@@ -525,20 +469,11 @@ CONFIGURATIONS PER HOST
       ignorePostCommitHooks : 'true',
       logRotator : [7, -1, -1, -1],
       description : featureDescription(),
-      pipelineJob: true,
-      githubPush: false,
-    ],
-    a2 : [
-      label : 'fir',
-      timeout : 60,
-      checkoutRetryCount : 1,
-      rebuilderStep: rebuilderStepForQa,
-      testngStep: testngStepForQa,
-      pipelineJob: true,
       githubPush: false,
     ],
     q1 : [
       label : 'watermelon',
+      folder: 'site-builds/qa',
       timeout : 90,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,
@@ -549,12 +484,11 @@ CONFIGURATIONS PER HOST
       sitesearchStep: sitesearchStepForQa,
       pipelineNotification: pipelineNotificationChangeOnly,
       slackChannel: "#alert-build-qa",
-      pipelineJob: true,
       githubPush: false,
-
     ],
     q2 : [
       label : 'fir',
+      folder: 'site-builds/qa',
       timeout : 90,
       scmSchedule : scmScheduleNightly,
       checkoutRetryCount : 1,
@@ -565,58 +499,57 @@ CONFIGURATIONS PER HOST
       sitesearchStep: sitesearchStepForQa,
       pipelineNotification: pipelineNotificationChangeOnly,
       slackChannel: "#alert-build-qa",
-      pipelineJob: true,
       githubPush: false,
     ],
     b1 : [
       label : 'watermelon',
+      folder: 'site-builds/beta',
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-      pipelineJob: true,
       githubPush: false,
     ],
     b2 : [
       label : 'fir',
+      folder: 'site-builds/beta',
       rebuilderStep: rebuilderStepForBeta,
       cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-      pipelineJob: true,
       githubPush: false,
     ],
     w1 : [
       label : 'watermelon',
+      folder: 'site-builds/prod',
       rebuilderStep: rebuilderStepForWww,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       sitesearchStep: sitesearchStepForWww,
       pipelineNotification: pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite",
-      pipelineJob: true,
       githubPush: false,
     ],
     w2 : [
       label : 'fir',
+      folder: 'site-builds/prod',
       rebuilderStep: rebuilderStepForWww,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       sitesearchStep: sitesearchStepForWww,
       pipelineNotification: pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite",
-      pipelineJob: true,
       githubPush: false,
     ],
     w5 : [
       label : 'webtest',
+      folder: 'site-builds/prod',
       rebuilderStep: rebuilderStepForWww,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
       sitesearchStep: sitesearchStepForWww,
       pipelineNotification: pipelineNotificationEveryBuild,
-      // slackChannel: "#alert-build-livesite",
-      pipelineJob: true,
+      slackChannel: "#alert-build-livesite-test",
       githubPush: false,
     ],
   ]
@@ -644,24 +577,6 @@ the web UI will be lost.</font> <br>
   }
 
 
-  static public def maintDescription() {
-
-    def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
-    def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
-
-    return """
-Websites to support Cristina's site/database maintenance procedures.
-<p>
-See <a href="https://wiki.apidb.org/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
-<p>
-<font color='red'>This project configuration is auto-generated by
-<a href="/${thisProject.url}">${thisProject.displayName}</a>. <br>
-SCM values are configured at https://github.com/VEuPathDB/websiteconf Other changes made through
-the web UI will be lost.</font> <br>
-(Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
-"""
-  }
-
   static public def featureDescription() {
 
     def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
@@ -679,27 +594,5 @@ the web UI will be lost.</font> <br>
 (Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
 """
   }
-
-  /** ********************************************************************************
-    Disable QA Jobs
-  ******************************************************************************** **/
-  def disableQABuilds(model, sld, tld) {
-    {project -> project/publishers/'hudson.plugins.parameterizedtrigger.BuildTrigger' {
-        'configs'  {
-          'hudson.plugins.parameterizedtrigger.BuildTriggerConfig' {
-            'configs' {
-              'hudson.plugins.parameterizedtrigger.PredefinedBuildParameters' {
-                properties "JENKINS_JOBS=q1.${sld}.${tld} q2.${sld}.${tld}"
-              }
-            }
-            projects '~disablejobs'
-            condition 'FAILED'
-          }
-        }
-      }
-    }
-  }
-
-
 
 } // Values class

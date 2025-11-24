@@ -41,9 +41,6 @@ public class Sites {
 *       scmSchedule : Values.scmScheduleNightly, // OPTIONAL
 *       rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
 *       testngStep: Values.testngStepForIntegration, // OPTIONAL
-*       extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-*       jabberContacts: Values.jabberContactsIntegrate, // OPTIONAL
-*       jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
 *   ],
 *
 **/
@@ -53,8 +50,6 @@ public class Sites {
   static public def inclusiveHosts = [
 //    'feature',
 //    'integrate',
-//    'maint',
-//    //'a2',
 //    'b1',
 //    'b2',
 //    'q1',
@@ -66,60 +61,28 @@ public class Sites {
 
   // There must be configurations for each in Values.modelSpecificConfig
   static public def inclusiveModels = [
-    'AmoebaDB',
-    'ClinEpiDB',
-    'CryptoDB',
-    'FungiDB',
-    'GiardiaDB',
-    'HostDB',
-    'MicrobiomeDB',
-    'MicrosporidiaDB',
-    'OrthoMCL',
-    'PiroplasmaDB',
+//    'AmoebaDB',
+//    'ClinEpiDB',
+//    'CryptoDB',
+//    'FungiDB',
+//    'GiardiaDB',
+//    'HostDB',
+//    'MicrobiomeDB',
+//    'MicrosporidiaDB',
+//    'OrthoMCL',
+//    'PiroplasmaDB',
     'PlasmoDB',
-    'ToxoDB',
-    'TrichDB',
-    'TriTrypDB',
-    'VectorBase',
-    'EuPathDB',
+//    'ToxoDB',
+//    'TrichDB',
+//    'TriTrypDB',
+//    'VectorBase',
+//    'EuPathDB',
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
 
-/**    'a1.plasmodb.org' : [
-  *     model : "PlasmoDB", // REQUIRED
-  *     webapp : "plasmo.alpha", // REQUIRED
-  *     host : "a1", // REQUIRED
-  *     sld : "plasmodb", //REQUIRED
-  *     tld : "org", // REQUIRED
-  *     label : 'myrtle', // REQUIRED
-  *     scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-  *     rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-  *     testngStep: Values.testngStepForQa, // OPTIONAL
-  *     extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-  *     jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-  *     jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-    ],
-  **/
-
-/** a2.plasmo, et al. now in inclusiveHosts for build-29 pre-release
-  * 'a2.plasmodb.org' : [
-  *    model : "PlasmoDB", // REQUIRED
-  *    webapp : "plasmo.alpha", // REQUIRED
-  *    host : "a2", // REQUIRED
-  *    sld : "plasmodb", //REQUIRED
-  *    tld : "org", // REQUIRED
-  *    label : 'pine', // REQUIRED
-  *    scmSchedule : Values.scmScheduleNightly, // OPTIONAL
-  *    rebuilderStep: Values.rebuilderStepForQa, // REQUIRED,
-  *    testngStep: Values.testngStepForQa, // OPTIONAL
-  *    extendedEmail : Values.qaExtendedEmail, // OPTIONAL
-  *    jabberContacts: Values.jabberContactsProduction, // OPTIONAL
-  *    jabberNotification: Values.jabberNotificationIntegrate,  // OPTIONAL
-  * ],
-  **/
 //    'integrate.wdk.apidb.org' : [
 //       model : "TemplateDB", // REQUIRED
 //       webapp : "ROOT", // REQUIRED
@@ -130,7 +93,6 @@ public class Sites {
 //       scmSchedule : Values.scmScheduleAsap, // OPTIONAL
 //       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
 //       // testngStep: Values.testngStepForIntegration, // OPTIONAL
-//       pipelineJob: true,
 //       githubPush: false,
 //    ],
 //
@@ -145,7 +107,6 @@ public class Sites {
 //       checkoutRetryCount : 1,
 //       rebuilderStep: Values.rebuilderStepForWdkTemplate, // REQUIRED,
 //       // testngStep: Values.testngStepForIntegration, // OPTIONAL
-//       pipelineJob: true,
 //       githubPush: false,
 //    ],
 //
@@ -163,7 +124,6 @@ public class Sites {
 //       checkoutRetryCount : 1,
 //       scmSchedule : Values.scmScheduleNightly,
 //       testngStep: Values.testngStepForQa, // OPTIONAL
-//       pipelineJob: true,
 //       githubPush: false,
 //   ],
 //
@@ -181,7 +141,6 @@ public class Sites {
 //       checkoutRetryCount : 1,
 //       scmSchedule : Values.scmScheduleNightly,
 //       testngStep: Values.testngStepForQa, // OPTIONAL
-//       pipelineJob: true,
 //       githubPush: false,
 //   ],
 
@@ -200,9 +159,6 @@ public class Sites {
     //     rebuilderStep: Values.rebuilderStepForQa,
     //     cacheStep: Values.cacheStep,
     //     testngStep: Values.testngStepForQa,
-    //     extendedEmail : Values.qaExtendedEmail,
-    //     jabberContacts: Values.jabberContactsProduction,
-    //     jabberNotification: Values.jabberNotificationWww,
     //   ],
 
         // build the portal sites an hour later so they cache correctly after component sites build
@@ -220,7 +176,6 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForQa,
 //         testngStep: Values.testngStepForQa,
 //         cacheStep: Values.cacheStep,
-//         pipelineJob: true,
 //         githubPush: false,
 //
 //       ],
@@ -238,7 +193,6 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForQa,
 //         testngStep: Values.testngStepForQa,
 //         cacheStep: Values.cacheStep,
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //       'feature.eupathdb.org' : null,
@@ -257,7 +211,6 @@ public class Sites {
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
 //         description : Values.featureDescription(),
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
@@ -275,7 +228,6 @@ public class Sites {
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
 //         description : Values.featureDescription(),
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
@@ -291,7 +243,6 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
@@ -307,7 +258,6 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
@@ -323,7 +273,6 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
@@ -339,12 +288,12 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
 //       'l1.orthomcl.org' : [
 //         model : "OrthoMCL",
+//         folder: 'site-builds/prod',
 //         webapp : "orthomcl.l",
 //         host : "l1",
 //         sld : "orthomcl",
@@ -355,12 +304,12 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 //
 //       'l2.orthomcl.org' : [
 //         model : "OrthoMCL",
+//         folder: 'site-builds/prod',
 //         webapp : "orthomcl.l",
 //         host : "l2",
 //         sld : "orthomcl",
@@ -371,11 +320,9 @@ public class Sites {
 //         rebuilderStep: Values.rebuilderStepForWww,
 //         ignorePostCommitHooks : 'true',
 //         logRotator : [7, -1, -1, -1],
-//         pipelineJob: true,
 //         githubPush: false,
 //       ],
 
-      
   ]
 
 }

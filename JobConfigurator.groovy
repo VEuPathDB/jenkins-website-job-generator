@@ -21,18 +21,10 @@ public class JobConfigurator {
     console.println()
     masterMap.each {
       def jobName = it.key
-
-      // create pipeline job only if flag is set in conf
-      if (masterMap[jobName].get('pipelineJob')) {
-        createPipelineJob(jobName)
-      }
-      else {
-        createJob(jobName)
-      }
+      createPipelineJob(jobName)
     }
     console.println()
   }
-
 
   public Map makeMasterMap() {
     console.println()
@@ -48,6 +40,7 @@ public class JobConfigurator {
           def rebuilderStep = hostconf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : hostconf['label'],
+            folder: hostconf['folder'],
             description : hostconf['description'] ?: Values.stdDescription(jobName, "boo"),
             logRotator : hostconf['logRotator'] ?: [7, -1, -1, -1],
             disabled : existingJob ? existingJob.disabled : false,
@@ -70,10 +63,6 @@ public class JobConfigurator {
             sitesearchStep : hostconf['sitesearchStep'] ?
                               hostconf['sitesearchStep'](host, model, webapp, sld, tld) :
                               null,
-            jabberNotification : hostconf['jabberNotification'] ?
-                  hostconf['jabberNotification'](hostconf['jabberContacts']) : null,
-            extendedEmail : hostconf['extendedEmail'] ?: null,
-            pipelineJob : hostconf['pipelineJob'] ?: null,
             slackChannel : hostconf['slackChannel'] ?: null,
             pipelineNotification : hostconf['pipelineNotification'] ? hostconf['pipelineNotification'](hostconf['slackChannel']) : null,
             githubPush : hostconf['githubPush'] ?: null,
@@ -102,6 +91,7 @@ public class JobConfigurator {
           def rebuilderStep = conf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : conf['label'],
+            folder: conf['folder'],
             description : conf['description'] ?: Values.stdDescription(jobName, "boo"),
             logRotator : conf['logRotator'] ?: null,
             disabled : existingJob ? existingJob.disabled : false,
@@ -117,9 +107,6 @@ public class JobConfigurator {
             cacheStep : conf['cacheStep'] ? conf['cacheStep'](host, model, webapp, sld, tld) : null,
             sitesearchStep : conf['sitesearchStep'] ? conf['sitesearchStep'](host, model, webapp, sld, tld) : null,
 
-            jabberNotification : conf['jabberNotification'] ? conf['jabberNotification'](conf['jabberContacts']) : null,
-            extendedEmail : conf['extendedEmail'] ?: null,
-            pipelineJob : conf['pipelineJob'] ?: null,
             slackChannel : conf['slackChannel'] ?: null,
             pipelineNotification : conf['pipelineNotification'] ? conf['pipelineNotification'](conf['slackChannel']) : null,
             githubPush : conf['githubPush'] ?: null,
@@ -180,55 +167,80 @@ public class JobConfigurator {
     if (masterMap[jobName]['timeout'] != null) { //timeout{ absolute(masterMap[jobName]['timeout']) }
       pipeline_options = """
   options {
-   timeout(time: ${masterMap[jobName]['timeout']}, unit: 'MINUTES') 
+    timeout(time: ${masterMap[jobName]['timeout']}, unit: 'MINUTES') 
   }
 """
     }
 
-// CHECKOUT SNIPPET
-    def stage_checkout = """
-      stage('Checkout') {
-        steps {
-          script{
-            sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
-            site_conf = readYaml file: '../etc/site-conf.yaml'
+    def stage_siteconf_update = """
+    stage('Update Siteconf') {
+      steps {
+        checkout(
+          [
+            \$class: 'GitSCM',
+            branches: [[name: "*/master"]],
+            extensions: [[
+              \$class: 'RelativeTargetDirectory',
+              relativeTargetDir: 'websiteconf'
+            ]],
+            userRemoteConfigs: [[
+              credentialsId: 'e26340bf-7773-4c51-b74f-0e5a87abab22',
+              url: 'git@github.com:VEuPathDB/websiteconf.git'
+            ]]
+          ]
+        )
+        sh '''
+          cd websiteconf
+          virtualenv -q -p python3 make_yaml_env 
+          . ./make_yaml_env/bin/activate
+          pip install -q -r requirements.txt
+          ./make_yaml.py -m https://github.com/VEuPathDB/tsrc/raw/refs/heads/master/manifest.yml -o ../../etc/site-conf.yaml
+        '''
+      }
+    }
+"""
 
-            for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
-                checkout(
-                    [
-                      \$class: 'GitSCM', 
-                      branches: [[name: "*/\${project['branch']}"]], 
-                      extensions: [
-                          [\$class: 'LocalBranch'],
-                          [\$class: 'RelativeTargetDirectory',
-                              relativeTargetDir: project['dest']]
-                          ],
-                          userRemoteConfigs: [[
-                              credentialsId: '3cf5388f-54e2-491b-a7fc-83160dcab3e3',
-                              url: project['url']
-                          ]]
-                    ]
-                )
-            }
+    // CHECKOUT SNIPPET
+    def stage_checkout = """
+    stage('Checkout') {
+      steps {
+        script{
+          sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
+          site_conf = readYaml file: '../etc/site-conf.yaml'
+
+          for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
+            checkout(
+              [
+                \$class: 'GitSCM', 
+                branches: [[name: "*/\${project['branch']}"]], 
+                extensions: [
+                  [\$class: 'LocalBranch'],
+                  [\$class: 'RelativeTargetDirectory',
+                    relativeTargetDir: project['dest']]
+                  ],
+                  userRemoteConfigs: [[
+                    credentialsId: 'e26340bf-7773-4c51-b74f-0e5a87abab22',
+                    url: project['url']
+                  ]]
+              ]
+            )
           }
         }
       }
+    }
 """
 
 // BUILD SNIPPET
     def stage_build = ''
     if (masterMap[jobName]['rebuilderStep'] != null) {
       stage_build = """
-      stage('Build') {
-          environment {
-                GITHUB_READONLY = credentials('3cf5388f-54e2-491b-a7fc-83160dcab3e3')
-            }
-        steps {
-          sh '''
-${masterMap[jobName]['rebuilderStep']}
-'''
-        }
+    stage('Build') {
+      steps {
+        sh '''
+          ${masterMap[jobName]['rebuilderStep']}
+        '''
       }
+    }
 """
     }
 
@@ -271,13 +283,13 @@ ${masterMap[jobName]['rebuilderStep']}
     def stage_sitesearch = ''
     if (masterMap[jobName]['sitesearchStep'] != null) {
       stage_sitesearch = """
-      stage('Sitesearch') {
-        steps {
-          sh '''
-${masterMap[jobName]['sitesearchStep']}
-'''
-        }
+    stage('Sitesearch') {
+      steps {
+        sh '''
+          ${masterMap[jobName]['sitesearchStep']}
+        '''
       }
+    }
 """
     }
 
@@ -285,13 +297,13 @@ ${masterMap[jobName]['sitesearchStep']}
     def stage_sitecache = ""
     if (masterMap[jobName]['cacheStep'] != null) {
       stage_sitecache = """
-      stage('Sitecache') {
-        steps {
-          sh '''
-${masterMap[jobName]['cacheStep']}
-'''
-        }
+    stage('Sitecache') {
+      steps {
+        sh '''
+          ${masterMap[jobName]['cacheStep']}
+      '''
       }
+    }
 """
     }
     
@@ -311,12 +323,15 @@ pipeline {
   ${pipeline_options}
 
   stages {
+    ${stage_siteconf_update}
     ${stage_checkout}
     ${stage_build}
     ${stage_test}
     ${stage_sitesearch}
     ${stage_sitecache}
-  }
+  
+  } 
+  
   post {
     fixed {
       echo 'fixed!'
@@ -330,17 +345,17 @@ pipeline {
       echo 'I did it!  Yay!'
       ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['success'] : ''}
     }
-     unsuccessful {
+    unsuccessful {
       echo 'I failed :~('
       ${masterMap[jobName]['pipelineNotification'] ? masterMap[jobName]['pipelineNotification']['unsuccessful'] : ''}
     }
- }
+  }
 
 }
 """
 
 // The actual pipelinejob definition
-    jobFactory.pipelineJob(jobName) {
+    jobFactory.pipelineJob(masterMap[jobName]['folder'] + "/" + jobName) {
       disabled masterMap[jobName]['disabled'] ?: false
       description  masterMap[jobName]['description']
 
@@ -386,96 +401,6 @@ pipeline {
            sandbox(true)
         }
       }
-    }
-  }
-
-
-  public void createJob(jobName) {
-    console.println "Creating freeStyleJob " + jobName
-    jobFactory.freeStyleJob(jobName) {
-      wrappers {
-        label masterMap[jobName]['label']
-
-        disabled masterMap[jobName]['disabled'] ?: false
-
-        description  masterMap[jobName]['description']
-
-        if (masterMap[jobName]['logRotator'] != null) logRotator(masterMap[jobName]['logRotator'])
-
-        if (masterMap[jobName]['quietPeriod'] != null) quietPeriod(masterMap[jobName]['quietPeriod'])
-
-        if (masterMap[jobName]['checkoutRetryCount'] != null) checkoutRetryCount(masterMap[jobName]['checkoutRetryCount'])
-
-        customWorkspace(masterMap[jobName]['customWorkspace'])
-        scm masterMap[jobName]['scm']
-
-        if (
-          masterMap[jobName]['scmSchedule'] != null ||
-          masterMap[jobName]['ignorePostCommitHooks'] != null
-          ) {
-          triggers {
-            //scm(masterMap[jobName]['scmSchedule'])
-            configure scmTrigger(
-              masterMap[jobName]['scmSchedule'],
-              masterMap[jobName]['ignorePostCommitHooks']
-            )
-
-          }
-        }
-
-        if (masterMap[jobName]['timeout'])
-          timeout { absolute(masterMap[jobName]['timeout']) }
-
-
-        jdk('(Default)')
-
-        if (masterMap[jobName]['apitestStep'] != null) credentialsBinding { usernamePassword('API_CREDS', 'website_apitest_user') }
-
-        steps {
-          shell(masterMap[jobName]['rebuilderStep'])
-          masterMap[jobName]['testngStep'] ? ant(masterMap[jobName]['testngStep']) : null
-          masterMap[jobName]['apitestStep'] ? shell(masterMap[jobName]['apitestStep']) : null
-          masterMap[jobName]['sitesearchStep'] ? shell(masterMap[jobName]['sitesearchStep']) : null
-        }
-
-        if (masterMap[jobName]['testngStep'] != null) configure testngPubliser()
-
-        publishers {
-           masterMap[jobName]['cacheStep'] ? downstreamParameterized(masterMap[jobName]['cacheStep']) : null
-           masterMap[jobName]['extendedEmail'] ? masterMap[jobName]['extendedEmail'] (delegate) : null
-
-        } // publishers
-
-        if (masterMap[jobName]['jabberNotification'] != null) configure masterMap[jobName]['jabberNotification']
-
-      } // wrappers
-    } // job
-  } //createJob
-
-
-  /**
-      <hudson.plugins.testng.Publisher plugin="testng-plugin@1.5">
-        <reportFilenamePattern>test_home/results/**</reportFilenamePattern>
-        <escapeTestDescp>true</escapeTestDescp>
-        <escapeExceptionMsg>true</escapeExceptionMsg>
-      </hudson.plugins.testng.Publisher>
-  **/
-  def testngPubliser() {
-    {project -> project/publishers/'hudson.plugins.testng.Publisher' {
-      reportFilenamePattern 'test_home/results/**'
-      escapeTestDescp 'true'
-      escapeExceptionMsg 'true'
-    }
-    }
-  }
-
-  def scmTrigger(crontab, bool) {
-    {project -> project/triggers/'hudson.triggers.SCMTrigger' {
-      crontab = crontab ?: ''
-      bool = bool ?: 'true'
-      spec crontab
-      ignorePostCommitHooks bool
-    }
     }
   }
 
