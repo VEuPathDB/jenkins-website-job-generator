@@ -51,12 +51,12 @@ public class Sites {
 //    'feature',
 //    'integrate',
 //    'b1',
-//    'b2',
+    'b2',
 //    'q1',
 //    'q2',
 //    'w1',
 //    'w2',
-    'w5',
+//    'w5',
   ]
 
   // There must be configurations for each in Values.modelSpecificConfig

@@ -205,7 +205,6 @@ public class JobConfigurator {
     stage('Checkout') {
       steps {
         script{
-          sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
           site_conf = readYaml file: '../etc/site-conf.yaml'
 
           for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
@@ -235,6 +234,9 @@ public class JobConfigurator {
     if (masterMap[jobName]['rebuilderStep'] != null) {
       stage_build = """
     stage('Build') {
+      environment {
+        GITHUB_READONLY = credentials('e26340bf-7773-4c51-b74f-0e5a87abab22')
+      }
       steps {
         sh '''
           ${masterMap[jobName]['rebuilderStep']}
