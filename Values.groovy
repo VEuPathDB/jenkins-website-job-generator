@@ -172,7 +172,7 @@ REBUILDER
           export GITHUB_TOKEN="\$GITHUB_READONLY_PSW"
 
           /usr/local/bin/rebuilder ${host}.${sld}.${tld} \\
-            --skip-scm-update --non-interactive --publish-docs \\
+            --skip-scm-update --non-interactive \\
             --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
             --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
             --gusjvmopts '-Dlog4j.configuration=file:${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
@@ -181,12 +181,12 @@ REBUILDER
           #sleep 15
              
           # cache public strategy results (redmine #18944) with non-debug logging
-          source /var/www/${host}.${sld}.${tld}/etc/setenv
-          if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
-            export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
+          #source /var/www/${host}.${sld}.${tld}/etc/setenv
+          #if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
+            #export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
             # disable wdkRunPublicStrats until slow queries in Fungi,plasmo,tritryp can be examined (9/11/2017)
             #wdkRunPublicStrats -model ${model}
-          fi
+          #fi
     """
   }
 
@@ -290,6 +290,7 @@ Cache building step
 /** ********************************************************************************
 Sitesearch step
 ******************************************************************************** **/
+
   static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
     // don't run update for portal
     if( model != "EuPathDB") {
@@ -303,6 +304,9 @@ Sitesearch step
             source /var/www/${host}.${sld}.${tld}/etc/setenv
 
             case "$lifecycle" in
+              beta)
+                IMAGE_BRANCH=beta
+                ;;
               dev)
                 IMAGE_BRANCH=latest
                 ;;
@@ -338,6 +342,10 @@ Sitesearch step
 
   static public def sitesearchStepForWww = { host, model, webapp, sld, tld ->
     return sitesearchStep.call(host, model, webapp, sld, tld, "prod")
+  }
+
+  static public def sitesearchStepForBeta = { host, model, webapp, sld, tld ->
+    return sitesearchStep.call(host, model, webapp, sld, tld, "beta")
   }
 
   static public def sitesearchStepForQa = { host, model, webapp, sld, tld ->
@@ -457,103 +465,15 @@ CONFIGURATIONS PER HOST
 ******************************************************************************** **/
 
   static public def hostSpecificConfig = [
-    integrate : [
-      label : 'pineapple',
-      folder: 'site-builds/integrate',
-      timeout : 30,
-      quietPeriod : 180,
-      checkoutRetryCount : 1,
-      rebuilderStep : rebuilderStepForIntegration,
-      testngStep : testngStepForIntegration,
-      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
-      logRotator : [7, -1, -1, -1],
-      pipelineNotification: Values.pipelineNotificationChangeOnly,
-      slackChannel: "#alert-build-integration",
-      githubPush: true,
-    ],
-    feature : [
-      /** redmine #18965 **/
-      label : 'fir',
-      folder: 'site-builds/feature',
-      timeout : 60,
-      checkoutRetryCount : 1,
-      scmSchedule : scmScheduleNightly,
-      rebuilderStep: rebuilderStepForQa,
-      ignorePostCommitHooks : 'true',
-      logRotator : [7, -1, -1, -1],
-      description : featureDescription(),
-      githubPush: false,
-    ],
-    q1 : [
-      label : 'watermelon',
-      folder: 'site-builds/qa',
-      timeout : 90,
-      scmSchedule : scmScheduleNightly,
-      checkoutRetryCount : 1,
-      rebuilderStep: rebuilderStepForQa,
-      testngStep: testngStepForQa,
-      apitestStep: apitestStepForQa,
-      cacheStep: cacheStep,
-      sitesearchStep: sitesearchStepForQa,
-      pipelineNotification: pipelineNotificationChangeOnly,
-      slackChannel: "#alert-build-qa",
-      githubPush: false,
-    ],
-    q2 : [
-      label : 'fir',
-      folder: 'site-builds/qa',
-      timeout : 90,
-      scmSchedule : scmScheduleNightly,
-      checkoutRetryCount : 1,
-      rebuilderStep: rebuilderStepForQa,
-      testngStep: testngStepForQa,
-      apitestStep: apitestStepForQa,
-      cacheStep: cacheStep,
-      sitesearchStep: sitesearchStepForQa,
-      pipelineNotification: pipelineNotificationChangeOnly,
-      slackChannel: "#alert-build-qa",
-      githubPush: false,
-    ],
-    b1 : [
-      label : 'watermelon',
-      folder: 'site-builds/beta',
-      rebuilderStep: rebuilderStepForBeta,
-      cacheStep: cacheStep,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      githubPush: false,
-    ],
-    b2 : [
+    beta : [
       label : 'cedar',
       folder: 'site-builds/beta',
       rebuilderStep: rebuilderStepForBeta,
-//      cacheStep: cacheStep,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
+      //sitesearchStep: sitesearchStepForBeta,
       pipelineNotification: pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite-test",
-      githubPush: false,
-    ],
-    w1 : [
-      label : 'watermelon',
-      folder: 'site-builds/prod',
-      rebuilderStep: rebuilderStepForWww,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      sitesearchStep: sitesearchStepForWww,
-      pipelineNotification: pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite",
-      githubPush: false,
-    ],
-    w2 : [
-      label : 'fir',
-      folder: 'site-builds/prod',
-      rebuilderStep: rebuilderStepForWww,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      sitesearchStep: sitesearchStepForWww,
-      pipelineNotification: pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite",
       githubPush: false,
     ],
     w5 : [
@@ -567,6 +487,105 @@ CONFIGURATIONS PER HOST
       slackChannel: "#alert-build-livesite-test",
       githubPush: false,
     ],
+//    integrate : [
+//      label : 'pineapple',
+//      folder: 'site-builds/integrate',
+//      timeout : 30,
+//      quietPeriod : 180,
+//      checkoutRetryCount : 1,
+//      rebuilderStep : rebuilderStepForIntegration,
+//      testngStep : testngStepForIntegration,
+//      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+//      logRotator : [7, -1, -1, -1],
+//      pipelineNotification: Values.pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-integration",
+//      githubPush: true,
+//    ],
+//    feature : [
+//      /** redmine #18965 **/
+//      label : 'fir',
+//      folder: 'site-builds/feature',
+//      timeout : 60,
+//      checkoutRetryCount : 1,
+//      scmSchedule : scmScheduleNightly,
+//      rebuilderStep: rebuilderStepForQa,
+//      ignorePostCommitHooks : 'true',
+//      logRotator : [7, -1, -1, -1],
+//      description : featureDescription(),
+//      githubPush: false,
+//    ],
+//    q1 : [
+//      label : 'watermelon',
+//      folder: 'site-builds/qa',
+//      timeout : 90,
+//      scmSchedule : scmScheduleNightly,
+//      checkoutRetryCount : 1,
+//      rebuilderStep: rebuilderStepForQa,
+//      testngStep: testngStepForQa,
+//      apitestStep: apitestStepForQa,
+//      cacheStep: cacheStep,
+//      sitesearchStep: sitesearchStepForQa,
+//      pipelineNotification: pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-qa",
+//      githubPush: false,
+//    ],
+//    q2 : [
+//      label : 'fir',
+//      folder: 'site-builds/qa',
+//      timeout : 90,
+//      scmSchedule : scmScheduleNightly,
+//      checkoutRetryCount : 1,
+//      rebuilderStep: rebuilderStepForQa,
+//      testngStep: testngStepForQa,
+//      apitestStep: apitestStepForQa,
+//      cacheStep: cacheStep,
+//      sitesearchStep: sitesearchStepForQa,
+//      pipelineNotification: pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-qa",
+//      githubPush: false,
+//    ],
+//    b1 : [
+//      label : 'watermelon',
+//      folder: 'site-builds/beta',
+//      rebuilderStep: rebuilderStepForBeta,
+//      cacheStep: cacheStep,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      githubPush: false,
+//    ],
+//    b2 : [
+//      label : 'cedar',
+//      folder: 'site-builds/beta',
+//      rebuilderStep: rebuilderStepForBeta,
+////      cacheStep: cacheStep,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      pipelineNotification: pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite-test",
+//      githubPush: false,
+//    ],
+//    w1 : [
+//      label : 'watermelon',
+//      folder: 'site-builds/prod',
+//      rebuilderStep: rebuilderStepForWww,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      sitesearchStep: sitesearchStepForWww,
+//      pipelineNotification: pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite",
+//      githubPush: false,
+//    ],
+//    w2 : [
+//      label : 'fir',
+//      folder: 'site-builds/prod',
+//      rebuilderStep: rebuilderStepForWww,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      sitesearchStep: sitesearchStepForWww,
+//      pipelineNotification: pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite",
+//      githubPush: false,
+//    ],
   ]
 
 

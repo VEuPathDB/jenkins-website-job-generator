@@ -48,10 +48,11 @@ public class Sites {
   // hosts that should be configured for all inclusiveModels
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
+      'beta',
 //    'feature',
 //    'integrate',
 //    'b1',
-    'b2',
+//    'b2',
 //    'q1',
 //    'q2',
 //    'w1',
@@ -61,22 +62,22 @@ public class Sites {
 
   // There must be configurations for each in Values.modelSpecificConfig
   static public def inclusiveModels = [
-//    'AmoebaDB',
+    'AmoebaDB',
 //    'ClinEpiDB',
-//    'CryptoDB',
-//    'FungiDB',
-//    'GiardiaDB',
-//    'HostDB',
+    'CryptoDB',
+    'FungiDB',
+    'GiardiaDB',
+    'HostDB',
 //    'MicrobiomeDB',
-//    'MicrosporidiaDB',
-//    'OrthoMCL',
-//    'PiroplasmaDB',
+    'MicrosporidiaDB',
+    'OrthoMCL',
+    'PiroplasmaDB',
     'PlasmoDB',
-//    'ToxoDB',
-//    'TrichDB',
-//    'TriTrypDB',
-//    'VectorBase',
-//    'EuPathDB',
+    'ToxoDB',
+    'TrichDB',
+    'TriTrypDB',
+    'VectorBase',
+    'EuPathDB',
   ]
 
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
