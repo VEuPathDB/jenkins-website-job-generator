@@ -468,6 +468,7 @@ CONFIGURATIONS PER HOST
     beta : [
       label : 'cedar',
       folder: 'site-builds/beta',
+      scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
