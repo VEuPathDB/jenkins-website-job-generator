@@ -466,15 +466,15 @@ CONFIGURATIONS PER HOST
 
   static public def hostSpecificConfig = [
     beta : [
-      label : 'cedar',
+      label : 'palm',
       folder: 'site-builds/beta',
       scmSchedule : scmScheduleNightly,
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-      //sitesearchStep: sitesearchStepForBeta,
+//      sitesearchStep: sitesearchStepForBeta,
       pipelineNotification: pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite-test",
+      slackChannel: "#alert-build-livesite",
       githubPush: false,
     ],
     w5 : [
