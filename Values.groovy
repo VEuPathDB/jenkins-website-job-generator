@@ -469,6 +469,7 @@ CONFIGURATIONS PER HOST
       label : 'palm',
       folder: 'site-builds/beta',
       scmSchedule : scmScheduleNightly,
+      ignorePostCommitHooks : 'true',
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
