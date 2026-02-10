@@ -175,7 +175,7 @@ REBUILDER
             --skip-scm-update --non-interactive \\
             --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
             --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
-            --gusjvmopts '-Dlog4j.configuration=file:${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
+            --gusjvmopts '-Dlog4j.configuration=file:/var/www/${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
           
           # this would only be needed if we reenable the step below 
           #sleep 15
@@ -213,7 +213,7 @@ REBUILDER
             --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
             --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
             --webapp ${model}:${webapp} \\
-            --gusjvmopts '-Dlog4j.configuration=file:${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
+            --gusjvmopts '-Dlog4j.configuration=file:/var/www${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
           sleep 15
     
           # cache public strategy results (redmine #18944) with non-debug logging
