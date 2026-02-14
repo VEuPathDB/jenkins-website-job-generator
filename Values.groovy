@@ -466,7 +466,7 @@ CONFIGURATIONS PER HOST
 ******************************************************************************** **/
 
   static public def hostSpecificConfig = [
-    beta : [
+    b2 : [
       label : 'palm',
       folder: 'site-builds/beta',
       scmSchedule : scmScheduleNightly,
