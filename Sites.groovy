@@ -48,11 +48,11 @@ public class Sites {
   // hosts that should be configured for all inclusiveModels
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
-      'beta',
+//      'beta',
 //    'feature',
 //    'integrate',
 //    'b1',
-//    'b2',
+    'b2',
 //    'q1',
 //    'q2',
 //    'w1',
