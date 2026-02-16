@@ -474,7 +474,7 @@ CONFIGURATIONS PER HOST
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
-//      sitesearchStep: sitesearchStepForBeta,
+      sitesearchStep: sitesearchStepForBeta,
       pipelineNotification: pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite",
       githubPush: false,
