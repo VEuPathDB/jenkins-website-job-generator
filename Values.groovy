@@ -326,7 +326,6 @@ Sitesearch step
             ## At some point remove the TNS_ADMIN env and ldap mount for Oracle. 
             ## They are not needed for postgres sites but they would be needed if we move legacy sites to new servers. 
             podman run --rm \
-              --sysctl net.ipv6.conf.all.disable_ipv6=1 \\
               --network=host \\
               --env TNS_ADMIN=/jdbc/network/admin \\
               --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env \\
