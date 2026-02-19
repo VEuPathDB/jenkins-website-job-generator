@@ -16,7 +16,7 @@ public class Values {
       sld : "cryptodb",
       tld : "org",
     ],
-    EuPathDB : [
+    UniDB : [
       webapp : "veupathdb",
       sld : "veupathdb",
       tld : "org",
@@ -293,7 +293,7 @@ Sitesearch step
 
   static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
     // We override cohort for the portal website
-    def cohortOverride = ( model == "EuPathDB") ? "--env COHORT=Portal" : ""
+    def cohortOverride = ( model == "UniDB") ? "--env COHORT=Portal" : ""
 
     return """
         # only run if container_env exists (this restricts currently to
