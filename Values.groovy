@@ -292,52 +292,49 @@ Sitesearch step
 ******************************************************************************** **/
 
   static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
-    // don't run update for portal
-    if( model != "EuPathDB") {
-      return """
-          # only run if container_env exists (this restricts currently to
-          # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
-          # but since the script requires it, it is a harmless check regardless)
-      
-          if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/$model/container_env ]
-          then
-            source /var/www/${host}.${sld}.${tld}/etc/setenv
+    // We override cohort for the portal website
+    def cohortOverride = ( model == "EuPathDB") ? "--env COHORT=Portal" : ""
 
-            case "$lifecycle" in
-              beta)
-                IMAGE_BRANCH=beta
-                ;;
-              dev)
-                IMAGE_BRANCH=latest
-                ;;
-              qa)
-                IMAGE_BRANCH=qa
-                ;;
-              prod)
-                IMAGE_BRANCH=prod
-                ;;
-            esac
-            
-            echo "image branch is \${IMAGE_BRANCH}"
-            echo "core is \${CORE}"
-            
-            podman pull docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-data:\$IMAGE_BRANCH"; exit -1; }
-            
-            ## At some point remove the TNS_ADMIN env and ldap mount for Oracle. 
-            ## They are not needed for postgres sites but they would be needed if we move legacy sites to new servers. 
-            podman run --rm \
-              --network=host \\
-              --env TNS_ADMIN=/jdbc/network/admin \\
-              --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env \\
-              --volume=\$ORACLE_HOME/network/admin/ldap.ora:/jdbc/network/admin/ldap.ora \\
-              -it docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH \\
-              presenter_update.sh
-          fi
-      """
-    }
-    else {
-      return null
-    }
+    return """
+        # only run if container_env exists (this restricts currently to
+        # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
+        # but since the script requires it, it is a harmless check regardless)
+    
+        if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/$model/container_env ]
+        then
+          source /var/www/${host}.${sld}.${tld}/etc/setenv
+
+          case "$lifecycle" in
+            beta)
+              IMAGE_BRANCH=beta
+              ;;
+            dev)
+              IMAGE_BRANCH=latest
+              ;;
+            qa)
+              IMAGE_BRANCH=qa
+              ;;
+            prod)
+              IMAGE_BRANCH=prod
+              ;;
+          esac
+          
+          echo "image branch is \${IMAGE_BRANCH}"
+          echo "core is \${CORE}"
+          
+          podman pull docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-data:\$IMAGE_BRANCH"; exit -1; }
+          
+          ## At some point remove the TNS_ADMIN env and ldap mount for Oracle. 
+          ## They are not needed for postgres sites but they would be needed if we move legacy sites to new servers. 
+          podman run --rm \
+            --network=host \\
+            --env TNS_ADMIN=/jdbc/network/admin \\
+            --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env ${cohortOverride} \\
+            --volume=\$ORACLE_HOME/network/admin/ldap.ora:/jdbc/network/admin/ldap.ora \\
+            -it docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH \\
+            presenter_update.sh
+        fi
+    """
   }
 
   static public def sitesearchStepForWww = { host, model, webapp, sld, tld ->
