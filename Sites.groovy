@@ -63,7 +63,7 @@ public class Sites {
   // There must be configurations for each in Values.modelSpecificConfig
   static public def inclusiveModels = [
     'AmoebaDB',
-//    'ClinEpiDB',
+    'ClinEpiDB', // This is actually dataexplorer
     'CryptoDB',
     'FungiDB',
     'GiardiaDB',

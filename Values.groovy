@@ -7,8 +7,8 @@ public class Values {
       tld : "org",
     ],
     ClinEpiDB : [
-      webapp : "ce",
-      sld : "clinepidb",
+      webapp : "dexp",
+      sld : "dataexplorer",
       tld : "org",
     ],
     CryptoDB : [
