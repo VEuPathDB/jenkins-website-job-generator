@@ -83,7 +83,21 @@ public class Sites {
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
-
+    // dataexplorer is not yet public so we continue to build it nightly.
+    // Remove this bit once it's public as well.
+    'b2.dataexplorer.org' : [
+      label : 'palm',
+      folder: 'site-builds/beta',
+      scmSchedule : scmScheduleNightly,
+      ignorePostCommitHooks : true,
+      rebuilderStep: rebuilderStepForBeta,
+      checkoutRetryCount : 1,
+      logRotator : [-1, 50, -1, -1],
+      sitesearchStep: sitesearchStepForBeta,
+      pipelineNotification: pipelineNotificationEveryBuild,
+      slackChannel: "#alert-build-livesite",
+      githubPush: false,
+    ],
 //    'integrate.wdk.apidb.org' : [
 //       model : "TemplateDB", // REQUIRED
 //       webapp : "ROOT", // REQUIRED
