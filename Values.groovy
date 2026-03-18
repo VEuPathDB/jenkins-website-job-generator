@@ -331,7 +331,8 @@ Sitesearch step
             --network=pasta:"--map-host-loopback=169.254.1.2" \\
             --env TNS_ADMIN=/jdbc/network/admin \\
             --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env ${cohortOverride} \\
-            --add-host=solr-sitesearch-${lifecycle}.local.apidb.org:169.254.1.2 \\\\
+            --add-host=solr-sitesearch-${lifecycle}.local.apidb.org:169.254.1.2 \\
+            --add-host=${host}.${sld}.${tld}:169.254.1.2 \\
             --volume=\$ORACLE_HOME/network/admin/ldap.ora:/jdbc/network/admin/ldap.ora \\
             -it docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH \\
             presenter_update.sh
