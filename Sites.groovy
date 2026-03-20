@@ -86,6 +86,11 @@ public class Sites {
     // dataexplorer is not yet public so we continue to build it nightly.
     // Remove this bit once it's public as well.
     'b2.dataexplorer.org' : [
+      model : "ClinEpiDB", // REQUIRED
+      webapp : "dexp", // REQUIRED
+      host : "b2", // REQUIRED
+      sld : "dataexplorer", //REQUIRED
+      tld : "org", // REQUIRED
       label : 'palm',
       folder: 'site-builds/beta',
       scmSchedule : Values.scmScheduleNightly,
