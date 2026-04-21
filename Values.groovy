@@ -465,6 +465,19 @@ CONFIGURATIONS PER HOST
 ******************************************************************************** **/
 
   static public def hostSpecificConfig = [
+    b1 : [
+      label : 'pineapple',
+      folder: 'site-builds/beta',
+//      scmSchedule : scmScheduleNightly,
+//      ignorePostCommitHooks : true,
+      rebuilderStep: rebuilderStepForBeta,
+      checkoutRetryCount : 1,
+      logRotator : [-1, 50, -1, -1],
+      sitesearchStep: sitesearchStepForBeta,
+      pipelineNotification: pipelineNotificationEveryBuild,
+      slackChannel: "#alert-build-livesite",
+      githubPush: false,
+    ],
     b2 : [
       label : 'palm',
       folder: 'site-builds/beta',
