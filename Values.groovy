@@ -314,6 +314,7 @@ Sitesearch step
         echo "image branch is \${IMAGE_BRANCH}"
         
         podman pull docker.io/veupathdb/site-search-nextflow:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-nextflow:\$IMAGE_BRANCH"; exit -1; }
+        podman pull docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-data:\$IMAGE_BRANCH"; exit -1; }
         
         #start the podman socket so nextflow container can use it.
         systemctl --user start podman.socket
@@ -335,7 +336,6 @@ Sitesearch step
           -v \$OUTPUT_DIR:\$OUTPUT_DIR:z \\
           -v \$CONTAINER_ENV:\$CONTAINER_ENV:z \\
           docker.io/veupathdb/site-search-nextflow:\$IMAGE_BRANCH runWebsiteBuild.sh
-
     """
   }
 
