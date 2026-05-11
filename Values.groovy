@@ -293,7 +293,7 @@ Sitesearch step
 
   static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
     // We don't run sitesearch updates for dataExplorer
-    if ( model == "ClinEpiDB") return ""
+    if ( model == "ClinEpiDB") return null
 
     return """
         case "$lifecycle" in
