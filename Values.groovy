@@ -292,51 +292,50 @@ Sitesearch step
 ******************************************************************************** **/
 
   static public def sitesearchStep = { host, model, webapp, sld, tld, lifecycle ->
-    // We override cohort for the portal website
-    def cohortOverride = ( model == "UniDB") ? "--env COHORT=Portal" : ""
+    // We don't run sitesearch updates for dataExplorer
+    if ( model == "ClinEpiDB") return ""
 
     return """
-        # only run if container_env exists (this restricts currently to
-        # ApicommonWebsite sites, which isn't strictly "sitesearch enabled sites",
-        # but since the script requires it, it is a harmless check regardless)
-    
-        if [ -e /var/www/${host}.${sld}.${tld}/gus_home/config/$model/container_env ]
-        then
-          source /var/www/${host}.${sld}.${tld}/etc/setenv
+        case "$lifecycle" in
+          beta)
+            IMAGE_BRANCH=beta
+            ;;
+          dev)
+            IMAGE_BRANCH=latest
+            ;;
+          qa)
+            IMAGE_BRANCH=qa
+            ;;
+          prod)
+            IMAGE_BRANCH=prod
+            ;;
+        esac
+        
+        echo "image branch is \${IMAGE_BRANCH}"
+        
+        podman pull docker.io/veupathdb/site-search-nextflow:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-nextflow:\$IMAGE_BRANCH"; exit -1; }
+        
+        #start the podman socket so nextflow container can use it.
+        systemctl --user start podman.socket
+        
+        OUTPUT_DIR=\$(mktemp -dt sitesearch-XXXXX)
 
-          case "$lifecycle" in
-            beta)
-              IMAGE_BRANCH=beta
-              ;;
-            dev)
-              IMAGE_BRANCH=latest
-              ;;
-            qa)
-              IMAGE_BRANCH=qa
-              ;;
-            prod)
-              IMAGE_BRANCH=prod
-              ;;
-          esac
-          
-          echo "image branch is \${IMAGE_BRANCH}"
-          echo "core is \${CORE}"
-          
-          podman pull docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH || { echo "problem pulling veupathdb/site-search-data:\$IMAGE_BRANCH"; exit -1; }
-          
-          ## At some point remove the TNS_ADMIN env and ldap mount for Oracle. 
-          ## They are not needed for postgres sites but they would be needed if we move legacy sites to new servers. 
-          podman run --rm \\
-            --sysctl net.ipv6.conf.all.disable_ipv6=1 \\
-            --network=pasta:"--map-host-loopback=169.254.1.2" \\
-            --env TNS_ADMIN=/jdbc/network/admin \\
-            --env-file=/var/www/${host}.${sld}.${tld}/gus_home/config/${model}/container_env ${cohortOverride} \\
-            --add-host=solr-sitesearch-${lifecycle}.local.apidb.org:169.254.1.2 \\
-            --add-host=${host}.${sld}.${tld}:169.254.1.2 \\
-            --volume=\$ORACLE_HOME/network/admin/ldap.ora:/jdbc/network/admin/ldap.ora \\
-            -it docker.io/veupathdb/site-search-data:\$IMAGE_BRANCH \\
-            presenter_update.sh
-        fi
+        CONTAINER_ENV=/var/www/${host}.${sld}.${tld}/gus_home/config/$model/container_env
+
+        podman run --rm \\
+          --security-opt label=type:container_runtime_t \\
+          --userns=keep-id:uid=1000,gid=1000 \\
+          -v \${XDG_RUNTIME_DIR}/podman/podman.sock:/run/podman/podman.sock:z \\
+          -e CONTAINER_HOST=unix:///run/podman/podman.sock \\
+          -e IMAGE_BRANCH=\$IMAGE_BRANCH \\
+          -e OUTPUT_DIR=\$OUTPUT_DIR \\
+          -e ENV_FILE=\$CONTAINER_ENV \\
+          -e CLEANUP=false -e UNCONFINED=false \\
+          --env-file \$CONTAINER_ENV \\
+          -v \$OUTPUT_DIR:\$OUTPUT_DIR:z \\
+          -v \$CONTAINER_ENV:\$CONTAINER_ENV:z \\
+          docker.io/veupathdb/site-search-nextflow:\$IMAGE_BRANCH runWebsiteBuild.sh
+
     """
   }
 
