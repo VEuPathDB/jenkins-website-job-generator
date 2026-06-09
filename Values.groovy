@@ -1,5 +1,129 @@
 public class Values {
 
+/** ********************************************************************************
+ CONFIGURATIONS PER HOST
+   label : 'santol', // REQUIRED
+   rebuilderStep : rebuilderStepForIntegration, // REQUIRED
+   timeout : 20,  // OPTIONAL
+   scmSchedule : scmScheduleAsap, // OPTIONAL
+   ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
+   quietPeriod : 180, // OPTIONAL
+   checkoutRetryCount : 1, // OPTIONAL
+   testngStep : testngStepForIntegration, // OPTIONAL
+   //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+   logRotator : [7, -1, -1, -1], // OPTIONAL
+ ******************************************************************************** **/
+
+  static public def hostSpecificConfig = [
+      b1 : [
+          label : 'pineapple',
+          folder: 'site-builds/beta',
+          scmSchedule : scmScheduleNightly,
+          ignorePostCommitHooks : true,
+          rebuilderStep: rebuilderStepForBeta,
+          checkoutRetryCount : 1,
+          logRotator : [-1, 50, -1, -1],
+          sitesearchStep: sitesearchStepForBeta,
+          pipelineNotification: pipelineNotificationEveryBuild,
+          slackChannel: "#alert-build-livesite",
+          githubPush: false,
+          authorization: authorizationForQA
+      ],
+      b2 : [
+          label : 'palm',
+          folder: 'site-builds/beta',
+//      scmSchedule : scmScheduleNightly,
+//      ignorePostCommitHooks : true,
+          rebuilderStep: rebuilderStepForBeta,
+          checkoutRetryCount : 1,
+          logRotator : [-1, 50, -1, -1],
+          sitesearchStep: sitesearchStepForBeta,
+          pipelineNotification: pipelineNotificationEveryBuild,
+          slackChannel: "#alert-build-livesite",
+          githubPush: false,
+      ],
+//    integrate : [
+//      label : 'pineapple',
+//      folder: 'site-builds/integrate',
+//      timeout : 30,
+//      quietPeriod : 180,
+//      checkoutRetryCount : 1,
+//      rebuilderStep : rebuilderStepForIntegration,
+//      testngStep : testngStepForIntegration,
+//      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+//      logRotator : [7, -1, -1, -1],
+//      pipelineNotification: Values.pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-integration",
+//      githubPush: true,
+//    ],
+//    feature : [
+//      /** redmine #18965 **/
+//      label : 'fir',
+//      folder: 'site-builds/feature',
+//      timeout : 60,
+//      checkoutRetryCount : 1,
+//      scmSchedule : scmScheduleNightly,
+//      rebuilderStep: rebuilderStepForQa,
+//      ignorePostCommitHooks : 'true',
+//      logRotator : [7, -1, -1, -1],
+//      description : featureDescription(),
+//      githubPush: false,
+//    ],
+//    q1 : [
+//      label : 'watermelon',
+//      folder: 'site-builds/qa',
+//      timeout : 90,
+//      scmSchedule : scmScheduleNightly,
+//      checkoutRetryCount : 1,
+//      rebuilderStep: rebuilderStepForQa,
+//      testngStep: testngStepForQa,
+//      apitestStep: apitestStepForQa,
+//      cacheStep: cacheStep,
+//      sitesearchStep: sitesearchStepForQa,
+//      pipelineNotification: pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-qa",
+//      githubPush: false,
+//    ],
+//    q2 : [
+//      label : 'fir',
+//      folder: 'site-builds/qa',
+//      timeout : 90,
+//      scmSchedule : scmScheduleNightly,
+//      checkoutRetryCount : 1,
+//      rebuilderStep: rebuilderStepForQa,
+//      testngStep: testngStepForQa,
+//      apitestStep: apitestStepForQa,
+//      cacheStep: cacheStep,
+//      sitesearchStep: sitesearchStepForQa,
+//      pipelineNotification: pipelineNotificationChangeOnly,
+//      slackChannel: "#alert-build-qa",
+//      githubPush: false,
+//    ],
+//    w1 : [
+//      label : 'watermelon',
+//      folder: 'site-builds/prod',
+//      rebuilderStep: rebuilderStepForWww,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      sitesearchStep: sitesearchStepForWww,
+//      pipelineNotification: pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite",
+//      githubPush: false,
+//    ],
+//    w2 : [
+//      label : 'fir',
+//      folder: 'site-builds/prod',
+//      rebuilderStep: rebuilderStepForWww,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      sitesearchStep: sitesearchStepForWww,
+//      pipelineNotification: pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite",
+//      githubPush: false,
+//    ],
+  ]
+
+
   static public def modelSpecificConfig = [
     AmoebaDB : [
       webapp : "amoeba",
@@ -436,8 +560,6 @@ PIPELINE NOTIFICATIONS
   }
 
 
-
-
 /** ********************************************************************************
 SCM POLL SCHEDULE
 ******************************************************************************** **/
@@ -446,13 +568,13 @@ SCM POLL SCHEDULE
   static public def scmScheduleNightlyLate = 'H H(3-4) * * *'
   static public def scmScheduleYearly = '@yearly'
 
-  /** ****************************************************************************
-   AUTHORIZATION
-   Optional. No params. Returns the data used to build the job's
-   authorizationMatrix (see JobConfigurator.createPipelineJob).
-   inherit           : false => nonInheriting(), true => inheriting()
-   entries           : list of [name: <user-or-group>, permissions: [<perm>, ...]]
-   **************************************************************************** **/
+/** ****************************************************************************
+ AUTHORIZATION
+ Optional. No params. Returns the data used to build the job's
+ authorizationMatrix (see JobConfigurator.createPipelineJob).
+ inherit           : false => nonInheriting(), true => inheriting()
+ entries           : list of [name: <user-or-group>, permissions: [<perm>, ...]]
+ **************************************************************************** **/
   static public def authorizationForQA = {
     return [
         inherit: true,
@@ -464,153 +586,6 @@ SCM POLL SCHEDULE
   }
 
 
-
-/** ********************************************************************************
-CONFIGURATIONS PER HOST
-
-      label : 'santol', // REQUIRED
-      rebuilderStep : rebuilderStepForIntegration, // REQUIRED
-      timeout : 20,  // OPTIONAL
-      scmSchedule : scmScheduleAsap, // OPTIONAL
-      ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
-      quietPeriod : 180, // OPTIONAL
-      checkoutRetryCount : 1, // OPTIONAL
-      testngStep : testngStepForIntegration, // OPTIONAL
-      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
-      logRotator : [7, -1, -1, -1], // OPTIONAL
-
-******************************************************************************** **/
-
-  static public def hostSpecificConfig = [
-    b1 : [
-      label : 'pineapple',
-      folder: 'site-builds/beta',
-      scmSchedule : scmScheduleNightly,
-      ignorePostCommitHooks : true,
-      rebuilderStep: rebuilderStepForBeta,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      sitesearchStep: sitesearchStepForBeta,
-      pipelineNotification: pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite",
-      githubPush: false,
-      authorization: Values.authorizationForQA
-    ],
-    b2 : [
-      label : 'palm',
-      folder: 'site-builds/beta',
-//      scmSchedule : scmScheduleNightly,
-//      ignorePostCommitHooks : true,
-      rebuilderStep: rebuilderStepForBeta,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      sitesearchStep: sitesearchStepForBeta,
-      pipelineNotification: pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite",
-      githubPush: false,
-    ],
-//    w5 : [
-//      label : 'webtest',
-//      folder: 'site-builds/prod',
-//      rebuilderStep: rebuilderStepForWww,
-//      checkoutRetryCount : 1,
-//      logRotator : [-1, 50, -1, -1],
-//      sitesearchStep: sitesearchStepForWww,
-//      pipelineNotification: pipelineNotificationEveryBuild,
-//      slackChannel: "#alert-build-livesite-test",
-//      githubPush: false,
-//    ],
-//    integrate : [
-//      label : 'pineapple',
-//      folder: 'site-builds/integrate',
-//      timeout : 30,
-//      quietPeriod : 180,
-//      checkoutRetryCount : 1,
-//      rebuilderStep : rebuilderStepForIntegration,
-//      testngStep : testngStepForIntegration,
-//      //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
-//      logRotator : [7, -1, -1, -1],
-//      pipelineNotification: Values.pipelineNotificationChangeOnly,
-//      slackChannel: "#alert-build-integration",
-//      githubPush: true,
-//    ],
-//    feature : [
-//      /** redmine #18965 **/
-//      label : 'fir',
-//      folder: 'site-builds/feature',
-//      timeout : 60,
-//      checkoutRetryCount : 1,
-//      scmSchedule : scmScheduleNightly,
-//      rebuilderStep: rebuilderStepForQa,
-//      ignorePostCommitHooks : 'true',
-//      logRotator : [7, -1, -1, -1],
-//      description : featureDescription(),
-//      githubPush: false,
-//    ],
-//    q1 : [
-//      label : 'watermelon',
-//      folder: 'site-builds/qa',
-//      timeout : 90,
-//      scmSchedule : scmScheduleNightly,
-//      checkoutRetryCount : 1,
-//      rebuilderStep: rebuilderStepForQa,
-//      testngStep: testngStepForQa,
-//      apitestStep: apitestStepForQa,
-//      cacheStep: cacheStep,
-//      sitesearchStep: sitesearchStepForQa,
-//      pipelineNotification: pipelineNotificationChangeOnly,
-//      slackChannel: "#alert-build-qa",
-//      githubPush: false,
-//    ],
-//    q2 : [
-//      label : 'fir',
-//      folder: 'site-builds/qa',
-//      timeout : 90,
-//      scmSchedule : scmScheduleNightly,
-//      checkoutRetryCount : 1,
-//      rebuilderStep: rebuilderStepForQa,
-//      testngStep: testngStepForQa,
-//      apitestStep: apitestStepForQa,
-//      cacheStep: cacheStep,
-//      sitesearchStep: sitesearchStepForQa,
-//      pipelineNotification: pipelineNotificationChangeOnly,
-//      slackChannel: "#alert-build-qa",
-//      githubPush: false,
-//    ],
-//    b1 : [
-//      label : 'watermelon',
-//      folder: 'site-builds/beta',
-//      rebuilderStep: rebuilderStepForBeta,
-//      cacheStep: cacheStep,
-//      checkoutRetryCount : 1,
-//      logRotator : [-1, 50, -1, -1],
-//      githubPush: false,
-//    ],
-//    w1 : [
-//      label : 'watermelon',
-//      folder: 'site-builds/prod',
-//      rebuilderStep: rebuilderStepForWww,
-//      checkoutRetryCount : 1,
-//      logRotator : [-1, 50, -1, -1],
-//      sitesearchStep: sitesearchStepForWww,
-//      pipelineNotification: pipelineNotificationEveryBuild,
-//      slackChannel: "#alert-build-livesite",
-//      githubPush: false,
-//    ],
-//    w2 : [
-//      label : 'fir',
-//      folder: 'site-builds/prod',
-//      rebuilderStep: rebuilderStepForWww,
-//      checkoutRetryCount : 1,
-//      logRotator : [-1, 50, -1, -1],
-//      sitesearchStep: sitesearchStepForWww,
-//      pipelineNotification: pipelineNotificationEveryBuild,
-//      slackChannel: "#alert-build-livesite",
-//      githubPush: false,
-//    ],
-  ]
-
-
   /** ********************************************************************************
     Job Description
   ******************************************************************************** **/
@@ -620,35 +595,20 @@ CONFIGURATIONS PER HOST
     def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
 
     return """
-Website build for <a href='http://${jobName}'>http://${jobName}</a>
-<p>
-See <a href="https://wiki.apidb.org/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
-<p>
-<font color='red'>This project configuration is auto-generated by
-<a href="/${thisProject.url}">${thisProject.displayName}</a>. <br>
-SCM values are configured at https://github.com/VEuPathDB/websiteconf Other changes made through
-the web UI will be lost.</font> <br>
-(Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
-"""
-  }
-
-
-  static public def featureDescription() {
-
-    def thisBuild = Thread.currentThread().executable // a hudson.model.FreeStyleBuild
-    def thisProject = thisBuild.project // a hudson.model.FreeStyleProject
-
-    return """
-See <a href='https://wiki.apidb.org/index.php/FeatureWebsites'>FeatureWebsites wiki</a> for overview.
-<p>
-See <a href="https://wiki.apidb.org/index.php/JenkinsWebsiteBuilds">JenkinsWebsiteBuilds wiki</a> for build overview.
-<p>
-<font color='red'>This project configuration is auto-generated by
-<a href="/${thisProject.url}">${thisProject.displayName}</a>. <br>
-SCM values are configured at https://github.com/VEuPathDB/websiteconf Other changes made through
-the web UI will be lost.</font> <br>
-(Generated by <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>)
-"""
+      <h4>Website build for <a href='http://${jobName}'>http://${jobName}</a></h4>
+      <p>
+        See <a href="https://veupathdb.atlassian.net/wiki/spaces/SYSTEMS/pages/285933579/Adding+website+build+jobs+to+Jenkins">
+        Adding website build jobs to Jenkins</a> page in Confluence for build overview.
+      </p>
+      <p>
+        This project configuration is auto-generated by <a href="/${thisProject.url}">${thisProject.displayName}</a>
+         in build <a href="/${thisBuild.url}">${thisBuild.displayName}<a/>
+      </p>
+      <p> SCM values are configured at <a href="https://github.com/VEuPathDB/websiteconf">
+        https://github.com/VEuPathDB/websiteconf</a>.
+      </p>
+      <h3>Changes made through the web UI will be lost!</h3>
+    """.stripIndent()
   }
 
 } // Values class
