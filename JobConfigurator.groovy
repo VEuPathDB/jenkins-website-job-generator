@@ -31,12 +31,12 @@ public class JobConfigurator {
     def map = [:]
     Sites.inclusiveHosts.each { host ->
         Sites.inclusiveModels.each { model ->
-          def webapp = Values.modelSpecificConfig[model]['webapp']
-          def sld = Values.modelSpecificConfig[model]['sld']
-          def tld = Values.modelSpecificConfig[model]['tld']
+          def webapp = Models.modelSpecificConfig[model]['webapp']
+          def sld = Models.modelSpecificConfig[model]['sld']
+          def tld = Models.modelSpecificConfig[model]['tld']
           def jobName = "${host}.${sld}.${tld}"
           def existingJob = jenkins.getJob(jobName)
-          def hostconf = Values.hostSpecificConfig[host]
+          def hostconf = Hosts.hostSpecificConfig[host]
           def rebuilderStep = hostconf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : hostconf['label'],
@@ -89,7 +89,6 @@ public class JobConfigurator {
           def tld = conf['tld']
           def host = conf['host']
           def existingJob = jenkins.getJob(jobName)
-          def rebuilderStep = conf['rebuilderStep'](host, model, webapp, sld, tld)
           map[jobName] = [
             label : conf['label'],
             folder: conf['folder'],
