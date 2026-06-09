@@ -85,24 +85,25 @@ public class Sites {
   static public def customJobs = [
     // dataexplorer is not yet public so we continue to build it nightly.
     // Remove this bit once it's public as well.
-    'b1.dataexplorer.org' : [
-        model : "ClinEpiDB", // REQUIRED
-        webapp : "dexp", // REQUIRED
-        host : "b1", // REQUIRED
-        sld : "dataexplorer", //REQUIRED
-        tld : "org", // REQUIRED
-        label : 'pineapple',
-        folder: 'site-builds/beta',
-        scmSchedule : Values.scmScheduleNightly,
-        ignorePostCommitHooks : true,
-        rebuilderStep: Values.rebuilderStepForBeta,
-        checkoutRetryCount : 1,
-        logRotator : [-1, 50, -1, -1],
-        sitesearchStep: Values.sitesearchStepForBeta,
-        pipelineNotification: Values.pipelineNotificationEveryBuild,
-        slackChannel: "#alert-build-livesite",
-        githubPush: false,
-    ],
+//    'b1.dataexplorer.org' : [
+//        model : "ClinEpiDB", // REQUIRED
+//        webapp : "dexp", // REQUIRED
+//        host : "b1", // REQUIRED
+//        sld : "dataexplorer", //REQUIRED
+//        tld : "org", // REQUIRED
+//        label : 'pineapple',
+//        folder: 'site-builds/beta',
+//        scmSchedule : Values.scmScheduleNightly,
+//        ignorePostCommitHooks : true,
+//        rebuilderStep: Values.rebuilderStepForBeta,
+//        checkoutRetryCount : 1,
+//        logRotator : [-1, 50, -1, -1],
+//        sitesearchStep: Values.sitesearchStepForBeta,
+//        pipelineNotification: Values.pipelineNotificationEveryBuild,
+//        slackChannel: "#alert-build-livesite",
+//        githubPush: false,
+//        authorization: Values.authorizationForQA
+//    ],
     'b2.dataexplorer.org' : [
       model : "ClinEpiDB", // REQUIRED
       webapp : "dexp", // REQUIRED
@@ -120,6 +121,7 @@ public class Sites {
       pipelineNotification: Values.pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite",
       githubPush: false,
+      authorization: Values.authorizationForQA
     ],
 //    'integrate.wdk.apidb.org' : [
 //       model : "TemplateDB", // REQUIRED

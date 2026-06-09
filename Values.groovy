@@ -446,6 +446,23 @@ SCM POLL SCHEDULE
   static public def scmScheduleNightlyLate = 'H H(3-4) * * *'
   static public def scmScheduleYearly = '@yearly'
 
+  /** ****************************************************************************
+   AUTHORIZATION
+   Optional. No params. Returns the data used to build the job's
+   authorizationMatrix (see JobConfigurator.createPipelineJob).
+   inherit           : false => nonInheriting(), true => inheriting()
+   entries           : list of [name: <user-or-group>, permissions: [<perm>, ...]]
+   **************************************************************************** **/
+  static public def authorizationForQA = {
+    return [
+        inherit: true,
+        entries: [
+             [ name: 'EuPathDBStaff', permissions: ['hudson.model.Item.Build', 'hudson.model.Item.Cancel'] ],
+        ],
+    ]
+  }
+
+
 
 /** ********************************************************************************
 CONFIGURATIONS PER HOST
@@ -467,8 +484,8 @@ CONFIGURATIONS PER HOST
     b1 : [
       label : 'pineapple',
       folder: 'site-builds/beta',
-//      scmSchedule : scmScheduleNightly,
-//      ignorePostCommitHooks : true,
+      scmSchedule : scmScheduleNightly,
+      ignorePostCommitHooks : true,
       rebuilderStep: rebuilderStepForBeta,
       checkoutRetryCount : 1,
       logRotator : [-1, 50, -1, -1],
@@ -476,6 +493,7 @@ CONFIGURATIONS PER HOST
       pipelineNotification: pipelineNotificationEveryBuild,
       slackChannel: "#alert-build-livesite",
       githubPush: false,
+      authorization: Values.authorizationForQA
     ],
     b2 : [
       label : 'palm',

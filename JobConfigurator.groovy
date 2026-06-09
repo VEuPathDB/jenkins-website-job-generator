@@ -66,6 +66,7 @@ public class JobConfigurator {
             slackChannel : hostconf['slackChannel'] ?: null,
             pipelineNotification : hostconf['pipelineNotification'] ? hostconf['pipelineNotification'](hostconf['slackChannel']) : null,
             githubPush : hostconf['githubPush'] ?: null,
+            authorization : hostconf['authorization'] ? hostconf['authorization']() : null,
           ]
         }
     }
@@ -110,7 +111,9 @@ public class JobConfigurator {
             slackChannel : conf['slackChannel'] ?: null,
             pipelineNotification : conf['pipelineNotification'] ? conf['pipelineNotification'](conf['slackChannel']) : null,
             githubPush : conf['githubPush'] ?: null,
-         ]
+            authorization : conf['authorization'] ? conf['authorization']() : null,
+
+          ]
 
     }
   }
@@ -394,6 +397,25 @@ pipeline {
               }
             }
           }
+      }
+
+      if (masterMap[jobName]['authorization'] != null) {
+        def auth = masterMap[jobName]['authorization']
+        properties {
+          authorizationMatrix {
+            inheritanceStrategy {
+              if (auth['inherit']) { inheriting() } else { nonInheriting() }
+            }
+            entries {
+              auth['entries'].each { entry ->
+                userOrGroup {
+                  name(entry['name'])
+                  permissions(entry['permissions'])
+                }
+              }
+            }
+          }
+        }
       }
 
 
