@@ -190,7 +190,7 @@ public class JobConfigurator {
       stage('Checkout') {
         steps {
           script{
-            sh 'curl -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
+            sh 'curl --fail -z ../etc/site-conf.yaml -o ../etc/site-conf.yaml https://software.apidb.org/siteconf/site-conf.yaml'
             site_conf = readYaml file: '../etc/site-conf.yaml'
 
             for (project in site_conf["site_config"]["${jobName}"]["scm_conf"]) {
