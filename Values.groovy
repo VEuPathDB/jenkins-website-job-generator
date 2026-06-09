@@ -456,8 +456,9 @@ SCM POLL SCHEDULE
   static public def authorizationForQA = {
     return [
         inherit: true,
-        entries: [
-             [ name: 'EuPathDBStaff', permissions: ['hudson.model.Item.Build', 'hudson.model.Item.Cancel'] ],
+//        userPerms: [],
+        groupPerms: [
+            [ name: 'EuPathDBStaff', permissions: ['hudson.model.Item.Build', 'hudson.model.Item.Cancel'] ],
         ],
     ]
   }

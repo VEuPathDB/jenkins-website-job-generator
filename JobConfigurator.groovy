@@ -407,10 +407,20 @@ pipeline {
               if (auth['inherit']) { inheriting() } else { nonInheriting() }
             }
             entries {
-              auth['entries'].each { entry ->
-                userOrGroup {
-                  name(entry['name'])
-                  permissions(entry['permissions'])
+              if (auth['userPerms'] != null) {
+                auth['userPerms'].each { entry ->
+                  user {
+                    name(entry['name'])
+                    permissions(entry['permissions'])
+                  }
+                }
+              }
+              if (auth['groupPerms'] != null) {
+                auth['groupPerms'].each { entry ->
+                  group {
+                    name(entry['name'])
+                    permissions(entry['permissions'])
+                  }
                 }
               }
             }
