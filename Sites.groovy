@@ -48,11 +48,10 @@ public class Sites {
   // hosts that should be configured for all inclusiveModels
   // There must be configurations for each in Values.hostSpecificConfig
   static public def inclusiveHosts = [
-//      'beta',
+      'b1',
+      'b2',
 //    'feature',
 //    'integrate',
-    'b1',
-    'b2',
 //    'q1',
 //    'q2',
 //    'w1',
@@ -85,25 +84,25 @@ public class Sites {
   static public def customJobs = [
     // dataexplorer is not yet public so we continue to build it nightly.
     // Remove this bit once it's public as well.
-    'b2.dataexplorer.org' : [
-      model : "ClinEpiDB", // REQUIRED
-      webapp : "dexp", // REQUIRED
-      host : "b2", // REQUIRED
-      sld : "dataexplorer", //REQUIRED
-      tld : "org", // REQUIRED
-      label : 'palm',
-      folder: 'site-builds/beta',
-      scmSchedule : Values.scmScheduleNightly,
-      ignorePostCommitHooks : true,
-      rebuilderStep: Values.rebuilderStepForBeta,
-      checkoutRetryCount : 1,
-      logRotator : [-1, 50, -1, -1],
-      sitesearchStep: Values.sitesearchStepForBeta,
-      pipelineNotification: Values.pipelineNotificationEveryBuild,
-      slackChannel: "#alert-build-livesite",
-      githubPush: false,
-      authorization: Values.authorizationForQA
-    ],
+//    'b2.dataexplorer.org' : [
+//      model : "ClinEpiDB", // REQUIRED
+//      webapp : "dexp", // REQUIRED
+//      host : "b2", // REQUIRED
+//      sld : "dataexplorer", //REQUIRED
+//      tld : "org", // REQUIRED
+//      label : 'palm',
+//      folder: 'site-builds/beta',
+//      scmSchedule : Values.scmScheduleNightly,
+//      ignorePostCommitHooks : true,
+//      rebuilderStep: Values.rebuilderStepForBeta,
+//      checkoutRetryCount : 1,
+//      logRotator : [-1, 50, -1, -1],
+//      sitesearchStep: Values.sitesearchStepForBeta,
+//      pipelineNotification: Values.pipelineNotificationEveryBuild,
+//      slackChannel: "#alert-build-livesite",
+//      githubPush: false,
+//      authorization: Values.authorizationForQA
+//    ],
 //    'integrate.wdk.apidb.org' : [
 //       model : "TemplateDB", // REQUIRED
 //       webapp : "ROOT", // REQUIRED
