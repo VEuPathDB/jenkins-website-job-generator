@@ -2,45 +2,46 @@ public class Hosts {
 
 /** ********************************************************************************
  CONFIGURATIONS PER HOST
-   label : 'santol', // REQUIRED
-   rebuilderStep : rebuilderStepForIntegration, // REQUIRED
-   timeout : 20,  // OPTIONAL
-   scmSchedule : scmScheduleAsap, // OPTIONAL
-   ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
-   quietPeriod : 180, // OPTIONAL
-   checkoutRetryCount : 1, // OPTIONAL
-   testngStep : testngStepForIntegration, // OPTIONAL
-   //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
-   logRotator : [7, -1, -1, -1], // OPTIONAL
+ label : 'santol', // REQUIRED
+ rebuilderStep : rebuilderStepForIntegration, // REQUIRED
+ timeout : 20,  // OPTIONAL
+ scmSchedule : scmScheduleAsap, // OPTIONAL
+ ignorePostCommitHooks : 'true', // OPTIONAL. Default is 'true' if scmSchedule is set.
+ quietPeriod : 180, // OPTIONAL
+ checkoutRetryCount : 1, // OPTIONAL
+ testngStep : testngStepForIntegration, // OPTIONAL
+ //logRotator(daysToKeepInt, numToKeepInt, artifactDaysToKeepInt, artifactNumToKeepInt)
+ logRotator : [7, -1, -1, -1], // OPTIONAL
  ******************************************************************************** **/
 
   static public def hostSpecificConfig = [
-      b1 : [
-          label : 'pineapple',
-          folder: 'site-builds/beta',
-          scmSchedule : Values.scmScheduleNightly,
-          ignorePostCommitHooks : true,
-          rebuilderStep:Values.rebuilderStepForBeta,
-          checkoutRetryCount : 1,
-          logRotator : [-1, 50, -1, -1],
-          sitesearchStep: Values.sitesearchStepForBeta,
+      b1: [
+          label               : 'pineapple',
+          folder              : 'site-builds/beta',
+//          scmSchedule : Values.scmScheduleNightly,
+//          ignorePostCommitHooks : true,
+          rebuilderStep       : Values.rebuilderStepForBeta,
+          checkoutRetryCount  : 1,
+          logRotator          : [-1, 50, -1, -1],
+          sitesearchStep      : Values.sitesearchStepForBeta,
           pipelineNotification: Values.pipelineNotificationEveryBuild,
-          slackChannel: "#alert-build-livesite",
-          githubPush: false,
-          authorization: Values.authorizationForQA
+          slackChannel        : "#alert-build-livesite",
+          githubPush          : false,
+//          authorization: Values.authorizationForQA
       ],
-      b2 : [
-          label : 'palm',
-          folder: 'site-builds/beta',
-//      scmSchedule : Values.scmScheduleNightly,
-//      ignorePostCommitHooks : true,
-          rebuilderStep: Values.rebuilderStepForBeta,
-          checkoutRetryCount : 1,
-          logRotator : [-1, 50, -1, -1],
-          sitesearchStep: Values.sitesearchStepForBeta,
-          pipelineNotification: Values.pipelineNotificationEveryBuild,
-          slackChannel: "#alert-build-livesite",
-          githubPush: false,
+      b2: [
+          label                : 'palm',
+          folder               : 'site-builds/beta',
+//          scmSchedule          : Values.scmScheduleNightly,
+//          ignorePostCommitHooks: true,
+          rebuilderStep        : Values.rebuilderStepForBeta,
+          checkoutRetryCount   : 1,
+          logRotator           : [-1, 50, -1, -1],
+          sitesearchStep       : Values.sitesearchStepForBeta,
+          pipelineNotification : Values.pipelineNotificationEveryBuild,
+          slackChannel         : "#alert-build-livesite",
+          githubPush           : false,
+          authorization        : Values.authorizationForQA
       ],
 //    integrate : [
 //      label : 'pineapple',
