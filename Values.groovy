@@ -32,32 +32,7 @@ REBUILDER
   }
 
   static public def rebuilderStepForQa = { host, model, webapp, sld, tld ->
-    return """
-          env
-    
-          # Copy Conifer site vars file from source in to etc.
-          src_yml="\$WORKSPACE/EbrcWebsiteCommon/Model/lib/conifer/roles/conifer/files/ebrc_prod_site_vars.yml"
-          dest_yml="/var/www/${host}.${sld}.${tld}/etc/conifer_site_vars.yml"
-          if [[ -f "\$src_yml" ]]; then
-            cp "\$src_yml" "\$dest_yml"
-            sed -i "1i# DO NOT EDIT!\\n# This file copied from\\n# \$src_yml,\\n# \$(date)\\n# by Jenkins\\n\\n" "\$dest_yml"
-          fi
-    
-          \$HOME/bin/rebuilder-jenkins ${host}.${sld}.${tld}
-    
-          # give webapp time to reload before running tests
-          sleep 15
-    
-          ## cache public strategy results (redmine #18944) with non-debug logging
-          ## Disabled: it seems of limited benefit for QA and it slows builds.
-          ## It could be useful as a pre-release check of strategies but
-          ## there's no useable reporting so failures will go unnoticed.
-          #source /var/www/${host}.${sld}.${tld}/etc/setenv
-          #if [[ -e "\$GUS_HOME/bin/wdkRunPublicStrats" ]]; then
-          #  export GUSJVMOPTS='-Dlog4j.configuration=file:\$PROJECT_HOME/WDK/Model/config/log4j.info.properties'
-          #  wdkRunPublicStrats -model ${model}
-          #fi
-    """
+    rebuilderStepForBeta.call(host, model, webapp, sld, tld)
   }
 
   static public def rebuilderStepForBeta = { host, model, webapp, sld, tld ->
