@@ -32,8 +32,8 @@ public class Hosts {
       b2: [
           label                : 'palm',
           folder               : 'site-builds/beta',
-          scmSchedule          : Values.scmScheduleNightly,
-          ignorePostCommitHooks: true,
+//          scmSchedule          : Values.scmScheduleNightly,
+//          ignorePostCommitHooks: true,
           rebuilderStep        : Values.rebuilderStepForBeta,
           checkoutRetryCount   : 1,
           logRotator           : [-1, 50, -1, -1],
@@ -41,7 +41,7 @@ public class Hosts {
           pipelineNotification : Values.pipelineNotificationEveryBuild,
           slackChannel         : "#alert-build-livesite",
           githubPush           : false,
-          authorization        : Values.authorizationForQA
+//          authorization        : Values.authorizationForQA
       ],
       q2: [
           label               : 'cedar',
