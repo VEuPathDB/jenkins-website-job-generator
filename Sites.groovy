@@ -51,11 +51,11 @@ public class Sites {
     'b1',
     'b2',
     'q2',
+    'w1',
+    'w2',
 //    'feature',
 //    'integrate',
 //    'q1',
-//    'w1',
-//    'w2',
 //    'w5',
   ]
 
