@@ -53,7 +53,7 @@ REBUILDER
           /usr/local/bin/rebuilder ${host}.${sld}.${tld} \\
             --skip-scm-update --non-interactive \\
             --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
-            ${webappFlag} --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
+            ${webappFlag} --ignore-ip --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
             --gusjvmopts '-Dlog4j.configuration=file:/var/www/${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
           
           # this would only be needed if we reenable the step below 
