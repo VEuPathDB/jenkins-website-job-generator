@@ -33,6 +33,7 @@ REBUILDER
 
   static public def rebuilderStep = { host, model, webapp, sld, tld, lifecycle ->
     def webappFlag = ""
+    if ( model == "UniDB") model = "EuPathDB"
     if ( lifecycle == "prod") webappFlag= "--webapp ${model}:${webapp}"
 
     return """
