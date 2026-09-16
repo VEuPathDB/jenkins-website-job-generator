@@ -33,8 +33,12 @@ REBUILDER
 
   static public def rebuilderStep = { host, model, webapp, sld, tld, lifecycle ->
     def webappFlag = ""
+    def restartFlag = ""
     if ( model == "UniDB") model = "EuPathDB"
-    if ( lifecycle == "prod") webappFlag= "--webapp ${model}:${webapp}"
+    if ( lifecycle == "prod") {
+      webappFlag  = "--webapp ${model}:${webapp}"
+      restartFlag = "--restart-tomcat"
+    }
 
     return """
           env
@@ -52,7 +56,7 @@ REBUILDER
           export GITHUB_TOKEN="\$GITHUB_READONLY_PSW"
 
           /usr/local/bin/rebuilder ${host}.${sld}.${tld} \\
-            --skip-scm-update --non-interactive \\
+            --skip-scm-update --non-interactive ${restartFlag} \\
             --m2-repo /var/www/${host}.${sld}.${tld}/project_home/.m2/repository \\
             ${webappFlag} --ignore-ip --yarn-cache /var/www/${host}.${sld}.${tld}/project_home/.cache/yarn \\
             --gusjvmopts '-Dlog4j.configuration=file:/var/www/${host}.${sld}.${tld}/project_home/WDK/Model/config/log4j.info.properties'
