@@ -82,6 +82,25 @@ public class Sites {
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
+    'b2.dataexplorer.org' : [
+      model : "HelminthDB", // REQUIRED
+      webapp : "helminthdb", // REQUIRED
+      host : "q2", // REQUIRED
+      sld : "helminthdb", //REQUIRED
+      tld : "org", // REQUIRED
+      label : 'cedar',
+      folder: 'site-builds/qa',
+      timeout             : 90,
+      scmSchedule         : Values.scmScheduleNightly,
+      ignorePostCommitHooks: true,
+      checkoutRetryCount  : 1,
+      logRotator           : [-1, 50, -1, -1],
+      rebuilderStep       : Values.rebuilderStepForQa,
+      sitesearchStep      : Values.sitesearchStepForQa,
+      pipelineNotification: Values.pipelineNotificationChangeOnly,
+      slackChannel        : "#alert-build-qa",
+      githubPush          : false,
+    ]
     // dataexplorer is not yet public so we continue to build it nightly.
     // Remove this bit once it's public as well.
 //    'b2.dataexplorer.org' : [
