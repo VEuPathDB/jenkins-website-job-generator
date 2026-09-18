@@ -36,6 +36,11 @@ public class Models {
       sld : "giardiadb",
       tld : "org",
     ],
+    HelminthDB : [
+        webapp : "helminthdb",
+        sld : "helminthdb",
+        tld : "org",
+    ],
     HostDB : [
       webapp : "hostdb",
       sld : "hostdb",
