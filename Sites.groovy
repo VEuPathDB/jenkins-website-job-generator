@@ -82,7 +82,7 @@ public class Sites {
   // Set jobName to null ( 'w1.hostdb.org' : null ) to remove from the
   // list of jobs auto-generated from host + model lists
   static public def customJobs = [
-    'b2.dataexplorer.org' : [
+    'q2.helminthdb.org' : [
       model : "HelminthDB", // REQUIRED
       webapp : "helminthdb", // REQUIRED
       host : "q2", // REQUIRED
